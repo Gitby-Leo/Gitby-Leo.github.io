@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>hello hexo,你好 hexo</title>
+    <url>/2020/02/22/hello-hexo/</url>
+    <content><![CDATA[<h1 id="next主题的使用方法"><a href="#next主题的使用方法" class="headerlink" title="next主题的使用方法"></a>next主题的使用方法</h1><hr>
+<h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>如果没指定<code>[layout]</code>就使用<code>default_layout</code>中的默认模板</p>
+<p>hexo new 文章名     // 简写新建<br>hexo new “文章名 1”  // 空格需要用引号<br>hexo new post 文章名 // 用post模板新建文章</p>
+<hr>
+<h2 id="个性化页面"><a href="#个性化页面" class="headerlink" title="个性化页面"></a>个性化页面</h2><p>站点_config.yml中skip_render配置过滤source下的指定目录或文件</p>
+<hr>
+<h2 id="创建标签和分类"><a href="#创建标签和分类" class="headerlink" title="创建标签和分类"></a>创建标签和分类</h2><p>hexo new page tags</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在tags&#x2F;index.md中加入</span><br><span class="line">type: &quot;tags&quot;</span><br></pre></td></tr></table></figure>
+<p>hexo new page categories</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">categories&#x2F;index.md中加入</span><br><span class="line">tags: &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+
+<p>文章页加入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">categories: </span><br><span class="line">- Axx</span><br><span class="line">tags:</span><br><span class="line">- Bxx</span><br></pre></td></tr></table></figure>
+
+<p>可以在scaffolds/post.md模板中加入categories:和tags:<br>每次hexo new 文章名时会自动包含分类和标签</p>
+<hr>
+<h2 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h2><p>npm install hexo-symbols-count-time –save</p>
+<hr>
+<h2 id="阅读全文"><a href="#阅读全文" class="headerlink" title="阅读全文"></a>阅读全文</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、md中手动&lt;!-- more --&gt;</span><br><span class="line">2、md中头部front-matter中使用description</span><br><span class="line">3、auto_excerpt功能在新版中弃用，换成npm包</span><br><span class="line">npm install hexo-excerpt --save</span><br><span class="line">主题_config.yml中&#96;添加&#96;:</span><br><span class="line">excerpt:</span><br><span class="line">  depth: 1</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: false</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h2><p>引用algolia search:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、npm install --save hexo-algolia</span><br><span class="line">2、站点_config.yml中</span><br><span class="line">algolia:</span><br><span class="line">    applicationID: &#39;applicationID&#39;</span><br><span class="line">    indexName: &#39;indexName&#39;</span><br><span class="line">    chunkSize: 5000</span><br><span class="line"></span><br><span class="line">3、git bash中：</span><br><span class="line">$ export HEXO_ALGOLIA_INDEXING_KEY&#x3D;your Search key</span><br><span class="line">$ hexo algolia</span><br><span class="line">4、主题_config.yml中:</span><br><span class="line">algolia_search:</span><br><span class="line">  enable: false</span><br></pre></td></tr></table></figure>
+<p>引用local search:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、npm install hexo-generator-searchdb --save</span><br><span class="line">2、站点_config.yml中</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br><span class="line">4、主题_config.yml中:</span><br><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">5、hexo generate生成search.xml</span><br><span class="line">6、hexo server查看效果</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>hexo教程</category>
+        <category>hexo入门</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World 欢迎来到hexo</title>
+    <url>/2020/02/21/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo教程</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+</search>
