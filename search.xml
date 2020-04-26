@@ -1,12 +1,571 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>动态规划</title>
+    <url>/2020/04/14/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+<p>递归存在栈过长问题，可以用动态规划解决</p>
+<p>N个俄罗斯套娃的总重量 = 第N-1个的重量 + 第n个的重量<br>h(N) = h(N-1) + h(N)</p>
+<img src="/images/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/img1.png" class="" title="0,0-&gt;N,M 路径格">
+
+<p>N*M的表格，有几种路径从0,0到N,M,只能朝右朝下<br>arr(N,M) = arr(N-1,M) + arr(N,M-1)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">taowa</span>(<span class="params">table</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> yLen = table.length, y = yLen - <span class="number">1</span>; y &gt;= <span class="number">0</span>; y--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (</span><br><span class="line">            <span class="keyword">let</span> xLen = table[<span class="number">0</span>].length, x = xLen - <span class="number">1</span>;</span><br><span class="line">            x &gt;= <span class="number">0</span>;</span><br><span class="line">            x--</span><br><span class="line">        ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x == xLen - <span class="number">1</span> || y == yLen - <span class="number">1</span>) &#123;</span><br><span class="line">                table[y][x] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                table[y][x] = table[y + <span class="number">1</span>][x] + table[y][x + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> table[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line">taowa([[<span class="number">0</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>]]) <span class="comment">// 2</span></span><br><span class="line">taowa([[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>]]) <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p> 4 * 5的表格有35种路径</p>
+<img src="/images/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/img2.png" class="" title="最小值">
+<p>求左上角到右下角的经过路径的路径内数字相加的最小值。也就是求最优解</p>
+<p>对于动态规划这类问题，有几个特点：</p>
+<p>有重复子问题(套娃)<br>单项(左上 =&gt; 右下)<br>分析作图后，结果类似二叉树</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>reduce用法详解</title>
+    <url>/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+<p>reduce()累加器，数组中的每个元素依次执行回调函数callback（初始值(或者上次回调函数的返回值)，当前元素值，当前索引，调用reduce的数组）<br>arr.reduce(callback, [initialValue])</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">pre, cur, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(pre, cur, index);</span><br><span class="line">    <span class="keyword">return</span> pre + cur;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(arr, sum); <span class="comment">// [1, 2, 3, 4] 10   初始值为1,循环3次</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">pre, cur, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(pre, cur, index);</span><br><span class="line">    <span class="keyword">return</span> pre + cur;</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arr, sum); <span class="comment">// [1, 2, 3, 4] 10   初始值为0,循环4次</span></span><br></pre></td></tr></table></figure>
+
+<p>求和或求积</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x + y;<span class="comment">// 10</span></span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> mul = arr.reduce(<span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x * y;<span class="comment">// 24</span></span><br><span class="line">&#125;, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>计算数组中每个元素出现的次数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> names = [<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Tiff'</span>, <span class="string">'Alice'</span>];</span><br><span class="line"><span class="keyword">var</span> nameNum = names.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (cur <span class="keyword">in</span> pre) &#123;</span><br><span class="line">		pre[cur]++</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pre[cur] = <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pre  </span><br><span class="line">&#125;, &#123;&#125;) <span class="comment">// &#123; Alice: 2, Bob: 1, Tiff: 1 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>对象属性求和</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [</span><br><span class="line">	&#123;<span class="attr">subject</span>: <span class="string">'math'</span>, <span class="attr">score</span>: <span class="number">10</span>&#125;,</span><br><span class="line">	&#123;<span class="attr">subject</span>: <span class="string">'chinese'</span>, <span class="attr">score</span>: <span class="number">10</span>&#125;,</span><br><span class="line">	&#123;<span class="attr">subject</span>: <span class="string">'english'</span>, <span class="attr">score</span>: <span class="number">10</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> cur.score + pre</span><br><span class="line">&#125;, <span class="number">0</span>) <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+
+<p>数组去重</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>]</span><br><span class="line"><span class="keyword">var</span> newArr = arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (!pre.includes(cur)) &#123;</span><br><span class="line">		<span class="keyword">return</span> pre.concat(cur)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> pre</span><br><span class="line">	&#125;</span><br><span class="line">&#125;, [])  <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+<p>数组对象去重</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [</span><br><span class="line">	&#123;<span class="attr">id</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">"小明"</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">"小张"</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">id</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">"小李"</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">id</span>: <span class="number">3</span>, <span class="attr">name</span>: <span class="string">"小孙"</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">"小周"</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">id</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">"小陈"</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br><span class="line"><span class="keyword">var</span> newArr = arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">	obj[cur.id] ? <span class="string">''</span> : obj[cur.id] = <span class="literal">true</span> &amp;&amp; pre.push(cur);</span><br><span class="line">	<span class="keyword">return</span> pre</span><br><span class="line">&#125;, []) <span class="comment">// [ &#123;id: 0, name: “小明”&#125;, &#123;id: 1, name: “小张”&#125;,&#123;id: 2, name: “小李”&#125;,&#123;id: 3, name: “小孙”&#125;]</span></span><br></pre></td></tr></table></figure>
+
+<p>数组拍平</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]]</span><br><span class="line"><span class="keyword">var</span> newArr = arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> pre.concat(cur)  <span class="comment">// [0,1,2,3,4,5]</span></span><br><span class="line">&#125;, [])</span><br></pre></td></tr></table></figure>
+
+<p>数组多维拍平</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>,[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]]]</span><br><span class="line"><span class="keyword">var</span> newArr = <span class="function"><span class="keyword">function</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> &#123;</span><br><span class="line">		pre.concat(<span class="built_in">Array</span>.isArray(cur) ? newArr(cur) : cur)</span><br><span class="line">	&#125;, [])</span><br><span class="line">&#125; <span class="comment">// [0, 1, 2, 3, 4, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>vue-组件</title>
+    <url>/2020/04/05/vue-%E7%BB%84%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+
+
+
+
+
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>react useMemo&amp;useCallback</title>
+    <url>/2020/04/01/react%20useMemo&amp;useCallback/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>useMemo和useCallback都会在组件第一次渲染的时候执行</p>
+</blockquote>
+<blockquote>
+<p>之后会在其依赖的变量发生改变时再次执行</p>
+</blockquote>
+<blockquote>
+<p>useMemo返回缓存的变量，useCallback返回缓存的函数</p>
+</blockquote>
+<p>多个state改变会重渲染多此，借助useMemo可以在指定state改变时才执行对应的方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expensive</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">改为</span><br><span class="line"><span class="keyword">const</span> expensive = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,[count])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>useCallback返回的是缓存的函数</p>
+</blockquote>
+<ul>
+<li>将我们传递给它的函数fnB返回，并且将这个结果缓存；当依赖a变更时，会返回新的函数。</li>
+<li>既然返回的是函数，我们无法很好的判断返回的函数是否变更，</li>
+<li>所以我们可以借助ES6新增的数据类型Set来判断<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fnA = useCallback(fnB, [a])</span><br></pre></td></tr></table></figure>
+如果存在父子组件，如果父更新，子也会更新，可以把useCallback返回的函数传给子props,这样就缓存不更新<br>等返回的函数更新后字才会更新</li>
+</ul>
+<p>所有依赖本地状态或props来创建函数，需要使用到缓存函数的地方，都是useCallback的应用场景</p>
+<p>useEffect、useMemo、useCallback都是自带闭包的。也就是说，每一次组件的渲染，其都会捕获当前组件函数上下文中的状态(state, props)，所以每一次这三种hooks的执行，反映的也都是当前的状态，你无法使用它们来捕获上一次的状态。对于这种情况，我们应该使用ref来访问</p>
+<p>类组件的shouldComponentUpdate和 PureComponent,为了减少重新 render 的次数，主要是减少父组件更新而子组件也更新的情况</p>
+<p>React.memo是对标类组件PureComponent<br>子组件如果在 props 没有变化的情况下，就算父组件重新渲染了，子组件也不应该渲染<br>React.memo其实是一个高阶函数，传递一个组件进去，返回一个可以记忆的组件</p>
+<p>如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function myComponent(props) &#123;</span><br><span class="line">   &#x2F;* 使用 props 渲染 *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line">&lt;!--  prevProps !&#x3D; nextProps时返回false会重渲 --&gt;</span><br><span class="line">funtion areEqual(prevProps,nextProps)&#123;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line">const MyComponent &#x3D; React.memo(myComponent,areEqual);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一个组件重新重新渲染，一般三种情况：</p>
+</blockquote>
+<ul>
+<li>要么是组件自己的状态改变</li>
+<li>要么是父组件重新渲染，导致子组件重新渲染，但是父组件的 props 没有改版</li>
+<li>要么是父组件重新渲染，导致子组件重新渲染，但是父组件传递的 props 改变</li>
+</ul>
+<blockquote>
+<p>React 的性能优化方向主要是两个：</p>
+</blockquote>
+<ul>
+<li>一个是减少重新 render 的次数(或者说减少不必要的渲染)，</li>
+<li>另一个是减少计算的量</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>react-useEffect&amp;useReducer</title>
+    <url>/2020/03/30/react-useEffect&amp;useReducer/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>use*** 格式定义的函数是react hooks的规范</p>
+</blockquote>
+<p>useEffect用于处理组件中的effect，通常用于请求数据，事件处理，订阅等相关操作</p>
+<blockquote>
+<p>最后return的【返回函数】可以作为状态切换的默认执行函数，执行下一个effect之前执行上一个effect【返回的函数】</p>
+</blockquote>
+<hr>
+<ul>
+<li><p>状态和状态更新函数来自与useState这个hooks，通过调用useState，来创建App组件的内部状态。初始状态是一个object，其中的hits为一个空数组</p>
+</li>
+<li><p>axios发起请求,使用useEffect来隔离副作用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [data, setData] = useState(&#123; <span class="attr">hits</span>: [] &#125;);</span><br><span class="line"></span><br><span class="line">    useEffect(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> fetchData = <span class="keyword">async</span>()&#123;</span><br><span class="line">            <span class="keyword">const</span> result = <span class="keyword">await</span> axios(<span class="string">'xxx'</span>);</span><br><span class="line">            setData(result.data);</span><br><span class="line">        &#125;</span><br><span class="line">        fetchData()</span><br><span class="line">    &#125;,[])</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">        &#123;data.hits.map(<span class="function"><span class="params">item</span> =&gt;</span> (</span><br><span class="line">            &lt;li key=&#123;item.objectID&#125;&gt;</span><br><span class="line">                &lt;a href=&#123;item.url&#125;&gt;&#123;item.title&#125;&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">        ))&#125;</span><br><span class="line">         &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>useEffect在组件mount时执行，但也会在组件更新时执行</p>
+</blockquote>
+</li>
+<li><p>如果在useEffect中请求数据并setData会触发渲染,导致死循环<br>所以需要传递一个空数组作为参数，避免在更新时触发useEffect,只会在mount挂载时执行一次</p>
+</li>
+<li><p>第二参数用于监听指定变量的更新<br>如果参数中定义的变量更新了，则useEffect会再次执行</p>
+</li>
+<li><p>async函数会隐式返回promise，但是useEffect不返回内容，所以需要用方法包装async</p>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>响应更新的例子，用户输入</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [data, setData] = useState(&#123; <span class="attr">hits</span>: [] &#125;);</span><br><span class="line">    <span class="keyword">const</span> [query, setQuery] = useState(<span class="string">'redux'</span>);</span><br><span class="line">    <span class="keyword">const</span> [search, setSearch] = useState(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">const</span> [url, setUrl] = useState(<span class="string">'http://localhost/api/v1/search?query=redux'</span>);</span><br><span class="line"></span><br><span class="line">    useEffect(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> fetchData = <span class="keyword">async</span>()=&gt;&#123;</span><br><span class="line">            <span class="keyword">const</span> result = <span class="keyword">await</span> axios(<span class="string">'xxx?query='</span> + query);</span><br><span class="line">            setData(result.data);</span><br><span class="line">        &#125;</span><br><span class="line">        fetchData()</span><br><span class="line">    &#125;,[search])</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Fragment&gt;</span><br><span class="line">            &lt;input type=<span class="string">"text"</span> value=&#123;query&#125;</span><br><span class="line">                onChange=&#123;event =&gt; setQuery(event.target.value)&#125;</span><br><span class="line">            /&gt;</span><br><span class="line">            &lt;ul&gt;</span><br><span class="line">            &lt;button type=<span class="string">"button"</span> onClick=&#123;() =&gt; setSearch(query)&#125;&gt;</span><br><span class="line">                Search</span><br><span class="line">            &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">            &#123;data.hits.map(item =&gt; (</span></span><br><span class="line"><span class="regexp">                &lt;li key=&#123;item.objectID&#125;&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;a href=&#123;item.url&#125;&gt;&#123;item.title&#125;&lt;/</span>a&gt;</span><br><span class="line">                &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">            ))&#125;</span></span><br><span class="line"><span class="regexp">            &lt;/u</span>l&gt;</span><br><span class="line">        &lt;<span class="regexp">/Fragment&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>query的任何一次变动都会请求后端，这样会带来比较大的访问压力。这个时候我们需要引入一个按钮，点击这个按钮再发起请求(query改为search)</p>
+</li>
+<li><p>每次点击按钮时，会把search的值设置为query，这个时候我们需要修改useEffect中的依赖项为search，这样每次点击按钮，search值变更，useEffect就会重新执行，避免不必要的变更</p>
+</li>
+<li><p>因为组件首先会在mount时获取数据。所以简单点，直接将的要请求的后端URL设置为search state的初始值</p>
+</li>
+<li><p>如果useEffect中出现其他外部变量也需要放入依赖数组中，所以btn依赖的query也提取到btn中，不转入useEffect</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState(&#123; <span class="attr">hits</span>: [] &#125;);</span><br><span class="line">  <span class="keyword">const</span> [query, setQuery] = useState(<span class="string">'redux'</span>);</span><br><span class="line">  <span class="keyword">const</span> [url, setUrl] = useState(</span><br><span class="line">    <span class="string">'http://localhost/api/v1/search?query=redux'</span>,</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> fetchData = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> result = <span class="keyword">await</span> axios(url);</span><br><span class="line"></span><br><span class="line">      setData(result.data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    fetchData();</span><br><span class="line">  &#125;, [url]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Fragment&gt;</span><br><span class="line">      &lt;input</span><br><span class="line">        type=<span class="string">"text"</span></span><br><span class="line">        value=&#123;query&#125;</span><br><span class="line">        onChange=&#123;event =&gt; setQuery(event.target.value)&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">        &lt;button type=<span class="string">"button"</span> onClick=&#123;() =&gt; setUrl(<span class="string">`http://localhost/api/v1/search?query=<span class="subst">$&#123;query&#125;</span>`</span>)&#125;&gt;</span><br><span class="line">            Search</span><br><span class="line">        &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">        &#123;data.hits.map(item =&gt; (</span></span><br><span class="line"><span class="regexp">          &lt;li key=&#123;item.objectID&#125;&gt;</span></span><br><span class="line"><span class="regexp">            &lt;a href=&#123;item.url&#125;&gt;&#123;item.title&#125;&lt;/</span>a&gt;</span><br><span class="line">          &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">        ))&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/u</span>l&gt;</span><br><span class="line">    &lt;<span class="regexp">/Fragment&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>处理Loading和error</p>
+</blockquote>
+</li>
+<li><p>在请求后端数据,展现loading的状态</p>
+</li>
+<li><p>不需要再loading变更时重新调用useEffect</p>
+</li>
+<li><p>处理错误,使用useState来创建一个新的state，然后在useEffect中特定的位置来更新这个state</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function App() &#123;</span><br><span class="line">    const [isLoading, setIsLoading] &#x3D; useState(false);</span><br><span class="line">    useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">        const fetchData &#x3D; async () &#x3D;&gt; &#123;</span><br><span class="line">            setIsLoading(true);</span><br><span class="line">        </span><br><span class="line">            const result &#x3D; await axios(url);</span><br><span class="line">        </span><br><span class="line">            setData(result.data);</span><br><span class="line">            setIsLoading(false);</span><br><span class="line">        &#125;;</span><br><span class="line"> </span><br><span class="line">        fetchData();</span><br><span class="line">    &#125;</span><br><span class="line">    return (</span><br><span class="line">        &lt;Fragment&gt;</span><br><span class="line">            &#123;isLoading ? (</span><br><span class="line">                &lt;div&gt;Loading ...&lt;&#x2F;div&gt;</span><br><span class="line">            ) : (</span><br><span class="line">                &lt;ul&gt;</span><br><span class="line">                &#123;data.hits.map(item &#x3D;&gt; (</span><br><span class="line">                    &lt;li key&#x3D;&#123;item.objectID&#125;&gt;</span><br><span class="line">                    &lt;a href&#x3D;&#123;item.url&#125;&gt;&#123;item.title&#125;&lt;&#x2F;a&gt;</span><br><span class="line">                    &lt;&#x2F;li&gt;</span><br><span class="line">                ))&#125;</span><br><span class="line">                &lt;&#x2F;ul&gt;</span><br><span class="line">            )&#125;</span><br><span class="line">        &lt;&#x2F;Fragment&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>同名目录内有抽离自定义hooks组件的例子<br>使用useReducer整合逻辑</p>
+</blockquote>
+</li>
+<li><p>使用了各种通过分离的state hooks来管理分散的：数据、状态，为了有关联的状态整合到一起，我们需要用到useReducer</p>
+</li>
+<li><p>useReducer 是一个轻量的redux，返回一个状态对象和一个可以改变状态对象的dispatch函数,dispatch函数接受action作为参数，action包含type和payload属性</p>
+</li>
+<li><p>useReducer将reducer函数和初始状态对象作为参数,即同时定义多个hooks</p>
+</li>
+<li><p>type属性告诉reducer需要应用哪个状态转换，并且reducer可以使用payload来创建新的状态</p>
+</li>
+<li><p>例子中的state是对象，导出时可以解构分离原有状态</p>
+</li>
+<li><p>取消数据请求,在请求还没有返回的时候卸载了组件会报错</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> dataFetchReducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'FETCH_INIT'</span>:</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...state,</span><br><span class="line">                isLoading: <span class="literal">true</span>,</span><br><span class="line">                isError: <span class="literal">false</span></span><br><span class="line">            &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> [state, dispatch] = useReducer(dataFetchReducer, &#123;</span><br><span class="line">    isLoading: <span class="literal">false</span>,</span><br><span class="line">    isError: <span class="literal">false</span>,</span><br><span class="line">    data: initialData,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">'FETCH_INIT'</span> &#125;);</span><br><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">'FETCH_SUCCESS'</span>, <span class="attr">payload</span>: result.data &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在没有hooks时，创建class组件，性能的优化通过immutable比较，</span><br><span class="line">1、在不相等的时候调用setState,</span><br><span class="line">2、在shouldComponentUpdate中判断前后的props和state，如果没有变化，则返回false来阻止更新</span><br><span class="line"></span><br><span class="line">在hooks出来后，无法通过判断前后状态来决定是否更新，每一次调用都会执行其内部的所有逻辑，可以发现每次改变都会触发父子组件渲染</span><br><span class="line">性能损耗通过useMemo 和useCallback解决</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>追踪用户关闭网页</title>
+    <url>/2020/03/30/%E8%BF%BD%E8%B8%AA%E7%94%A8%E6%88%B7%E5%85%B3%E9%97%AD%E7%BD%91%E9%A1%B5/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>1、异步ajax</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    xhr.open(<span class="string">'post'</span>, <span class="string">'/log'</span>, <span class="literal">true</span>);</span><br><span class="line">    xhr.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line">    xhr.send(<span class="string">'foo=bar'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'unload'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    log();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> m = <span class="number">1</span>; m &lt; <span class="number">10000</span>; m++) &#123; <span class="keyword">continue</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2、img标签上传数据<br>后缀img.jpg?c=xxxx</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> reportData = <span class="function">(<span class="params">url, data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> img = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);</span><br><span class="line">    <span class="keyword">const</span> params = [];</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">        params.push(key+<span class="string">'='</span>+<span class="built_in">encodeURIComponent</span>(data[key]));</span><br><span class="line">    &#125;);</span><br><span class="line">    img.onload = <span class="function"><span class="params">()</span> =&gt;</span> img = <span class="literal">null</span>;</span><br><span class="line">    img.src = url+<span class="string">'?'</span>+params.join(<span class="string">'&amp;'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、beacon API<br>70%不到的成功率</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">navigator.sendBeacon(<span class="string">'/log'</span>, <span class="string">'foo=bar'</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<hr>
+<p>beforeunload不能准确的判断刷新和关闭<br>navigator.sendBeacon不能捕捉直接关闭浏览器或任务管理器结束任务<br>还是后端监听心跳做比较好</p>
+<hr>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>koa2简易实现</title>
+    <url>/2020/03/27/koa2%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+
+<blockquote>
+<p>核心功能洋葱模型</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Application http server 基本服务器框架</span><br><span class="line">Context 上下文 服务器框架基本数据结构的封装，解析响应http请求</span><br><span class="line">Middleware 中间件，洋葱模型机制</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>启动一个简单的http服务</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">const</span> server = http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.end(<span class="string">'- -'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">server.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>app.listen处理请求和端口监听</p>
+<p>app.use处理中间件和请求</p>
+<blockquote>
+<p>myKoa</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.middleware=<span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    listen(...args)&#123;</span><br><span class="line">        <span class="keyword">const</span> server = http.createServer(<span class="keyword">this</span>.middleware);</span><br><span class="line">        server.listen(...args);</span><br><span class="line">    &#125;</span><br><span class="line">    use(middleware)&#123;</span><br><span class="line">        <span class="keyword">this</span>.middleware = middleware</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 启动服务</span></span><br><span class="line"><span class="comment">// const app = new Application()</span></span><br><span class="line"><span class="comment">// app.use((req,res)=&gt;&#123;res.end('- -')&#125;)</span></span><br><span class="line"><span class="comment">// app.listen(3000)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>构建Context</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 此时app.use的回调函数是原生的req,res，而koa中是一个Context对象</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.middleware=<span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    listen(...args)&#123;</span><br><span class="line">        <span class="keyword">const</span> server = http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="comment">// 创建Context对象</span></span><br><span class="line">            <span class="keyword">const</span> ctx = <span class="keyword">new</span> Context(req,res);</span><br><span class="line">            <span class="comment">// 处理 app.use</span></span><br><span class="line">            <span class="keyword">this</span>.middleware(ctx);</span><br><span class="line">            <span class="comment">// 响应内容</span></span><br><span class="line">            ctx.res.end(ctx.body);</span><br><span class="line">        &#125;);</span><br><span class="line">        server.listen(...args);</span><br><span class="line">    &#125;</span><br><span class="line">    use(middleware)&#123;</span><br><span class="line">        <span class="keyword">this</span>.middleware = middleware</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(req,res)&#123;</span><br><span class="line">        <span class="keyword">this</span>.req=req;</span><br><span class="line">        <span class="keyword">this</span>.res=res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 启动服务</span></span><br><span class="line"><span class="comment">// const app = new Application()</span></span><br><span class="line"><span class="comment">// app.use(ctx=&gt;&#123;ctx.body('- -')&#125;)</span></span><br><span class="line"><span class="comment">// app.listen(3000)</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>中间件</p>
+</blockquote>
+<p>手机中间件回调函数数组，并使用compose串联起来<br>对所有中间件函数通过compose函数来达到抽象效果</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = compose(<span class="keyword">this</span>.middlewares);</span><br><span class="line"><span class="keyword">await</span> fn(ctx);</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="keyword">await</span> compose(<span class="keyword">this</span>.middlwares,ctx);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.middlewares=[]</span><br><span class="line">    &#125;</span><br><span class="line">    listen(...args)&#123;</span><br><span class="line">        <span class="keyword">const</span> server = http.createServer(<span class="keyword">async</span> (req,res)=&gt;&#123;</span><br><span class="line">            <span class="keyword">const</span> ctx = <span class="keyword">new</span> Context(req,res);</span><br><span class="line">            <span class="comment">// 对中间件回调函数串联，洋葱模型</span></span><br><span class="line">            <span class="keyword">const</span> fn = compose(<span class="keyword">this</span>.middlewares);</span><br><span class="line">            <span class="keyword">await</span> fn(ctx);</span><br><span class="line"></span><br><span class="line">            ctx.res.end(ctx.body);</span><br><span class="line">        &#125;);</span><br><span class="line">        server.listen(...args);</span><br><span class="line">    &#125;</span><br><span class="line">    use(middleware)&#123;</span><br><span class="line">        <span class="keyword">this</span>.middlewares.push(middleware)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span></span>&#123;</span><br><span class="line">    constructo(req,res)&#123;</span><br><span class="line">        <span class="keyword">this</span>.req=req;</span><br><span class="line">        <span class="keyword">this</span>.res=res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个中间件将会执行。后续每个会通过next执行<br>使用递归完成中间件的改造,实现洋葱模型</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> dispatch=<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> middlewares[i](ctx,()=&gt;&#123;</span><br><span class="line">        dispatch(i+<span class="number">1</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">dispatch(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> dispatch=<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> middleware = middlewares[i];</span><br><span class="line">    <span class="keyword">if</span>(i === middlewares.length)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> middleware(ctx,()=&gt;&#123;</span><br><span class="line">        dispatch(i+<span class="number">1</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">dispatch(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>最后的compose</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params">middlewares</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">ctx</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> dispatch=<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">const</span> middleware = middlewares[i];</span><br><span class="line">            <span class="keyword">if</span>(i === middlewares.length)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> middleware(ctx,()=&gt;&#123;</span><br><span class="line">                dispatch(i+<span class="number">1</span>)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dispatch(<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="comment">// const app = new Application()</span></span><br><span class="line"><span class="comment">// app.use(async(ctx)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//    ctx.body('- -')</span></span><br><span class="line"><span class="comment">//    await next()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// app.use(async (ctxnext)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//    ctx.body('- -')</span></span><br><span class="line"><span class="comment">//    await next()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// app.use(async (ctx,next)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//    ctx.body='富士山</span></span><br><span class="line"><span class="comment">//    await next()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// app.listen(3000)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>label语法</title>
+    <url>/2020/03/10/label%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<blockquote>
+<p>使用label语法在多层循环中精确返回指定位置</p>
+</blockquote>
+<a id="more"></a>
+<p>主要用于break和continue的跳出</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span> ; j &lt; <span class="number">10</span> ; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>( i == <span class="number">5</span> &amp;&amp; j == <span class="number">5</span> )&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        num++;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(num); <span class="comment">// 95 循环在 i 为5，j 为5的时候跳出 j循环，但会继续执行 i 循环</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">outPoint:</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span> ; j &lt; <span class="number">10</span> ; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>( i == <span class="number">5</span> &amp;&amp; j == <span class="number">5</span> )&#123;</span><br><span class="line">                <span class="keyword">break</span> outPoint;</span><br><span class="line">            &#125;</span><br><span class="line">        num++;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(num); <span class="comment">// 55 循环在 i 为5，j 为5的时候跳出双循环，返回到outPoint层继续执行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">outermost:</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i === <span class="number">5</span> &amp;&amp; j === <span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span> outermost;</span><br><span class="line">        &#125;</span><br><span class="line">        num++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(num); <span class="comment">// 95 continue outermost;语句的作用是跳出当前循环，并跳转到outermost（标签）下的for循环继续执行</span></span><br></pre></td></tr></table></figure>
+<p>实际场景下应该不会出现三层及以上循环</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>new draft</title>
+    <url>/2020/03/03/undefined/</url>
+    <content><![CDATA[<p>草稿</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new draft &lt;草稿文件名&gt;</span><br><span class="line">hexo new &lt;post模板文章文件名&gt;</span><br><span class="line">hexo publish &lt;要发布的草稿文件名&gt; &#x2F;&#x2F;也可以移动文件到_posts目录下</span><br></pre></td></tr></table></figure>
+
+<p>vue-todolist<br><a href="https://codesandbox.io/s/o29j95wx9" target="_blank" rel="noopener">https://codesandbox.io/s/o29j95wx9</a><br>新增的$attrs与$listeners的详解<br><a href="https://my.oschina.net/u/2612473/blog/1817903" target="_blank" rel="noopener">https://my.oschina.net/u/2612473/blog/1817903</a><br>抗击疫情，小程序时刻准备着<br><a href="https://developers.weixin.qq.com/community/servicemarket/share?view=template" target="_blank" rel="noopener">https://developers.weixin.qq.com/community/servicemarket/share?view=template</a><br>疫轨迹<br><a href="https://gitee.com/marktc/tcb-hackthon-orbit" target="_blank" rel="noopener">https://gitee.com/marktc/tcb-hackthon-orbit</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Web Component</title>
+    <url>/2020/02/28/Web%20Component/</url>
+    <content><![CDATA[<blockquote>
+<p>Web Component</p>
+</blockquote>
+<a id="more"></a>
+
+<p><a href="https://segmentfault.com/a/1190000012440318" target="_blank" rel="noopener">https://segmentfault.com/a/1190000012440318</a></p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+        <category>Web Component</category>
+      </categories>
+      <tags>
+        <tag>Web Component</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Virtual Dom</title>
+    <url>/2020/02/28/Virtual%20Dom/</url>
+    <content><![CDATA[<blockquote>
+<p>什么是Virtual Dom</p>
+</blockquote>
+<a id="more"></a>
+<p><a href="https://www.jianshu.com/p/a036eaa2263a" target="_blank" rel="noopener">https://www.jianshu.com/p/a036eaa2263a</a><br><a href="https://www.jianshu.com/p/b189b2949b33" target="_blank" rel="noopener">https://www.jianshu.com/p/b189b2949b33</a></p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+        <category>Virtual Dom</category>
+      </categories>
+      <tags>
+        <tag>Virtual Dom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js数组拍平 扁平化的方式</title>
+    <url>/2020/02/28/js%E6%95%B0%E7%BB%84%E6%8B%8D%E5%B9%B3%20%E6%89%81%E5%B9%B3%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>六种方式 拍平数组 扁平化数组</p>
+</blockquote>
+<a id="more"></a>
+<p><code>var arr = [1,2,[3,4,5,[6,7,8],9],10,[11,12]];</code></p>
+<blockquote>
+<p>递归实现</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">　　<span class="keyword">let</span> arr1 = [];</span><br><span class="line">    arr.forEach(<span class="function">(<span class="params">val</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(val <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;</span><br><span class="line">            arr1 = arr1.concat(fn(val))</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            arr1.push(val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> arr1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>reduce实现</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">prev,cur</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> prev.concat(<span class="built_in">Array</span>.isArray(cur)?fn(cur):cur)</span><br><span class="line">    &#125;,[])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>flat</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">arr.flat(<span class="literal">Infinity</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>扩展运算符</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr1 = [];</span><br><span class="line">    <span class="keyword">let</span> bStop = <span class="literal">true</span>;</span><br><span class="line">    arr.forEach(<span class="function">(<span class="params">val</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(val))&#123;</span><br><span class="line">            arr1.push(...val);</span><br><span class="line">            bStop = <span class="literal">false</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            arr1.push(val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">if</span>(bStop)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fn(arr1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>toString</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = arr.toString().split(<span class="string">','</span>).map(<span class="function">(<span class="params">val</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parseInt</span>(val)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(arr1)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>apply</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(arr.some(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">Array</span>.isArray(item)))&#123;</span><br><span class="line">           arr =  [].concat.apply([],arr);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>javascript</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>curl</title>
+    <url>/2020/02/28/curl/</url>
+    <content><![CDATA[<blockquote>
+<p>curl使用指南<br><a href="https://www.jianshu.com/p/fc0eb6c60816" target="_blank" rel="noopener">https://www.jianshu.com/p/fc0eb6c60816</a></p>
+</blockquote>
+<a id="more"></a>
+<p>curl 的用法指南 阮一峰<br><a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2019/09/curl-reference.html</a><br>学习笔记之 curl 命令用法详解<br><a href="https://www.cnblogs.com/doseoer/p/7044344.html" target="_blank" rel="noopener">https://www.cnblogs.com/doseoer/p/7044344.html</a></p>
+]]></content>
+      <categories>
+        <category>http请求</category>
+      </categories>
+      <tags>
+        <tag>curl</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown语法</title>
+    <url>/2020/02/27/markdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<blockquote>
+<p>markdown语法</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># h1 代表标题级数，最多6级标题</span><br></pre></td></tr></table></figure>
+<h1 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h1><p>末尾加2个空格表示换行</p>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 无序列表</span><br><span class="line">    +次级</span><br><span class="line">    -次级</span><br><span class="line">    次级</span><br><span class="line">最后空行</span><br></pre></td></tr></table></figure>
+<ul>
+<li>列表<br>  +次级<br>  -次级<br>  次级</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.有序列表</span><br><span class="line">    1.次级</span><br><span class="line">    2.次级</span><br><span class="line">2.有序列表</span><br></pre></td></tr></table></figure>
+<p>1.有序列表<br>    1.次级<br>    2.次级<br>2.有序列表</p>
+<h1 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 一级引用</span><br><span class="line">&gt;&gt; 二级引用</span><br><span class="line">&gt;&gt;&gt; 三级引用</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一级引用</p>
+<blockquote>
+<p>二级引用</p>
+<blockquote>
+<p>三级引用</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">***</span><br><span class="line">---</span><br><span class="line">___</span><br></pre></td></tr></table></figure>
+<hr>
+<hr>
+<hr>
+<h1 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[百度](https:&#x2F;&#x2F;www.baidu.com)</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a></p>
+<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![百度](https:&#x2F;&#x2F;www.baidu.com&#x2F;img&#x2F;bd_logo1.png?where&#x3D;super)</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.baidu.com/img/bd_logo1.png?where=super" alt="百度"></p>
+<h1 id="代码框"><a href="#代码框" class="headerlink" title="代码框"></a>代码框</h1><p><code>代码框</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'123'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*斜体*          _斜体_</span><br><span class="line">**加粗**        __加粗__</span><br><span class="line">***斜体加粗***  ___斜体加粗___</span><br></pre></td></tr></table></figure>
+<p><em>斜体</em> <em>斜体</em><br><strong>加粗</strong> <strong>加粗</strong><br><strong><em>斜体加粗</em></strong> <strong><em>斜体加粗</em></strong></p>
+<h1 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h1><p><code>~~待删除~~</code><br><del>待删除</del></p>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><p><code>默认左对齐(:-)，右对齐(-:)，居中对齐(:-:)</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">head</th>
+<th align="left">head</th>
+<th align="right">head</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left">2</td>
+<td align="right">3</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="right">head</th>
+<th align="center">head</th>
+<th>head</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td align="center">2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>head</th>
+<th align="right">head</th>
+<th align="center">head</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td align="right">2</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>模板语法</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hello hexo,你好 hexo</title>
     <url>/2020/02/22/hello-hexo/</url>
-    <content><![CDATA[<h1 id="next主题的使用方法"><a href="#next主题的使用方法" class="headerlink" title="next主题的使用方法"></a>next主题的使用方法</h1><hr>
+    <content><![CDATA[<blockquote>
+<p>新建文章、创建标签和分类、阅读全文、搜索功能</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="next主题的使用方法"><a href="#next主题的使用方法" class="headerlink" title="next主题的使用方法"></a>next主题的使用方法</h1><!-- 
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&auto=0&id=1386946644&height=66"></iframe> -->
+
+
+<p>Hexo<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a><br>NexT<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">http://theme-next.iissnan.com/</a><br>Hexo框架下用NexT(v7.0+)主题美化博客<br><a href="https://blog.csdn.net/weixin_39345384/article/details/80785373" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39345384/article/details/80785373</a><br>HEXO-NexT-V7-Gemini主题优化篇<br><a href="https://yangyang188.coding.me/archives/3575fa23/" target="_blank" rel="noopener">https://yangyang188.coding.me/archives/3575fa23/</a><br>复制粘贴工程师<br><a href="https://tj-xiajiahao.github.io/" target="_blank" rel="noopener">https://tj-xiajiahao.github.io/</a><br>git doc<br><a href="http://iissnan.com/progit/" target="_blank" rel="noopener">http://iissnan.com/progit/</a><br>主页<br><a href="https://gitby-leo.github.io/">https://gitby-leo.github.io/</a></p>
+<p>ps导出精度会影响图片色彩，最好是导出最佳精度后压缩<br>NIM 调试扩展 nodejs<br>安装vscode .swig扩展支持<br>Parcel<br>MobX<br><a href="https://cn.mobx.js.org/" target="_blank" rel="noopener">https://cn.mobx.js.org/</a><br>web-cell<br><a href="https://web-cell.dev/" target="_blank" rel="noopener">https://web-cell.dev/</a><br>😆</p>
+<hr>
+<h2 id="hexo的特点"><a href="#hexo的特点" class="headerlink" title="hexo的特点"></a>hexo的特点</h2><p>pjax：依赖jq的pushState+ajax库<br>无切换、高性能加载显示html，又能跟普通url兼容，而ajax引入hash会影响seo</p>
+<hr>
+<h3 id="启用数据目录"><a href="#启用数据目录" class="headerlink" title="启用数据目录"></a>启用数据目录</h3><p>在 hexo/source/_data 目录下新建 next.yml 文件，把 Next 的主题配置文件 next/_config.yml 内容全部复制到 next.yml，然后修改override为true</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">新建额外目录文件：</span><br><span class="line">1、custom_file_path中增加一个路径，</span><br><span class="line">2、next&#x2F;scripts&#x2F;events&#x2F;lib&#x2F;injects-point.js中增加对应变量</span><br><span class="line">3、引用文件&#123;&#123;- next_inject(&#39;xxx&#39;) &#125;&#125;</span><br><span class="line">4、新建文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义-CSS-路径"><a href="#定义-CSS-路径" class="headerlink" title="定义 CSS 路径"></a>定义 CSS 路径</h2><p>Next 7.2 版本后取消了 \themes\next\source\css_custom\custom.styl，怪不得这个路径一直找不到，需要在配置文件里重新定义。此处的配置项基于数据目录功能，所以必须完成前面的「启用数据目录」才能生效。<br>next.yml中的custom_file_path，解注style并新建对应文件</p>
+<h2 id="配置激活-失活时的网页标题"><a href="#配置激活-失活时的网页标题" class="headerlink" title="配置激活/失活时的网页标题"></a>配置激活/失活时的网页标题</h2><p>custom-script<br>yml配置文件里新建title_trick {enable,leave,enter}</p>
+<h2 id="关联文章"><a href="#关联文章" class="headerlink" title="关联文章"></a>关联文章</h2><p>hexo-related-popular-posts 报错- -<br>lib/list-json.js中 要加try catch : ret.path  = pathFn.join(config.root , list.path)</p>
+<h2 id="列表页添加可配置图片"><a href="#列表页添加可配置图片" class="headerlink" title="列表页添加可配置图片"></a>列表页添加可配置图片</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">layout&#x2F;_macro&#x2F;post.swig中添加2处代码</span><br><span class="line">&lt;!--noindex--&gt;</span><br><span class="line">&#123;% if post.descriptionImage %&#125;</span><br><span class="line">  &lt;div class&#x3D;&quot;out-img-topic-descriptionImage&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&#123;&#123; post.descriptionImage &#125;&#125; class&#x3D;&quot;img-topic-descriptionImage&quot;&#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">每个文章页头部添加需要显示的图片路径</span><br><span class="line">descriptionImage: &#39;&#39;</span><br><span class="line">&lt;!--&#x2F;noindex--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="背景动态图片"><a href="#背景动态图片" class="headerlink" title="背景动态图片"></a>背景动态图片</h2><p>jquery-backstretch<br>可以放到bodyEnd中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;jquery-backstretch&#x2F;2.0.4&#x2F;jquery.backstretch.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  $(&quot;body&quot;).backstretch(&quot;https:&#x2F;&#x2F;背景图.jpg&quot;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="rating评分"><a href="#rating评分" class="headerlink" title="rating评分"></a>rating评分</h2><p>注册后填写网站的id</p>
+<p>1) 可以配置评分方式，侧栏 &gt; Rating &gt; Setting，建议用 IP address 或 Device (cookie)，免登录，毕竟 Socials 里面的选项几乎都被墙，不适合国内网络环境。<br>2）建议在侧栏 &gt; Site &gt; Setting 中勾选 Private 选项，这样只能域名下使用</p>
+<hr>
+<h2 id="看板娘-桌宠"><a href="#看板娘-桌宠" class="headerlink" title="看板娘/桌宠"></a>看板娘/桌宠</h2><p><a href="https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md" target="_blank" rel="noopener">https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md</a><br><a href="https://github.com/xiazeyu/live2d-widget-models" target="_blank" rel="noopener">https://github.com/xiazeyu/live2d-widget-models</a><br>npm install –save hexo-helper-live2d</p>
+<p><del>/themes/next/layout/_layout.swig</del><br><del>body里添加{live2d()}</del><br>3.0不需要包含live2d(),只需安装依赖,models放入node_models内和站点文件配置live2d:</p>
+<p>高定版本（高级定制<br><a href="https://github.com/stevenjoezhang/live2d-widget" target="_blank" rel="noopener">https://github.com/stevenjoezhang/live2d-widget</a><br>下载后放到目录/source/live2d-widget下，和_post同级<br>替换autoload.js中的live2d_path值和本地目录名称live2d-widget一致</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;themes&#x2F;next&#x2F;layout&#x2F;_layout.swig</span><br><span class="line">线上</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;stevenjoezhang&#x2F;live2d-widget@latest&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">本地</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;live2d-widget&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><p>首行缩进：空两格<br>&#160; &#160; &#160; &#160;开头<br><span style="background-color:#eee">字体高亮</span><br><code>字体高亮</code></p>
+
+<table>
+   <tr>
+      <td colspan="6"><b>表格</b></td>
+   </tr>
+   <tr>
+      <td>class</td><td>interface</td><td>byte</td><td>short</td><td>int</td><td>long</td>
+   </tr>
+   <tr>
+      <td>class</td><td>interface</td><td>byte</td><td>short</td><td>int</td><td>long</td>
+   </tr>
+</table>
+
+
+
+<hr>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">图片根路径默认是source&#x2F;images</span><br><span class="line">![](&#x2F;images&#x2F;avatar.jpg)</span><br><span class="line">&#123;% img &#x2F;images&#x2F;avatar.jpg &quot;图片&quot; %&#125;</span><br><span class="line"></span><br><span class="line">fancybox放大预览，安装依赖后在配置页打开</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;theme-next-fancybox3 source&#x2F;lib&#x2F;fancybox</span><br><span class="line">&lt;img src&#x3D;&quot;&#x2F;images&#x2F;avatar.jpg&quot; title&#x3D;&quot;放大预览&quot; alt&#x3D;&quot;放大预览&quot;&#x2F;&gt;</span><br><span class="line">&#123;% img &#x2F;images&#x2F;vi-vim-cheat-sheet.gif 600 600 &quot;点击查看大图:vi&#x2F;vim-cheat-sheet&quot; %&#125;</span><br><span class="line"></span><br><span class="line">themes&#x2F;next&#x2F;js&#x2F;utils内添加拦截，实现imageHref和imageTitle</span><br><span class="line">if ($image.hasClass(&#39;nofancybox&#39;)) &#123;</span><br><span class="line">  var imageHref &#x3D; $image.attr(&#39;href&#39;) </span><br><span class="line">  if(imageHref)&#123;</span><br><span class="line">    var imageWrapLink &#x3D; $image.wrap(&#96;&lt;a href&#x3D;$&#123;imageHref&#125; target&#x3D;&quot;_blank&quot;&gt;&lt;&#x2F;a&gt;&#96;)</span><br><span class="line">  &#125;</span><br><span class="line">  var imageTitle &#x3D; $image.attr(&#39;title&#39;) || $image.attr(&#39;alt&#39;);</span><br><span class="line">  if (imageTitle) &#123;</span><br><span class="line">    $image.after(&#96;&lt;p class&#x3D;&quot;image-caption&quot;&gt;$&#123;imageTitle&#125;&lt;&#x2F;p&gt;&#96;)</span><br><span class="line">  &#125;</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line">&lt;img src&#x3D;&quot;&#x2F;images&#x2F;avatar.jpg&quot; title&#x3D;&quot;不需要放大预览&quot; alt&#x3D;&quot;不需要放大预览&quot; class&#x3D;&quot;nofancybox&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<div style="display:flex;">
+  <div style="flex:1">
+    <img src="/images/avatar.jpg" title="放大预览" alt="放大预览"/>
+  </div>
+  <div style="flex:1">
+    <img src="/images/avatar.jpg" title="不需要放大预览" alt="不需要放大预览" class="nofancybox"/>
+  </div>
+  <div style="flex:1">
+    <img src="/images/avatar.jpg" title="跳转链接" alt="跳转链接" class="nofancybox" href="https://www.baidu.com" />
+  </div>
+</div>
+
+<hr>
+<h2 id="文章置顶"><a href="#文章置顶" class="headerlink" title="文章置顶"></a>文章置顶</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-generator-index --save</span><br><span class="line">npm install hexo-generator-index-pin-top --save</span><br><span class="line"></span><br><span class="line">.md中top:true 或者true: 2控制多篇顺序</span><br><span class="line"></span><br><span class="line">添加样式themes&#x2F;hexo-theme-next&#x2F;layout&#x2F;_macr中&lt;div class&#x3D;&quot;post-meta&quot;&gt;里</span><br><span class="line">&#123;% if post.top %&#125;</span><br><span class="line">  &lt;i class&#x3D;&quot;fa fa-thumb-tack&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">  &lt;font color&#x3D;7D26CD&gt;置顶&lt;&#x2F;font&gt;</span><br><span class="line">  &lt;span class&#x3D;&quot;post-meta-divider&quot;&gt;|&lt;&#x2F;span&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="随机副标题文案"><a href="#随机副标题文案" class="headerlink" title="随机副标题文案"></a>随机副标题文案</h2><p>站点_config.yml中：subtitle用-添加文案<br>/next/layout/_partials/header/brand.swig分割,数组随机显示</p>
+<hr>
+<h2 id="网易云"><a href="#网易云" class="headerlink" title="网易云"></a>网易云</h2><hr>
+<h2 id="live2d"><a href="#live2d" class="headerlink" title="live2d"></a>live2d</h2><hr>
 <h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
 <p>如果没指定<code>[layout]</code>就使用<code>default_layout</code>中的默认模板</p>
 <p>hexo new 文章名     // 简写新建<br>hexo new “文章名 1”  // 空格需要用引号<br>hexo new post 文章名 // 用post模板新建文章</p>
+<p>npm install –save hexo-generator-index hexo-generator-archive hexo-generator-tag</p>
 <hr>
 <h2 id="个性化页面"><a href="#个性化页面" class="headerlink" title="个性化页面"></a>个性化页面</h2><p>站点_config.yml中skip_render配置过滤source下的指定目录或文件</p>
 <hr>
@@ -30,6 +589,11 @@
 <p>引用local search:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、npm install hexo-generator-searchdb --save</span><br><span class="line">2、站点_config.yml中</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br><span class="line">4、主题_config.yml中:</span><br><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">5、hexo generate生成search.xml</span><br><span class="line">6、hexo server查看效果</span><br></pre></td></tr></table></figure>
 
+<h2 id="hexo-admin后台管理"><a href="#hexo-admin后台管理" class="headerlink" title="hexo-admin后台管理"></a>hexo-admin后台管理</h2><p><code>DeprecationWarning: fs.SyncWriteStream is deprecated.</code>报错是因为node8.0+移除了方法，某插件依赖了这个方法<br>通过hexo –debug找到<br>在hexo-admin的依赖中找到hexo-fs/lib/fs.js并注释下面这行</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">exports.SyncWriteStream = fs.SyncWriteStream;</span><br></pre></td></tr></table></figure>
+
+<!-- 发布配置局部信息
+git config user.name xxx -->
 ]]></content>
       <categories>
         <category>hexo教程</category>
@@ -42,7 +606,9 @@
   <entry>
     <title>Hello World 欢迎来到hexo</title>
     <url>/2020/02/21/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+    <content><![CDATA[<blockquote>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+</blockquote>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>

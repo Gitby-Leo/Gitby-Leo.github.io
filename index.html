@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="这里是Leo的云">
@@ -44,7 +45,7 @@
   };
 </script>
 
-  <title>Leo的云</title>
+  <title>Leo的云 - 飞雪连天射白鹿，笑书神侠倚碧鸳</title>
   
 
 
@@ -109,12 +110,30 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">欢迎来到Leo的云</p>
+        <h1 class="site-subtitle site-subtitle-opacity0" itemprop="description">飞雪连天射白鹿，笑书神侠倚碧鸳</h1>
+      
   </div>
 
   <div class="site-nav-right"></div>
 </div>
-
+<script>
+    window.addEventListener('load',function(e){
+        function GetRandomNum(Min,Max){
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return(Min + Math.round(Rand * Range));
+        }
+        var get_subtitle = "飞雪连天射白鹿，笑书神侠倚碧鸳,洗剑浣花新月残，飞刀杀人血气飘\n 花山桃林飞蝶舞，边城天穹孤鹰飞\n 银钩画月曲局行，白玉雕龙梅花香\n 玄箭狂枪战绝代，花翎怒剑泪侠刀\n 英雄风情一笑引，大侠传奇一生多,侠骨文心笑看云霄飘一羽，\n 孤怀统揽曾经沧海慨平生,桃花影落飞神剑，碧海潮生按玉箫,春沟水动茶花白，夏谷云生荔枝红";
+        var subtitleArr = get_subtitle.split(",");// ,分割
+        var index = GetRandomNum(0,subtitleArr.length-1); // 取随机数
+        var val = subtitleArr[index];
+        $('.header .site-subtitle').html(val.replace(/\n/g,'<br/>'));
+        // $('.header .site-subtitle').css({'opacity':'1!important','height':'auto'});
+        $('.header .site-subtitle').removeClass('site-subtitle-opacity0');
+        // 重置左侧高度
+        $('.main-inner .sidebar').css({'marginTop':Math.floor($('.header-inner').height())+10+'px'});
+    },false);
+</script>
 
 <nav class="site-nav">
   
@@ -205,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/02/22/hello-hexo/">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/04/14/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -217,47 +236,307 @@
       <meta itemprop="name" content="Leo的云">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/22/hello-hexo/" class="post-title-link" itemprop="url">hello hexo,你好 hexo</a>
-        </h1>
+            <a href="/2020/04/14/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">动态规划</a>
+        </h2>
 
         <div class="post-meta">
+
+          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-02-22 00:22:22" itemprop="dateCreated datePublished" datetime="2020-02-22T00:22:22+08:00">2020-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-24 00:45:40" itemprop="dateModified" datetime="2020-02-24T00:45:40+08:00">2020-02-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo%E6%95%99%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo教程</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo%E6%95%99%E7%A8%8B/hexo%E5%85%A5%E9%97%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo入门</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-04-14 02:18:50" itemprop="dateCreated datePublished" datetime="2020-04-14T02:18:50+08:00">2020-04-14</time>
             </span>
 
           
-            <span id="/2020/02/22/hello-hexo/" class="post-meta-item leancloud_visitors" data-flag-title="hello hexo,你好 hexo" title="阅读次数">
+            <span id="/2020/04/14/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-meta-item leancloud_visitors" data-flag-title="动态规划" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>577</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/14/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">reduce用法详解</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 01:27:40" itemprop="dateCreated datePublished" datetime="2020-04-14T01:27:40+08:00">2020-04-14</time>
+            </span>
+
+          
+            <span id="/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" class="post-meta-item leancloud_visitors" data-flag-title="reduce用法详解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/04/05/vue-%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/05/vue-%E7%BB%84%E4%BB%B6/" class="post-title-link" itemprop="url">vue-组件</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-05 19:28:53" itemprop="dateCreated datePublished" datetime="2020-04-05T19:28:53+08:00">2020-04-05</time>
+            </span>
+
+          
+            <span id="/2020/04/05/vue-%E7%BB%84%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="vue-组件" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/05/vue-%E7%BB%84%E4%BB%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/04/01/react%20useMemo&useCallback/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/01/react%20useMemo&useCallback/" class="post-title-link" itemprop="url">react useMemo&useCallback</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-01 02:05:28" itemprop="dateCreated datePublished" datetime="2020-04-01T02:05:28+08:00">2020-04-01</time>
+            </span>
+
+          
+            <span id="/2020/04/01/react%20useMemo&useCallback/" class="post-meta-item leancloud_visitors" data-flag-title="react useMemo&useCallback" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -288,10 +567,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>新建文章、创建标签和分类、阅读全文、搜索功能</p>
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/02/22/hello-hexo/">
+              <a class="btn" href="/2020/04/01/react%20useMemo&useCallback/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -315,7 +600,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/02/21/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/03/30/react-useEffect&useReducer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -327,41 +612,25 @@
       <meta itemprop="name" content="Leo的云">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/21/hello-world/" class="post-title-link" itemprop="url">Hello World 欢迎来到hexo</a>
-        </h1>
+            <a href="/2020/03/30/react-useEffect&useReducer/" class="post-title-link" itemprop="url">react-useEffect&useReducer</a>
+        </h2>
 
         <div class="post-meta">
+
+          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-02-21 21:36:28" itemprop="dateCreated datePublished" datetime="2020-02-21T21:36:28+08:00">2020-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-23 20:09:38" itemprop="dateModified" datetime="2020-02-23T20:09:38+08:00">2020-02-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo%E6%95%99%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo教程</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-03-30 02:57:45" itemprop="dateCreated datePublished" datetime="2020-03-30T02:57:45+08:00">2020-03-30</time>
             </span>
 
           
-            <span id="/2020/02/21/hello-world/" class="post-meta-item leancloud_visitors" data-flag-title="Hello World 欢迎来到hexo" title="阅读次数">
+            <span id="/2020/03/30/react-useEffect&useReducer/" class="post-meta-item leancloud_visitors" data-flag-title="react-useEffect&useReducer" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -373,7 +642,384 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>357</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/30/react-useEffect&useReducer/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/03/30/%E8%BF%BD%E8%B8%AA%E7%94%A8%E6%88%B7%E5%85%B3%E9%97%AD%E7%BD%91%E9%A1%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/30/%E8%BF%BD%E8%B8%AA%E7%94%A8%E6%88%B7%E5%85%B3%E9%97%AD%E7%BD%91%E9%A1%B5/" class="post-title-link" itemprop="url">追踪用户关闭网页</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-30 02:31:26" itemprop="dateCreated datePublished" datetime="2020-03-30T02:31:26+08:00">2020-03-30</time>
+            </span>
+
+          
+            <span id="/2020/03/30/%E8%BF%BD%E8%B8%AA%E7%94%A8%E6%88%B7%E5%85%B3%E9%97%AD%E7%BD%91%E9%A1%B5/" class="post-meta-item leancloud_visitors" data-flag-title="追踪用户关闭网页" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>786</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/30/%E8%BF%BD%E8%B8%AA%E7%94%A8%E6%88%B7%E5%85%B3%E9%97%AD%E7%BD%91%E9%A1%B5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/03/27/koa2%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/27/koa2%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">koa2简易实现</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-27 02:35:30" itemprop="dateCreated datePublished" datetime="2020-03-27T02:35:30+08:00">2020-03-27</time>
+            </span>
+
+          
+            <span id="/2020/03/27/koa2%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0/" class="post-meta-item leancloud_visitors" data-flag-title="koa2简易实现" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/27/koa2%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/03/10/label%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/10/label%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">label语法</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-10 20:42:05" itemprop="dateCreated datePublished" datetime="2020-03-10T20:42:05+08:00">2020-03-10</time>
+            </span>
+
+          
+            <span id="/2020/03/10/label%E8%AF%AD%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="label语法" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>682</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>使用label语法在多层循环中精确返回指定位置</p>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/10/label%E8%AF%AD%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/03/03/undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/03/undefined/" class="post-title-link" itemprop="url">new draft</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-03 12:35:21" itemprop="dateCreated datePublished" datetime="2020-03-03T12:35:21+08:00">2020-03-03</time>
+            </span>
+
+          
+            <span id="/2020/03/03/undefined/" class="post-meta-item leancloud_visitors" data-flag-title="new draft" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>362</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -392,11 +1038,118 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+          <p>草稿</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new draft &lt;草稿文件名&gt;</span><br><span class="line">hexo new &lt;post模板文章文件名&gt;</span><br><span class="line">hexo publish &lt;要发布的草稿文件名&gt; &#x2F;&#x2F;也可以移动文件到_posts目录下</span><br></pre></td></tr></table></figure>
+
+<p>vue-todolist<br><a href="https://codesandbox.io/s/o29j95wx9" target="_blank" rel="noopener">https://codesandbox.io/s/o29j95wx9</a><br>新增的$attrs与$listeners的详解<br><a href="https://my.oschina.net/u/2612473/blog/1817903" target="_blank" rel="noopener">https://my.oschina.net/u/2612473/blog/1817903</a><br>抗击疫情，小程序时刻准备着<br><a href="https://developers.weixin.qq.com/community/servicemarket/share?view=template" target="_blank" rel="noopener">https://developers.weixin.qq.com/community/servicemarket/share?view=template</a><br>疫轨迹<br><a href="https://gitee.com/marktc/tcb-hackthon-orbit" target="_blank" rel="noopener">https://gitee.com/marktc/tcb-hackthon-orbit</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/02/28/Web%20Component/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/28/Web%20Component/" class="post-title-link" itemprop="url">Web Component</a>
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-28 01:21:29" itemprop="dateCreated datePublished" datetime="2020-02-28T01:21:29+08:00">2020-02-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/Web-Component/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Component</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/28/Web%20Component/" class="post-meta-item leancloud_visitors" data-flag-title="Web Component" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>55</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Web Component</p>
+</blockquote>
+          
+          <!--noindex-->
+          
+          <!--/noindex-->
+
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/02/21/hello-world/#more" rel="contents">
+              <a class="btn" href="/2020/02/28/Web%20Component/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -419,6 +1172,9 @@
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -485,20 +1241,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -533,25 +1289,55 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-weixin"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Leo</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">2k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">4 分钟</span>
+    <span title="站点总字数">21k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.1
   </div>
+
+<!-- 在底部添加运行日期 -->
+<div id="hexo-next-blog-days"></div>
+<script>
+    window.addEventListener('load',function(e){
+        (function show_date_time(){
+            let $hexoNextBlogDays = document.getElementById('hexo-next-blog-days');
+            let firstDate =  new Date("2019/11/09 15:13:14");
+            window.setInterval(()=>{
+                let nowDate = new Date();
+                
+                let timeDiff=(nowDate.getTime()-firstDate.getTime());
+                // timeDiff2=Math.floor(timeDiff/1000);
+                
+                let ms_oneday=24*60*60*1000;// 每天的ms
+                let getDay=timeDiff/ms_oneday;// 过去了几天
+                let getDay_floor = Math.floor(getDay);// 取整
+                                            
+                let getHours = (getDay-getDay_floor)*24; // 取整中间的小时数
+                let getHours_fixzero = setzero(Math.floor(getHours));// 小时数补0
+
+                let getMins = (getHours-getHours_fixzero)*60;
+                let getMins_fixzero = setzero(Math.floor(getMins));
+
+                let getSeconds = (getMins-getMins_fixzero)*60;
+                let getSeconds_fixzero = setzero(Math.floor(getSeconds));
+
+                $hexoNextBlogDays.innerHTML=`已运行 ${getDay_floor} 天 ${getHours_fixzero} 小时 ${getMins_fixzero} 分 ${getSeconds_fixzero} 秒`;
+            },1000)
+            function setzero(i) {
+                return i<10?'0'+i:i;
+            }
+        })()
+    })
+</script>
 
         
 
@@ -668,6 +1454,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
@@ -684,6 +1472,26 @@
 
 
 
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : 23638,
+      el    : 'wpac-rating',
+      color : 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
 
   
 <script src="/js/local-search.js"></script>
@@ -704,6 +1512,34 @@
 
   
 
+
+  
+  // 用户脚本
+<!-- 看板娘 -->
+<!--
+ <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+-->
+<script src="/live2d-widget/autoload.js"></script>
+
+<!-- yml配置文件里新建title_trick {enable,leave,enter} -->
+
+<script>
+    (function(){
+        var title_trick_OriginTitile = document.title;
+        var title_trick_titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+            document.title = "(つェ⊂)我藏好了哦~" + title_trick_OriginTitile;
+            clearTimeout(title_trick_titleTime);
+            } else {
+            document.title = "" + title_trick_OriginTitile;
+            title_trick_titleTime = setTimeout(function() {
+                document.title = title_trick_OriginTitile;
+            }, 2000);
+            }
+        });
+    })()
+</script>
 
 </body>
 </html>

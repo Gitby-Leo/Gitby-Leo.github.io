@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff4e1d;
+  background: #ff90aa;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2557,4 +2557,27 @@ ul.breadcrumb li + li:last-child {
 }
 .links-of-blogroll-item {
   padding: 0;
+}
+body1::before {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  content: " ";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+body.compensate-for-scrollbar {
+  overflow: auto !important;
+}
+body.compensate-for-scrollbar {
+  margin-right: auto !important;
+}
+.header .site-subtitle-opacity0 {
+  height: 0;
+  margin: 10px 0;
+  opacity: 0 !important;
 }

@@ -15,6 +15,17 @@ NexT.utils = {
     document.querySelectorAll('.post-body :not(a) > img, .post-body > img').forEach(element => {
       var $image = $(element);
       var imageLink = $image.attr('data-src') || $image.attr('src');
+      if ($image.hasClass('nofancybox')) {
+        var imageHref = $image.attr('href') 
+        if(imageHref){
+          var imageWrapLink = $image.wrap(`<a href=${imageHref} target="_blank"></a>`)
+        }
+        var imageTitle = $image.attr('title') || $image.attr('alt');
+        if (imageTitle) {
+          $image.after(`<p class="image-caption">${imageTitle}</p>`)
+        }
+        return;
+      }
       var $imageWrapLink = $image.wrap(`<a class="fancybox fancybox.image" href="${imageLink}" itemscope itemtype="http://schema.org/ImageObject" itemprop="url"></a>`).parent('a');
       if ($image.is('.post-gallery img')) {
         $imageWrapLink.attr('data-fancybox', 'gallery').attr('rel', 'gallery');
