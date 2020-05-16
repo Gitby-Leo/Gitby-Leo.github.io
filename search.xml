@@ -1,31 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>动态规划</title>
-    <url>/2020/04/14/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<blockquote>
-</blockquote>
-<a id="more"></a>
-<p>递归存在栈过长问题，可以用动态规划解决</p>
-<p>N个俄罗斯套娃的总重量 = 第N-1个的重量 + 第n个的重量<br>h(N) = h(N-1) + h(N)</p>
-<img src="/images/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/img1.png" class="" title="0,0-&gt;N,M 路径格">
-
-<p>N*M的表格，有几种路径从0,0到N,M,只能朝右朝下<br>arr(N,M) = arr(N-1,M) + arr(N,M-1)</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">taowa</span>(<span class="params">table</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> yLen = table.length, y = yLen - <span class="number">1</span>; y &gt;= <span class="number">0</span>; y--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (</span><br><span class="line">            <span class="keyword">let</span> xLen = table[<span class="number">0</span>].length, x = xLen - <span class="number">1</span>;</span><br><span class="line">            x &gt;= <span class="number">0</span>;</span><br><span class="line">            x--</span><br><span class="line">        ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x == xLen - <span class="number">1</span> || y == yLen - <span class="number">1</span>) &#123;</span><br><span class="line">                table[y][x] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                table[y][x] = table[y + <span class="number">1</span>][x] + table[y][x + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> table[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line">taowa([[<span class="number">0</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>]]) <span class="comment">// 2</span></span><br><span class="line">taowa([[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>]]) <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
-<p> 4 * 5的表格有35种路径</p>
-<img src="/images/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/img2.png" class="" title="最小值">
-<p>求左上角到右下角的经过路径的路径内数字相加的最小值。也就是求最优解</p>
-<p>对于动态规划这类问题，有几个特点：</p>
-<p>有重复子问题(套娃)<br>单项(左上 =&gt; 右下)<br>分析作图后，结果类似二叉树</p>
-]]></content>
-  </entry>
-  <entry>
     <title>reduce用法详解</title>
     <url>/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<blockquote>
 </blockquote>
-<a id="more"></a>
 <p>reduce()累加器，数组中的每个元素依次执行回调函数callback（初始值(或者上次回调函数的返回值)，当前元素值，当前索引，调用reduce的数组）<br>arr.reduce(callback, [initialValue])</p>
+<a id="more"></a>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">pre, cur, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(pre, cur, index);</span><br><span class="line">    <span class="keyword">return</span> pre + cur;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(arr, sum); <span class="comment">// [1, 2, 3, 4] 10   初始值为1,循环3次</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">pre, cur, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(pre, cur, index);</span><br><span class="line">    <span class="keyword">return</span> pre + cur;</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arr, sum); <span class="comment">// [1, 2, 3, 4] 10   初始值为0,循环4次</span></span><br></pre></td></tr></table></figure>
@@ -62,30 +43,9 @@
 ]]></content>
   </entry>
   <entry>
-    <title>vue-组件</title>
-    <url>/2020/04/05/vue-%E7%BB%84%E4%BB%B6/</url>
-    <content><![CDATA[<blockquote>
-</blockquote>
-<a id="more"></a>
-
-
-
-
-
-
-
-
-
-
-]]></content>
-  </entry>
-  <entry>
     <title>react useMemo&amp;useCallback</title>
     <url>/2020/04/01/react%20useMemo&amp;useCallback/</url>
     <content><![CDATA[<blockquote>
-</blockquote>
-<a id="more"></a>
-<blockquote>
 <p>useMemo和useCallback都会在组件第一次渲染的时候执行</p>
 </blockquote>
 <blockquote>
@@ -95,6 +55,7 @@
 <p>useMemo返回缓存的变量，useCallback返回缓存的函数</p>
 </blockquote>
 <p>多个state改变会重渲染多此，借助useMemo可以在指定state改变时才执行对应的方法</p>
+<a id="more"></a>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expensive</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">改为</span><br><span class="line"><span class="keyword">const</span> expensive = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,[count])</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>useCallback返回的是缓存的函数</p>
@@ -133,15 +94,13 @@
     <title>react-useEffect&amp;useReducer</title>
     <url>/2020/03/30/react-useEffect&amp;useReducer/</url>
     <content><![CDATA[<blockquote>
-</blockquote>
-<a id="more"></a>
-<blockquote>
 <p>use*** 格式定义的函数是react hooks的规范</p>
 </blockquote>
 <p>useEffect用于处理组件中的effect，通常用于请求数据，事件处理，订阅等相关操作</p>
 <blockquote>
 <p>最后return的【返回函数】可以作为状态切换的默认执行函数，执行下一个effect之前执行上一个effect【返回的函数】</p>
 </blockquote>
+<a id="more"></a>
 <hr>
 <ul>
 <li><p>状态和状态更新函数来自与useState这个hooks，通过调用useState，来创建App组件的内部状态。初始状态是一个object，其中的hits为一个空数组</p>
@@ -216,6 +175,7 @@
     <title>追踪用户关闭网页</title>
     <url>/2020/03/30/%E8%BF%BD%E8%B8%AA%E7%94%A8%E6%88%B7%E5%85%B3%E9%97%AD%E7%BD%91%E9%A1%B5/</url>
     <content><![CDATA[<blockquote>
+<p>异步ajax、img标签上传数据、beacon API比较</p>
 </blockquote>
 <a id="more"></a>
 <blockquote>
@@ -244,13 +204,10 @@
     <title>koa2简易实现</title>
     <url>/2020/03/27/koa2%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<blockquote>
-</blockquote>
-<a id="more"></a>
-
-<blockquote>
 <p>核心功能洋葱模型</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Application http server 基本服务器框架</span><br><span class="line">Context 上下文 服务器框架基本数据结构的封装，解析响应http请求</span><br><span class="line">Middleware 中间件，洋葱模型机制</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <blockquote>
 <p>启动一个简单的http服务</p>
 </blockquote>
@@ -298,15 +255,6 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">outPoint:</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span> ; j &lt; <span class="number">10</span> ; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>( i == <span class="number">5</span> &amp;&amp; j == <span class="number">5</span> )&#123;</span><br><span class="line">                <span class="keyword">break</span> outPoint;</span><br><span class="line">            &#125;</span><br><span class="line">        num++;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(num); <span class="comment">// 55 循环在 i 为5，j 为5的时候跳出双循环，返回到outPoint层继续执行</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">outermost:</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i === <span class="number">5</span> &amp;&amp; j === <span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span> outermost;</span><br><span class="line">        &#125;</span><br><span class="line">        num++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(num); <span class="comment">// 95 continue outermost;语句的作用是跳出当前循环，并跳转到outermost（标签）下的for循环继续执行</span></span><br></pre></td></tr></table></figure>
 <p>实际场景下应该不会出现三层及以上循环</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>new draft</title>
-    <url>/2020/03/03/undefined/</url>
-    <content><![CDATA[<p>草稿</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new draft &lt;草稿文件名&gt;</span><br><span class="line">hexo new &lt;post模板文章文件名&gt;</span><br><span class="line">hexo publish &lt;要发布的草稿文件名&gt; &#x2F;&#x2F;也可以移动文件到_posts目录下</span><br></pre></td></tr></table></figure>
-
-<p>vue-todolist<br><a href="https://codesandbox.io/s/o29j95wx9" target="_blank" rel="noopener">https://codesandbox.io/s/o29j95wx9</a><br>新增的$attrs与$listeners的详解<br><a href="https://my.oschina.net/u/2612473/blog/1817903" target="_blank" rel="noopener">https://my.oschina.net/u/2612473/blog/1817903</a><br>抗击疫情，小程序时刻准备着<br><a href="https://developers.weixin.qq.com/community/servicemarket/share?view=template" target="_blank" rel="noopener">https://developers.weixin.qq.com/community/servicemarket/share?view=template</a><br>疫轨迹<br><a href="https://gitee.com/marktc/tcb-hackthon-orbit" target="_blank" rel="noopener">https://gitee.com/marktc/tcb-hackthon-orbit</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -494,15 +442,31 @@
     <title>hello hexo,你好 hexo</title>
     <url>/2020/02/22/hello-hexo/</url>
     <content><![CDATA[<blockquote>
-<p>新建文章、创建标签和分类、阅读全文、搜索功能</p>
+<p>新建文章、创建标签和分类、阅读全文、搜索功能<br>next主题的使用方法</p>
 </blockquote>
 <a id="more"></a>
 <h1 id="next主题的使用方法"><a href="#next主题的使用方法" class="headerlink" title="next主题的使用方法"></a>next主题的使用方法</h1><!-- 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&auto=0&id=1386946644&height=66"></iframe> -->
 
 
-<p>Hexo<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a><br>NexT<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">http://theme-next.iissnan.com/</a><br>Hexo框架下用NexT(v7.0+)主题美化博客<br><a href="https://blog.csdn.net/weixin_39345384/article/details/80785373" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39345384/article/details/80785373</a><br>HEXO-NexT-V7-Gemini主题优化篇<br><a href="https://yangyang188.coding.me/archives/3575fa23/" target="_blank" rel="noopener">https://yangyang188.coding.me/archives/3575fa23/</a><br>复制粘贴工程师<br><a href="https://tj-xiajiahao.github.io/" target="_blank" rel="noopener">https://tj-xiajiahao.github.io/</a><br>git doc<br><a href="http://iissnan.com/progit/" target="_blank" rel="noopener">http://iissnan.com/progit/</a><br>主页<br><a href="https://gitby-leo.github.io/">https://gitby-leo.github.io/</a></p>
-<p>ps导出精度会影响图片色彩，最好是导出最佳精度后压缩<br>NIM 调试扩展 nodejs<br>安装vscode .swig扩展支持<br>Parcel<br>MobX<br><a href="https://cn.mobx.js.org/" target="_blank" rel="noopener">https://cn.mobx.js.org/</a><br>web-cell<br><a href="https://web-cell.dev/" target="_blank" rel="noopener">https://web-cell.dev/</a><br>😆</p>
+<p>Hexo<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a><br>NexT<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">http://theme-next.iissnan.com/</a><br>Hexo框架下用NexT(v7.0+)主题美化博客<br><a href="https://blog.csdn.net/weixin_39345384/article/details/80785373" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39345384/article/details/80785373</a><br>HEXO-NexT-V7-Gemini主题优化篇<br><a href="https://yangyang188.coding.me/archives/3575fa23/" target="_blank" rel="noopener">https://yangyang188.coding.me/archives/3575fa23/</a></p>
+<!-- 复制粘贴工程师小程序
+https://tj-xiajiahao.github.io/
+git document
+http://iissnan.com/progit/
+主页
+https://gitby-leo.github.io/ -->
+
+<!-- ps导出精度会影响图片色彩，最好是导出最佳精度后压缩
+NIM 调试扩展 nodejs
+安装vscode .swig扩展支持
+Parcel
+MobX
+https://cn.mobx.js.org/
+web-cell
+https://web-cell.dev/
+😆 -->
+
 <hr>
 <h2 id="hexo的特点"><a href="#hexo的特点" class="headerlink" title="hexo的特点"></a>hexo的特点</h2><p>pjax：依赖jq的pushState+ajax库<br>无切换、高性能加载显示html，又能跟普通url兼容，而ajax引入hash会影响seo</p>
 <hr>
