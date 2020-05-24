@@ -21,20 +21,23 @@
     var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="什么是Virtual Dom">
+  <meta name="description" content="Vuex的5大属性，state，getters，mutations，actions和modulesgetters到底能做什么">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Virtual Dom">
-<meta property="og:url" content="https://gitby-leo.github.io/2020/02/28/Virtual%20Dom/index.html">
+<meta property="og:title" content="vuex getter">
+<meta property="og:url" content="https://gitby-leo.github.io/2020/05/24/vuex%20getter/index.html">
 <meta property="og:site_name" content="Leo的云">
-<meta property="og:description" content="什么是Virtual Dom">
+<meta property="og:description" content="Vuex的5大属性，state，getters，mutations，actions和modulesgetters到底能做什么">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-27T17:16:26.000Z">
-<meta property="article:modified_time" content="2020-02-27T17:24:20.212Z">
+<meta property="og:image" content="https://gitby-leo.github.io/2020/05/24/vuex%20getter/state-view-actions.png">
+<meta property="article:published_time" content="2020-05-24T10:09:37.000Z">
+<meta property="article:modified_time" content="2020-05-24T12:01:35.154Z">
 <meta property="article:author" content="Leo">
-<meta property="article:tag" content="Virtual Dom">
+<meta property="article:tag" content="Leo">
+<meta property="article:tag" content="Leo的云">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitby-leo.github.io/2020/05/24/vuex%20getter/state-view-actions.png">
 
-<link rel="canonical" href="https://gitby-leo.github.io/2020/02/28/Virtual%20Dom/">
+<link rel="canonical" href="https://gitby-leo.github.io/2020/05/24/vuex%20getter/">
 
 
 <script id="page-configurations">
@@ -46,7 +49,7 @@
   };
 </script>
 
-  <title>Virtual Dom | Leo的云</title>
+  <title>vuex getter | Leo的云</title>
   
 
 
@@ -225,7 +228,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/02/28/Virtual%20Dom/">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/05/24/vuex%20getter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -238,7 +241,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          Virtual Dom
+          vuex getter
         </h2>
 
         <div class="post-meta">
@@ -250,28 +253,11 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-02-28 01:16:26" itemprop="dateCreated datePublished" datetime="2020-02-28T01:16:26+08:00">2020-02-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/Virtual-Dom/" itemprop="url" rel="index">
-                    <span itemprop="name">Virtual Dom</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-05-24 18:09:37" itemprop="dateCreated datePublished" datetime="2020-05-24T18:09:37+08:00">2020-05-24</time>
             </span>
 
           
-            <span id="/2020/02/28/Virtual%20Dom/" class="post-meta-item leancloud_visitors" data-flag-title="Virtual Dom" title="阅读次数">
+            <span id="/2020/05/24/vuex%20getter/" class="post-meta-item leancloud_visitors" data-flag-title="vuex getter" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -283,14 +269,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>89</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -303,10 +289,48 @@
 
       
         <blockquote>
-<p>什么是Virtual Dom</p>
+<p>Vuex的5大属性，state，getters，mutations，actions和modules<br>getters到底能做什么</p>
 </blockquote>
 <a id="more"></a>
-<p><a href="https://www.jianshu.com/p/a036eaa2263a" target="_blank" rel="noopener">https://www.jianshu.com/p/a036eaa2263a</a><br><a href="https://www.jianshu.com/p/b189b2949b33" target="_blank" rel="noopener">https://www.jianshu.com/p/b189b2949b33</a></p>
+
+<hr>
+<p>写业务时没有太在意state/getter读值的区别，直到面试时遇到了这样一个问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue中computed和vuex中getters有什么相同点</span><br></pre></td></tr></table></figure>
+<p>leo：纳尼，这两者还有关联？<br>面试官：你真的用过vuex?<br>leo：emmm</p>
+<hr>
+<p>vuex嘛，大家都知道是中心化的状态管理模式，单向数据流，如图  </p>
+<div style="width: 50%; margin: auto">
+
+<p><img src="state-view-actions.png" alt="单向数据流"></div></p>
+<p>state保存状态，getters获取state，mutations同步执行改变state，actions异步执行</p>
+<h2 id="如何获取state状态"><a href="#如何获取state状态" class="headerlink" title="如何获取state状态"></a>如何获取state状态</h2><p>方案一</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.state.aaa</span><br><span class="line"><span class="keyword">this</span>.$store.getter.bbb</span><br></pre></td></tr></table></figure>
+<p>方案二</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    ...mapState([<span class="string">'aaa'</span>]),</span><br><span class="line">    ...mapGetters([<span class="string">'bbb'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么提供了2种方法获取state，他们有什么区别呢"><a href="#为什么提供了2种方法获取state，他们有什么区别呢" class="headerlink" title="为什么提供了2种方法获取state，他们有什么区别呢"></a>为什么提供了2种方法获取state，他们有什么区别呢</h2><ul>
+<li>state获取时直接返回</li>
+<li>getter可以在获取state时，对state进行操作后返回</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">getters: &#123;</span><br><span class="line">    getMyListGreaterThanNum(state, getters) &#123; </span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123; <span class="comment">// 把属性变成函数属性</span></span><br><span class="line">        <span class="keyword">return</span> state.myList.filter(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; num) </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$store.getters[<span class="string">"getMyListGreaterThanNum"</span>](<span class="number">1</span>)</span><br><span class="line"><span class="keyword">this</span>.$store.getters.getMyListGreaterThanNum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="computed和getters相同点"><a href="#computed和getters相同点" class="headerlink" title="computed和getters相同点"></a>computed和getters相同点</h2><ul>
+<li>缓存，和computed一样，当依赖的state改变才会重新计算</li>
+</ul>
+<p>在getters中是属性不是函数,不能直接传参</p>
+<h2 id="mapGetters-是什么"><a href="#mapGetters-是什么" class="headerlink" title="mapGetters 是什么"></a>mapGetters 是什么</h2><ul>
+<li>mapGetters辅助函数，直接返回一个对象，仅仅是将 store 中的 getter 映射到局部计算属性</li>
+</ul>
+<p>每次调用都需要this.$store.getters.xxx，非常麻烦，可以用mapGetters语法糖直接合并入computed</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    ...mapState([<span class="string">'getMyListGreaterThanNum'</span>]),</span><br><span class="line">    ...mapGetters(<span class="string">"myStore2"</span>, [<span class="string">"getMyListGreaterThanNum"</span>]);<span class="comment">// 分模块</span></span><br><span class="line">    ...mapGetters(<span class="string">"myStore2"</span>, &#123;<span class="attr">getMyList</span>: <span class="string">"getMyListGreaterThanNum"</span>&#125;);<span class="comment">// 重命名</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$storestore.getters[<span class="string">"myStore2/getMyListGreaterThanNum"</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="mapGetters源码实现"><a href="#mapGetters源码实现" class="headerlink" title="mapGetters源码实现"></a>mapGetters源码实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reduce the code which written in Vue.js for getting the getters</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>[namespace] - Module's namespace</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object|Array&#125;</span> <span class="variable">getters</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;Object&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> mapGetters = normalizeNamespace(<span class="function"><span class="keyword">function</span> (<span class="params">namespace, getters</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!isValidMap(getters)) &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">'[vuex] mapGetters: mapper parameter must be either an Array or an Object'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    normalizeMap(getters).forEach(<span class="function"><span class="keyword">function</span> (<span class="params">ref</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> key = ref.key;</span><br><span class="line">      <span class="keyword">var</span> val = ref.val;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// The namespace has been mutated by normalizeNamespace</span></span><br><span class="line">      val = namespace + val;</span><br><span class="line">      res[key] = <span class="function"><span class="keyword">function</span> <span class="title">mappedGetter</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (namespace &amp;&amp; !getModuleByNamespace(<span class="keyword">this</span>.$store, <span class="string">'mapGetters'</span>, namespace)) &#123;</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(val <span class="keyword">in</span> <span class="keyword">this</span>.$store.getters)) &#123;</span><br><span class="line">          <span class="built_in">console</span>.error((<span class="string">"[vuex] unknown getter: "</span> + val));</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.$store.getters[val]</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="comment">// mark vuex getter for devtools</span></span><br><span class="line">      res[key].vuex = <span class="literal">true</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">normalizeNamespace</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">namespace, map</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> namespace !== <span class="string">'string'</span>) &#123;</span><br><span class="line">        map = namespace;</span><br><span class="line">        namespace = <span class="string">''</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (namespace.charAt(namespace.length - <span class="number">1</span>) !== <span class="string">'/'</span>) &#123;</span><br><span class="line">        namespace += <span class="string">'/'</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> fn(namespace, map)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">normalizeMap</span> (<span class="params">map</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isValidMap(map)) &#123;</span><br><span class="line">      <span class="keyword">return</span> []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(map)</span><br><span class="line">      ? map.map(<span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> (&#123; <span class="attr">key</span>: key, <span class="attr">val</span>: key &#125;); &#125;)</span><br><span class="line">      : <span class="built_in">Object</span>.keys(map).map(<span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> (&#123; <span class="attr">key</span>: key, <span class="attr">val</span>: map[key] &#125;); &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>normalizeNamespace函数将传入的改成namespace/getters的分割样式，如果没有namespace，那么直接返回getters</li>
+<li>normalizeMap函数将输入的getters对应成store的内部属性，可以使用对象来更改函数的名称</li>
+<li>查找属性，找到返回this.$store.getters[val]</li>
+</ul>
 
     </div>
 
@@ -342,7 +366,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://gitby-leo.github.io/2020/02/28/Virtual%20Dom/" title="Virtual Dom">https://gitby-leo.github.io/2020/02/28/Virtual Dom/</a>
+    <a href="https://gitby-leo.github.io/2020/05/24/vuex%20getter/" title="vuex getter">https://gitby-leo.github.io/2020/05/24/vuex getter/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -352,10 +376,6 @@
 
 
       <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/Virtual-Dom/" rel="tag"><i class="fa fa-tag"></i> Virtual Dom</a>
-          </div>
 
         
   <div class="post-widgets">
@@ -367,13 +387,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/02/28/Web%20Component/" rel="next" title="Web Component">
-    <i class="fa fa-chevron-left"></i> Web Component 
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/28/js%E6%95%B0%E7%BB%84%E6%8B%8D%E5%B9%B3%20%E6%89%81%E5%B9%B3%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F/" rel="prev" title="js数组拍平 扁平化的方式">
-    js数组拍平 扁平化的方式 <i class="fa fa-chevron-right"></i> 
+    <a href="/2020/05/17/vue3%E9%A2%84%E8%A7%88/" rel="prev" title="vue3预览">
+    vue3预览 <i class="fa fa-chevron-right"></i> 
     </a></div>
     </div>
       </footer>
@@ -439,6 +456,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何获取state状态"><span class="nav-number">1.</span> <span class="nav-text">如何获取state状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么提供了2种方法获取state，他们有什么区别呢"><span class="nav-number">2.</span> <span class="nav-text">为什么提供了2种方法获取state，他们有什么区别呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#computed和getters相同点"><span class="nav-number">3.</span> <span class="nav-text">computed和getters相同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapGetters-是什么"><span class="nav-number">4.</span> <span class="nav-text">mapGetters 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapGetters源码实现"><span class="nav-number">5.</span> <span class="nav-text">mapGetters源码实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

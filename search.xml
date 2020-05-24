@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>vuex getter</title>
+    <url>/2020/05/24/vuex%20getter/</url>
+    <content><![CDATA[<blockquote>
+<p>Vuex的5大属性，state，getters，mutations，actions和modules<br>getters到底能做什么</p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+<p>写业务时没有太在意state/getter读值的区别，直到面试时遇到了这样一个问题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vue中computed和vuex中getters有什么相同点</span><br></pre></td></tr></table></figure>
+<p>leo：纳尼，这两者还有关联？<br>面试官：你真的用过vuex?<br>leo：emmm</p>
+<hr>
+<p>vuex嘛，大家都知道是中心化的状态管理模式，单向数据流，如图  </p>
+<div style="width: 50%; margin: auto">
+
+<p><img src="state-view-actions.png" alt="单向数据流"></div></p>
+<p>state保存状态，getters获取state，mutations同步执行改变state，actions异步执行</p>
+<h2 id="如何获取state状态"><a href="#如何获取state状态" class="headerlink" title="如何获取state状态"></a>如何获取state状态</h2><p>方案一</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.state.aaa</span><br><span class="line"><span class="keyword">this</span>.$store.getter.bbb</span><br></pre></td></tr></table></figure>
+<p>方案二</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    ...mapState([<span class="string">'aaa'</span>]),</span><br><span class="line">    ...mapGetters([<span class="string">'bbb'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么提供了2种方法获取state，他们有什么区别呢"><a href="#为什么提供了2种方法获取state，他们有什么区别呢" class="headerlink" title="为什么提供了2种方法获取state，他们有什么区别呢"></a>为什么提供了2种方法获取state，他们有什么区别呢</h2><ul>
+<li>state获取时直接返回</li>
+<li>getter可以在获取state时，对state进行操作后返回</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">getters: &#123;</span><br><span class="line">    getMyListGreaterThanNum(state, getters) &#123; </span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123; <span class="comment">// 把属性变成函数属性</span></span><br><span class="line">        <span class="keyword">return</span> state.myList.filter(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; num) </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$store.getters[<span class="string">"getMyListGreaterThanNum"</span>](<span class="number">1</span>)</span><br><span class="line"><span class="keyword">this</span>.$store.getters.getMyListGreaterThanNum(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="computed和getters相同点"><a href="#computed和getters相同点" class="headerlink" title="computed和getters相同点"></a>computed和getters相同点</h2><ul>
+<li>缓存，和computed一样，当依赖的state改变才会重新计算</li>
+</ul>
+<p>在getters中是属性不是函数,不能直接传参</p>
+<h2 id="mapGetters-是什么"><a href="#mapGetters-是什么" class="headerlink" title="mapGetters 是什么"></a>mapGetters 是什么</h2><ul>
+<li>mapGetters辅助函数，直接返回一个对象，仅仅是将 store 中的 getter 映射到局部计算属性</li>
+</ul>
+<p>每次调用都需要this.$store.getters.xxx，非常麻烦，可以用mapGetters语法糖直接合并入computed</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    ...mapState([<span class="string">'getMyListGreaterThanNum'</span>]),</span><br><span class="line">    ...mapGetters(<span class="string">"myStore2"</span>, [<span class="string">"getMyListGreaterThanNum"</span>]);<span class="comment">// 分模块</span></span><br><span class="line">    ...mapGetters(<span class="string">"myStore2"</span>, &#123;<span class="attr">getMyList</span>: <span class="string">"getMyListGreaterThanNum"</span>&#125;);<span class="comment">// 重命名</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$storestore.getters[<span class="string">"myStore2/getMyListGreaterThanNum"</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="mapGetters源码实现"><a href="#mapGetters源码实现" class="headerlink" title="mapGetters源码实现"></a>mapGetters源码实现</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reduce the code which written in Vue.js for getting the getters</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>[namespace] - Module's namespace</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object|Array&#125;</span> <span class="variable">getters</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;Object&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> mapGetters = normalizeNamespace(<span class="function"><span class="keyword">function</span> (<span class="params">namespace, getters</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!isValidMap(getters)) &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">'[vuex] mapGetters: mapper parameter must be either an Array or an Object'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    normalizeMap(getters).forEach(<span class="function"><span class="keyword">function</span> (<span class="params">ref</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> key = ref.key;</span><br><span class="line">      <span class="keyword">var</span> val = ref.val;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// The namespace has been mutated by normalizeNamespace</span></span><br><span class="line">      val = namespace + val;</span><br><span class="line">      res[key] = <span class="function"><span class="keyword">function</span> <span class="title">mappedGetter</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (namespace &amp;&amp; !getModuleByNamespace(<span class="keyword">this</span>.$store, <span class="string">'mapGetters'</span>, namespace)) &#123;</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(val <span class="keyword">in</span> <span class="keyword">this</span>.$store.getters)) &#123;</span><br><span class="line">          <span class="built_in">console</span>.error((<span class="string">"[vuex] unknown getter: "</span> + val));</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.$store.getters[val]</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="comment">// mark vuex getter for devtools</span></span><br><span class="line">      res[key].vuex = <span class="literal">true</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">normalizeNamespace</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">namespace, map</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> namespace !== <span class="string">'string'</span>) &#123;</span><br><span class="line">        map = namespace;</span><br><span class="line">        namespace = <span class="string">''</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (namespace.charAt(namespace.length - <span class="number">1</span>) !== <span class="string">'/'</span>) &#123;</span><br><span class="line">        namespace += <span class="string">'/'</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> fn(namespace, map)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">normalizeMap</span> (<span class="params">map</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isValidMap(map)) &#123;</span><br><span class="line">      <span class="keyword">return</span> []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(map)</span><br><span class="line">      ? map.map(<span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> (&#123; <span class="attr">key</span>: key, <span class="attr">val</span>: key &#125;); &#125;)</span><br><span class="line">      : <span class="built_in">Object</span>.keys(map).map(<span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> (&#123; <span class="attr">key</span>: key, <span class="attr">val</span>: map[key] &#125;); &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>normalizeNamespace函数将传入的改成namespace/getters的分割样式，如果没有namespace，那么直接返回getters</li>
+<li>normalizeMap函数将输入的getters对应成store的内部属性，可以使用对象来更改函数的名称</li>
+<li>查找属性，找到返回this.$store.getters[val]</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>vue3预览</title>
+    <url>/2020/05/17/vue3%E9%A2%84%E8%A7%88/</url>
+    <content><![CDATA[<p>vue3 的api及语法有哪些改变</p>
+<a id="more"></a>
+
+<img src="/images/vue3预览/1.jpg" />
+<img src="/images/vue3预览/2.jpg" />
+<img src="/images/vue3预览/3.jpg" />
+<img src="/images/vue3预览/4.jpg" />
+<img src="/images/vue3预览/all.png" />
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
     <title>reduce用法详解</title>
     <url>/2020/04/14/reduce%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<blockquote>
