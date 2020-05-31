@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>js中var/let/const的区别</title>
+    <url>/2020/05/31/js%E4%B8%ADvar/let/const%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<blockquote>
+<p>三种变量声明很常见，就来说点不一样的  </p>
+<ul>
+<li>原来还有全局对象和顶层对象  </li>
+<li>为什么我定义的变量和函数无法delete</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+
+<p>刚接触js时，声明一个变量会用var或者function，共2种</p>
+<ul>
+<li>var声明的全局变量</li>
+<li>var在函数范围内声明的局部变量</li>
+<li>eval中声明的全局变量。</li>
+</ul>
+<p>在es6中，新增了let/const/import/class，共6种</p>
+<hr>
+<h2 id="顶层对象"><a href="#顶层对象" class="headerlink" title="顶层对象"></a>顶层对象</h2><p>浏览器环境中顶层对象是window，Node中是global对象</p>
+<ul>
+<li>ES5中，顶层对象的属性等价于全局变量</li>
+<li>ES6中，var、function声明的全局变量<strong>属于</strong>顶层对象，其他4个则<strong>不属于</strong>顶层对象<br>,所以es6中的全局变量和顶层对象的属性分离。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.info(<span class="built_in">window</span>.b);  <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.info(<span class="built_in">window</span>.c);  <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> len = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.info(<span class="keyword">this</span>.len)</span><br><span class="line">&#125;</span><br><span class="line">fn(); <span class="comment">// undefined,此时this为window</span></span><br><span class="line"><span class="keyword">let</span> Person = &#123;</span><br><span class="line">	len: <span class="number">5</span>,</span><br><span class="line">	say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		fn(); <span class="comment">// undefined 此时this为window</span></span><br><span class="line">		<span class="built_in">arguments</span>[<span class="number">0</span>](); <span class="comment">// undefined 此时调用fn方法，arguments对象里没有len属性</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Person.say(fn);<span class="comment">// this为Person</span></span><br></pre></td></tr></table></figure>
+<p>注：</p>
+<ul>
+<li>arguments.length表示传入函数的实参数量</li>
+<li>函数本身的length属性代表的是函数定义时给出的参数个数</li>
+</ul>
+<hr>
+<h2 id="变量删除"><a href="#变量删除" class="headerlink" title="变量删除"></a>变量删除</h2><ul>
+<li>var全局声明的变量是<strong>无法删除</strong>的，configurable=false</li>
+<li>var函数作用域内声明的变量是<strong>无法删除</strong>的，没有依赖的父对象</li>
+<li>eval()会创建属性，configurable=true,所以可以删除</li>
+</ul>
+<p>同理，函数也是对象，声明的函数也会遵循var的方式，判断是否可以删除</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="built_in">window</span>, <span class="string">'a'</span>));      <span class="comment">// delete b =&gt; false</span></span><br><span class="line"></span><br><span class="line">b = <span class="number">2</span>; <span class="comment">// delete b =&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// delete aa =&gt; false</span></span><br><span class="line">(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bb</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">delete</span> bb; <span class="comment">// false</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>所以如果要删除已定义的变量，可以赋值覆盖掉它，或者是在局部作用域中创建，等待内存回收</p>
+<p>垃圾回收有2大条件</p>
+<ul>
+<li>未被引用的对象会被自动回收</li>
+<li>不可访问的对象会被自动回收，比如虽然2对象互相引用，但是外部不可访问也会被回收</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>33行实现react</title>
+    <url>/2020/05/30/33%E8%A1%8C%E5%AE%9E%E7%8E%B0react/</url>
+    <content><![CDATA[<blockquote>
+<p>一种简易的类react架构的实现，了解react，<br>全文添加中文注释，方便理解</p>
+</blockquote>
+<a id="more"></a>
+
+<ul>
+<li>取得状态并返回虚拟dom</li>
+<li>状态改变，返回新的虚拟dom</li>
+<li>将虚拟dom渲染为真实dom</li>
+<li>更新真实dom</li>
+</ul>
+<p>前置知识点</p>
+<ul>
+<li><a href="http://www.mithriljs.net/" target="_blank" rel="noopener">Mithril</a> 现代化的 JS 轻量框架,内置了路由和 XHR 工具<ul>
+<li>m() 函数可以描述任何 HTML 结构</li>
+<li>m.render(root, ‘’) 挂载</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> m = <span class="function">(<span class="params">...args</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 结构args =&gt; tag, attrs, classes</span></span><br><span class="line">    <span class="keyword">let</span> [attrs, [head, ...tail]] = [&#123;&#125;, args]</span><br><span class="line">    <span class="keyword">let</span> [tag, ...classes] = head.split(<span class="string">'.'</span>)</span><br><span class="line">    <span class="keyword">if</span> (tail.length &amp;&amp; !m.isRenderable(tail[<span class="number">0</span>])) [attrs, ...tail] = tail</span><br><span class="line">    <span class="comment">// 合并class</span></span><br><span class="line">    <span class="keyword">if</span> (attrs.class) classes = [...classes, ...attrs.class]</span><br><span class="line">    <span class="comment">// 把已经使用的attrs做浅拷贝，删除class的值</span></span><br><span class="line">    attrs = &#123;...attrs&#125;; <span class="keyword">delete</span> attrs.class</span><br><span class="line">    <span class="comment">// 创建子数组，递归地将嵌套项拍平到该数组中，并忽略空值</span></span><br><span class="line">    <span class="keyword">const</span> children = []</span><br><span class="line">    <span class="keyword">const</span> addChildren = <span class="function"><span class="params">v</span>=&gt;</span>v === <span class="literal">null</span>? <span class="literal">null</span> : <span class="built_in">Array</span>.isArray(v)? v.map(addChildren) : children.push(v)</span><br><span class="line">    addChildren(tail)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">__m</span>: <span class="literal">true</span>, <span class="attr">tag</span>: tag || <span class="string">'div'</span>, attrs, classes, children&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否可以渲染null,字符串，数字，虚拟节点，数组</span></span><br><span class="line">m.isRenderable = <span class="function"><span class="params">v</span> =&gt;</span>v === <span class="literal">null</span> || [<span class="string">'string'</span>, <span class="string">'number'</span>].includes(<span class="keyword">typeof</span> v) || v.__m || <span class="built_in">Array</span>.isArray(v)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收真实dom和虚拟dom</span></span><br><span class="line"><span class="comment">// 把所需的虚拟dom的属性和类更新到真实dom</span></span><br><span class="line">m.update = <span class="function">(<span class="params">el, v</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 如果是文本元素，需要设置数据</span></span><br><span class="line">    <span class="keyword">if</span> (!v.__m) <span class="keyword">return</span> el.data === <span class="string">`<span class="subst">$&#123;v&#125;</span>`</span> || (el.data = v)</span><br><span class="line">    <span class="comment">// 设置添加class</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> name <span class="keyword">of</span> v.classes) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!el.classList.contains(name)) el.classList.add(name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> name <span class="keyword">of</span> el.classList) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!v.classes.includes(name)) el.classList.remove(name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置添加attributes</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> name <span class="keyword">of</span> <span class="built_in">Object</span>.keys(v.attrs))&#123;</span><br><span class="line">        <span class="keyword">if</span> (el[name] !== v.attrs[name]) el[name] = v.attrs[name]</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> &#123;name&#125; <span class="keyword">of</span> el.attributes) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">Object</span>.keys(v.attrs).includes(name) &amp;&amp; name !== <span class="string">'class'</span>) el.removeAttribute(name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给定一个虚拟DOM节点，生成一个真实dom节点，否则生成一个真实textNode值。</span></span><br><span class="line">m.makeEl = <span class="function"><span class="params">v</span>=&gt;</span>v.__m? <span class="built_in">document</span>.createElement(v.tag) : <span class="built_in">document</span>.createTextNode(v)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染，真实Dom和虚拟Dom</span></span><br><span class="line"><span class="comment">// a) 获取新老节点的子项</span></span><br><span class="line"><span class="comment">// b) 清除多余的旧节点</span></span><br><span class="line"><span class="comment">// c) 遍历每个新虚拟节点</span></span><br><span class="line"><span class="comment">//  1、通过index获取匹配的旧节点，如果没有则新增节点</span></span><br><span class="line"><span class="comment">//  2、如果没有匹配的旧元素，创建一个新元素加入父级</span></span><br><span class="line"><span class="comment">//  3、如果不匹配(标签名/节点)，就替换父级上的匹配项为新元素</span></span><br><span class="line"><span class="comment">//  4、更新节点的属性/类</span></span><br><span class="line"><span class="comment">//  5、递归子节点</span></span><br><span class="line"><span class="comment">// 高效追加到元素列表,耗时O(n)</span></span><br><span class="line">m.render = <span class="function">(<span class="params">parent, v</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> olds = parent.childNodes || []</span><br><span class="line">    <span class="keyword">const</span> news = v.children || [] </span><br><span class="line">    <span class="comment">// 遍历次数是新旧节点的属性长度之差</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> _ <span class="keyword">of</span> <span class="built_in">Array</span>(<span class="built_in">Math</span>.max(<span class="number">0</span>, olds.length - news.length))) &#123;</span><br><span class="line">        parent.removeChild(parent.lastChild)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// entries返回可枚举属性的键值对数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> [i, child] <span class="keyword">of</span> news.entries())&#123; </span><br><span class="line">        <span class="keyword">let</span> el = olds[i] || m.makeEl(child) </span><br><span class="line">        <span class="comment">// 旧的属性的值存在</span></span><br><span class="line">        <span class="keyword">if</span> (!olds[i])&#123;</span><br><span class="line">            parent.appendChild(el)  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">const</span> mismatch = (el.tagName || <span class="string">''</span>) !== (child.tag || <span class="string">''</span>).toUpperCase()</span><br><span class="line">        <span class="keyword">if</span> (mismatch) &#123;</span><br><span class="line">            (el = m.makeEl(child)) &amp;&amp; parent.replaceChild(el, olds[i])</span><br><span class="line">        &#125;</span><br><span class="line">        m.update(el, child) </span><br><span class="line">        m.render(el, child) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原文：<a href="https://leontrolski.github.io/33-line-react.html" target="_blank" rel="noopener">https://leontrolski.github.io/33-line-react.html</a></p>
+]]></content>
+      <categories>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vuex getter</title>
     <url>/2020/05/24/vuex%20getter/</url>
     <content><![CDATA[<blockquote>
@@ -47,6 +129,13 @@
 <li>查找属性，找到返回this.$store.getters[val]</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Vue</category>
+        <category>Vuex</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
   </entry>
   <entry>
     <title>vue3预览</title>
@@ -65,6 +154,12 @@
 
 
 ]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
   </entry>
   <entry>
     <title>reduce用法详解</title>
@@ -107,6 +202,13 @@
 
 
 ]]></content>
+      <categories>
+        <category>React</category>
+        <category>Reduce</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
   </entry>
   <entry>
     <title>react useMemo&amp;useCallback</title>
@@ -155,6 +257,13 @@
 <li>另一个是减少计算的量</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>React</category>
+        <category>Hooks</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
   </entry>
   <entry>
     <title>react-useEffect&amp;useReducer</title>
@@ -236,6 +345,13 @@
 
 
 ]]></content>
+      <categories>
+        <category>React</category>
+        <category>Hooks</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
   </entry>
   <entry>
     <title>追踪用户关闭网页</title>
@@ -265,6 +381,12 @@
 <hr>
 </blockquote>
 ]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>koa2简易实现</title>
@@ -307,6 +429,12 @@
 
 
 ]]></content>
+      <categories>
+        <category>Koa</category>
+      </categories>
+      <tags>
+        <tag>Koa</tag>
+      </tags>
   </entry>
   <entry>
     <title>label语法</title>
@@ -322,6 +450,12 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">outermost:</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i === <span class="number">5</span> &amp;&amp; j === <span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span> outermost;</span><br><span class="line">        &#125;</span><br><span class="line">        num++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(num); <span class="comment">// 95 continue outermost;语句的作用是跳出当前循环，并跳转到outermost（标签）下的for循环继续执行</span></span><br></pre></td></tr></table></figure>
 <p>实际场景下应该不会出现三层及以上循环</p>
 ]]></content>
+      <categories>
+        <category>label</category>
+      </categories>
+      <tags>
+        <tag>label</tag>
+      </tags>
   </entry>
   <entry>
     <title>Web Component</title>
