@@ -78,6 +78,12 @@
 <li>不可访问的对象会被自动回收，比如虽然2对象互相引用，但是外部不可访问也会被回收</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>33行实现react</title>
