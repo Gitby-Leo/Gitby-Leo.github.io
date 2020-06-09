@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>不一样的console.log</title>
+    <url>/2020/06/10/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84console.log/</url>
+    <content><![CDATA[<blockquote>
+<p>来看看 控制台中console的各种实现</p>
+</blockquote>
+<a id="more"></a>
+
+<ul>
+<li>console.log 用于输出普通信息</li>
+<li>console.info 用于输出提示性信息</li>
+<li>console.error 用于输出错误信息</li>
+<li>console.warn 用于输出警示信息</li>
+<li>console.group&amp;console.groupEnd 输出一组信息</li>
+<li>console.table 信息通过表格展示</li>
+<li>console.count 函数执行次数</li>
+<li>console.dir将Dom 树结构输出</li>
+<li>console.time 计时开始</li>
+<li>console.timeEnd 计时结束</li>
+<li>console.profile&amp;console.profileEnd 查看CPU使用相关信息、</li>
+<li>console.timeLine&amp;console.timeLineEnd 记录一段时间轴</li>
+<li>console.trace 堆栈跟踪相关的调试</li>
+</ul>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>复制代码贴入console中试试看</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 换行</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'第一行\n第二行'</span>);</span><br><span class="line"><span class="comment">// 样式</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'%c换个颜色'</span>,<span class="string">'color:blue;'</span>);</span><br><span class="line"><span class="comment">// 图片</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"%c "</span>,<span class="string">"background: url(https://gitby-leo.github.io/images/avatar.jpg) no-repeat center;padding-left:80px;padding-bottom: 80px;"</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符画"><a href="#字符画" class="headerlink" title="字符画"></a>字符画</h2><p>打开<a href="http://patorjk.com/" target="_blank" rel="noopener">http://patorjk.com/</a>找到<a href="http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20" target="_blank" rel="noopener">Text to ASCII Art Generator</a></p>
+<p>目前支持315种英文字符样式</p>
+<p>字符生成复制后直接放console</p>
+<p>npm包，如<a href="https://www.npmjs.com/package/figlet" target="_blank" rel="noopener">figlet</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 打开控制台可见</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`</span></span><br><span class="line"><span class="string"> __    ____  _____ </span></span><br><span class="line"><span class="string">(  )  ( ___)(  _  )</span></span><br><span class="line"><span class="string"> )(__  )__)  )(_)( </span></span><br><span class="line"><span class="string">(____)(____)(_____)</span></span><br><span class="line"><span class="string">`</span>)</span><br></pre></td></tr></table></figure>
+<script>
+console.log(`
+ __    ____  _____ 
+(  )  ( ___)(  _  )
+ )(__  )__)  )(_)( 
+(____)(____)(_____)
+`) 
+</script>
+
+<pre><code class="js">&lt;script&gt;
+<span class="built_in">console</span>.log(<span class="string">`</span>
+<span class="string">          _____            _____                   _______         </span>
+<span class="string">         /\    \          /\    \                 /::\    \        </span>
+<span class="string">        /::\____\        /::\    \               /::::\    \       </span>
+<span class="string">       /:::/    /       /::::\    \             /::::::\    \      </span>
+<span class="string">      /:::/    /       /::::::\    \           /::::::::\    \     </span>
+<span class="string">     /:::/    /       /:::/\:::\    \         /:::/~~\:::\    \    </span>
+<span class="string">    /:::/    /       /:::/__\:::\    \       /:::/    \:::\    \   </span>
+<span class="string">   /:::/    /       /::::\   \:::\    \     /:::/    / \:::\    \  </span>
+<span class="string">  /:::/    /       /::::::\   \:::\    \   /:::/____/   \:::\____\ </span>
+<span class="string"> /:::/    /       /:::/\:::\   \:::\    \ |:::|    |     |:::|    |</span>
+<span class="string">/:::/____/       /:::/__\:::\   \:::\____\|:::|____|     |:::|    |</span>
+<span class="string">\:::\    \       \:::\   \:::\   \::/    / \:::\    \   /:::/    / </span>
+<span class="string"> \:::\    \       \:::\   \:::\   \/____/   \:::\    \ /:::/    /  </span>
+<span class="string">  \:::\    \       \:::\   \:::\    \        \:::\    /:::/    /   </span>
+<span class="string">   \:::\    \       \:::\   \:::\____\        \:::\__/:::/    /    </span>
+<span class="string">    \:::\    \       \:::\   \::/    /         \::::::::/    /     </span>
+<span class="string">     \:::\    \       \:::\   \/____/           \::::::/    /      </span>
+<span class="string">      \:::\    \       \:::\    \                \::::/    /       </span>
+<span class="string">       \:::\____\       \:::\____\                \::/____/        </span>
+<span class="string">        \::/    /        \::/    /                 ~~              </span>
+<span class="string">         \/____/          \/____/                                  </span>
+<span class="string"></span>
+<span class="string">`</span>) </code></pre>
+<p></script></p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用Web Components写摄像头组件</title>
     <url>/2020/06/08/%E7%94%A8Web%20Components%E5%86%99%E6%91%84%E5%83%8F%E5%A4%B4%E7%BB%84%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
