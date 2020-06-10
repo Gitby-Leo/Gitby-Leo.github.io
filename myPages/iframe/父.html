@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #t1::before {
+            content: '我是父t1，123';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>当getComputedStyle被重写时，如何获取t1的文字内容</div>
+        <p id="t1"></p>
+        <a href="http://localhost:8000/子.html" target="_blank" rel="noopener">新窗口打开子页面</a>
+        <div id="myopen">用open调用</div>
+    </div>
+
+    <script>
+        console.log('直接父取值', window.getComputedStyle(document.getElementById('t1'), ':before').content)
+        window.getComputedStyle = ""
+        console.log('改写了，父无法直接取值', window.getComputedStyle)
+
+        function addIframe(url) {
+            return new Promise((res, rej) => {
+                var iFrame;
+                iFrame = document.createElement("iframe");
+                iFrame.setAttribute("src", url);
+                iFrame.setAttribute("id", "iframe1");
+                iFrame.setAttribute("frameborder", "0");
+                document.body.appendChild(iFrame);
+                iFrame.onload = function() {
+                    res()
+                }
+            })
+        }
+
+        function funcLeo_p() {
+            console.log('我是父中的方法')
+            return 'funcLeo_p_end'
+        }
+
+        addIframe('http://localhost:8000/子.html').then(() => {
+            try {
+                console.log('通过子获取父style', window.frames['iframe1'].contentWindow.getComputedStyle(document.getElementById('t1'), ':before').content)
+                console.log(window.frames['iframe1'].contentWindow.funcLeo_c())
+            } catch (error) {
+
+            }
+        })
+
+        myopen.addEventListener('click', function() {
+            var win = window.open('');
+            console.log(win.getComputedStyle(document.getElementById('t1'), ':before').content)
+        })
+    </script>
+</body>
+
+</html>

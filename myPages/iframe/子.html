@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        我是子，通过我可以获取父window哦
+    </div>
+    <div id="getWindow"></div>
+
+    <script>
+        function funcLeo_c() {
+            console.log('我是子中的方法')
+            return 'funcLeo_c_end'
+        }
+
+        try {
+            // js在iframe子页面获取父页面元素
+            console.log('从子获取父style', window.getComputedStyle(window.parent.document.getElementById('t1'), ':before').content)
+
+            console.log(window.parent.funcLeo_p())
+
+            window.opener.location = 'https://www.baidu.com'
+        } catch (error) {
+
+        }
+    </script>
+</body>
+
+</html>

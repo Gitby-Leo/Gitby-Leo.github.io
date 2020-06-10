@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>创建新的window隔离沙箱</title>
+    <url>/2020/06/11/%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84window%E9%9A%94%E7%A6%BB%E6%B2%99%E7%AE%B1/</url>
+    <content><![CDATA[<blockquote>
+<p>一起来了解下~<br><code>target=&quot;_blank</code>的安全隐患<br>当window下的全局方法被污染了，如何获取到原本的全局方法getComputedStyle</p>
+</blockquote>
+<a id="more"></a>
+
+<p>前情提要<br>  1、 <code>target=&quot;_blank&quot;</code>的安全/性能隐患<br>  2、window被污染后当前网页找到一个新的window</p>
+<hr>
+<p>看到一篇文章，讲的是<code>&lt;a/&gt;</code>标签的<code>target=&quot;_blank&quot;</code>的安全/性能隐患<br>众所周知，这个操作会打开一个新窗口</p>
+<ul>
+<li>有数据表面国外站点倾向于当前页跳转，有连贯性，减少窗口数量</li>
+<li>而国内站点倾向于打开新窗口，优化搜索结果及返回页</li>
+</ul>
+<h2 id="那会有什么安全-性能隐患呢？"><a href="#那会有什么安全-性能隐患呢？" class="headerlink" title="那会有什么安全/性能隐患呢？"></a>那会有什么安全/性能隐患呢？</h2><p>window.opener获取到来源页面的window对象，即时跨域也不受影响 <code>excuse me?</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 父 http://xx.xx.xx.xx:8000/父.html</span></span><br><span class="line">&lt;a href=<span class="string">"http://localhost:8000/子.html"</span> target=<span class="string">"_blank"</span>&gt;&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 子 http:/</span><span class="regexp">/localhost:8000/</span>子.html</span><br><span class="line"><span class="built_in">window</span>.opener.location = <span class="string">'https://www.baidu.com'</span></span><br></pre></td></tr></table></figure>
+<p>在ip跨域时，竟然真的触发了父跳转，这被钓鱼可咋办</p>
+<p><code>target=&quot;_blank&quot;</code>的窗口和父窗口公用一个进程，so资源占用你懂的</p>
+<blockquote>
+<p>如何保障你的网站外链合规</p>
+</blockquote>
+<ul>
+<li>为了防止CSRF攻击<ul>
+<li>父页面跳转到钓鱼登录页</li>
+<li>发送带参get请求</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 父 在a标签上加属性</span></span><br><span class="line">&lt;a rel=<span class="string">"noopener"</span> /&gt;</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">&lt;a rel=<span class="string">"noreferrer"</span>/&gt;</span><br><span class="line"><span class="comment">/////////////////////////////</span></span><br><span class="line"><span class="comment">// 或者重写open()</span></span><br><span class="line"><span class="keyword">var</span> window_open = <span class="built_in">window</span>.open();</span><br><span class="line">window_open.opener = <span class="literal">null</span>;</span><br><span class="line">window_open.location = <span class="string">'yourUrl'</span>;</span><br><span class="line">window_open.target = <span class="string">"_blank"</span>;</span><br></pre></td></tr></table></figure>
+<p>这样子窗口就是独立的进程了</p>
+<p>hexo的主题已经支持这个方案了，不过插件生态好像并没有，（比如文末的本文链接- -,可以提issue了）</p>
+<h2 id="如何找到新的window"><a href="#如何找到新的window" class="headerlink" title="如何找到新的window"></a>如何找到新的window</h2><p>回忆起遇到了这么一题，getComputedStyle方法被重写了，要获取css伪元素的content中的文字，当前页面的window被污染了，从哪里得到新的window呢</p>
+<blockquote>
+<p>iframe和open</p>
+</blockquote>
+<p>以getComputedStyle举例，这里就放部分代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 父</span></span><br><span class="line">#t1::before &#123;content: '我是父t1';&#125;</span><br><span class="line"><span class="built_in">window</span>.getComputedStyle = <span class="string">""</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'通过子获取父style'</span>, <span class="built_in">window</span>.frames[<span class="string">'iframe1'</span>].contentWindow.getComputedStyle(<span class="built_in">document</span>.getElementById(<span class="string">'t1'</span>), <span class="string">':before'</span>).content)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'调用子方法'</span>,<span class="built_in">window</span>.frames[<span class="string">'iframe1'</span>].contentWindow.funcLeo_c())</span><br><span class="line"><span class="comment">// 子</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'从子获取父style'</span>, <span class="built_in">window</span>.getComputedStyle(<span class="built_in">window</span>.parent.document.getElementById(<span class="string">'t1'</span>), <span class="string">':before'</span>).content)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'调用父方法'</span>,<span class="built_in">window</span>.parent.funcLeo_p())</span><br></pre></td></tr></table></figure>
+
+<p>当然还有上文提到的open()方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> win = <span class="built_in">window</span>.open(<span class="string">''</span>);</span><br><span class="line"><span class="built_in">console</span>.log(win.getComputedStyle(<span class="built_in">document</span>.getElementById(<span class="string">'t1'</span>), <span class="string">':before'</span>).content)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>不一样的console-log</title>
     <url>/2020/06/10/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84console-log/</url>
     <content><![CDATA[<blockquote>
