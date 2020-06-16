@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>迭代器Iterator与生成器Generator</title>
+    <url>/2020/06/16/%E8%BF%AD%E4%BB%A3%E5%99%A8Iterator%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8Generator/</url>
+    <content><![CDATA[<blockquote>
+<p>迭代器是对象<br>生成器是返回迭代器的函数<br>够直接吧</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="迭代器是什么"><a href="#迭代器是什么" class="headerlink" title="迭代器是什么"></a>迭代器是什么</h1><p>迭代器是包含next方法的<code>对象</code></p>
+<p>iterable（可迭代对象）:被外界访问的内部元素的数据结构,实现了 Symbol.iterator 方法<br>iterator（迭代器）:遍历数据结构元素的指针</p>
+<h2 id="实现一个迭代器"><a href="#实现一个迭代器" class="headerlink" title="实现一个迭代器"></a>实现一个迭代器</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 自定义迭代,数组倒序</span></span><br><span class="line"><span class="keyword">const</span> myArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">myArr[<span class="built_in">Symbol</span>.iterator]= <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> index = <span class="keyword">this</span>.length;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next:<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(index&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                index--;</span><br><span class="line">                <span class="keyword">return</span> &#123;<span class="attr">value</span>:<span class="keyword">this</span>[index],<span class="attr">done</span>:<span class="literal">false</span>&#125;;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;<span class="attr">done</span>:<span class="literal">true</span>&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [...myArr]; // [3, 2, 1]</span></span><br><span class="line"><span class="comment">// Array.from(myArr); // [3, 2, 1]</span></span><br></pre></td></tr></table></figure>
+<p>myArr有符合标准的 <code>Symbol.iterator 接口</code>，那就是 可迭代的(Iterator) ，调用这个<code>接口</code>返回的对象就是一个 迭代器</p>
+<h2 id="关闭迭代器"><a href="#关闭迭代器" class="headerlink" title="关闭迭代器"></a>关闭迭代器</h2><p>1、当next()方法返回done:true时，正常执行结束关闭<br>2、调用符合规范的return()方法关闭</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myIterable</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> done = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">const</span> iterable =&#123;</span><br><span class="line">        [<span class="built_in">Symbol</span>.iterator]()&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        next()&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;<span class="attr">done</span>:<span class="literal">false</span>,<span class="attr">value</span>:<span class="string">'- -'</span>&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="keyword">return</span>()&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'~~'</span>);</span><br><span class="line">            <span class="keyword">return</span>&#123;<span class="attr">done</span>:<span class="literal">false</span>,<span class="attr">value</span>:<span class="literal">undefined</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> iterable;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> myIterable()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="生成器Generator"><a href="#生成器Generator" class="headerlink" title="生成器Generator"></a>生成器Generator</h1><p>生成器是返回迭代器的函数<br>Generator既是迭代器也是可迭代对象， 有next()和<a href="">Symbol.iterator</a></p>
+<h2 id="使用生成器"><a href="#使用生成器" class="headerlink" title="使用生成器"></a>使用生成器</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> getIterator = <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"第1次"</span>)</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">"A"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"第2次"</span>)</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">"B"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"第3次"</span>)</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">"C"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> iterator = getIterator();</span><br><span class="line"><span class="comment">// 每次调用next会在yield处返回结果并暂停</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); </span><br><span class="line"><span class="comment">// 传参会替换上一次yield的返回值</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next(<span class="number">1</span>)); </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getIterator2 = <span class="function"><span class="keyword">function</span> *(<span class="params">array</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ；i &lt; array.length; i++)&#123;</span><br><span class="line">       <span class="keyword">yield</span> array[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>题目 - 3个苹果，2个香蕉，发完了苹果才能发香蕉</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 生成器委托</span><br><span class="line">getAppleIterator &#x3D;  function*() &#123;</span><br><span class="line">    yield &quot;a1&quot;</span><br><span class="line">    yield &quot;a2&quot;</span><br><span class="line">    yield &quot;a3&quot;</span><br><span class="line">&#125;</span><br><span class="line">getBananaIterator &#x3D; function*()&#123;</span><br><span class="line">    yield &quot;b1&quot;</span><br><span class="line">    yield &quot;b2&quot;</span><br><span class="line">&#125;</span><br><span class="line">getFruitIterator &#x3D;  function*()&#123;</span><br><span class="line">    yield *getAppleIterator();</span><br><span class="line">    yield *getBananaIterator();</span><br><span class="line">&#125;</span><br><span class="line">fruit &#x3D; getFruitIterator();</span><br><span class="line">console.log(fruit.next());</span><br></pre></td></tr></table></figure>
+
+<p>写到这里，想起以前看《你不知道的js》中有generator的概念，遂又去翻了翻</p>
+<p>生成器里写业务，任务工具执行，不关心next()</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 执行callback的里所有内容直到done:true</span></span><br><span class="line"><span class="keyword">let</span> run = <span class="function"><span class="keyword">function</span>(<span class="params">requestIteratorCreator</span>)</span>&#123;</span><br><span class="line">    task = requestIteratorCreator();</span><br><span class="line">	<span class="keyword">let</span> result = task.next(); <span class="comment">// 先执行</span></span><br><span class="line">	doTask = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!result.done)&#123;</span><br><span class="line">            result = task.next(result.value);</span><br><span class="line">            doTask()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	doTask() <span class="comment">// 看看是否继续执行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> requestIteratorCreator = <span class="function"><span class="keyword">function</span>*(<span class="params"></span>)</span>&#123;</span><br><span class="line">   <span class="keyword">const</span> result = <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">yield</span> result</span><br><span class="line">&#125;</span><br><span class="line">run(requestIteratorCreator)</span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一些示例</title>
     <url>/2020/06/15/%E4%B8%80%E4%BA%9B%E7%A4%BA%E4%BE%8B/</url>
     <content><![CDATA[<blockquote>
@@ -129,7 +166,13 @@
 <a id="more"></a>
 <p>正在做 - 2020/6<br><code>uniapp v2.7</code><br><code>ECharts v4.8</code><br><code>vue-element-admin v4</code><br><code>Element ui</code> (维护频率变低，要流失到ant了- -)</p>
 <p>小目标 - 2020<br>更新博客-&gt;github标绿/天</p>
-<p>计划项 - 2020<br><code>quasar</code><br><code>vue stable v3</code><br><code>webpack stable v5</code></p>
+<p>计划项 - 2020<br><code>quasar</code></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">ui库吧</span><br></pre></td></tr></table></figure>
+<p><code>vue stable v3</code></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">API解构，更hooks了</span><br></pre></td></tr></table></figure>
+<p><code>webpack stable v5</code></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">微前端的模块化</span><br><span class="line">服务暴露独立编译的模块，宿主远程引用</span><br><span class="line">避免重复加载</span><br></pre></td></tr></table></figure>
+
 <hr>
 <blockquote>
 <p>如果你有更有意思的推荐，可以在下方留言给我~</p>
