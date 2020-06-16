@@ -89,6 +89,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="特点-3"><a href="#特点-3" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>弥补 forEach 和 for…in 的缺点</li>
 <li>提前结束<ul>
 <li>break, continue, throw</li>
 </ul>
@@ -97,14 +98,10 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Array</span></span><br><span class="line"><span class="keyword">let</span> iterable = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>];</span><br><span class="line"><span class="comment">// 1 2 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// String </span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="string">"boo"</span>;</span><br><span class="line"><span class="comment">// 'a' 'b' 'c'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// TypedArray </span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>([<span class="number">0x00</span>, <span class="number">0xff</span>]);</span><br><span class="line"><span class="comment">// 0 255</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Map</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">"a"</span>, <span class="number">1</span>], [<span class="string">"b"</span>, <span class="number">2</span>], [<span class="string">"c"</span>, <span class="number">3</span>]]);</span><br><span class="line"><span class="comment">// ["a", 1] ["b", 2] ["c", 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Set</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="comment">// 1 2 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// arguments 对象</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> argument <span class="keyword">of</span> <span class="built_in">arguments</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(argument);<span class="comment">// 1 2 3</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// NodeList对象</span></span><br><span class="line"><span class="keyword">let</span> articleParagraphs = <span class="built_in">document</span>.querySelectorAll(<span class="string">"article &gt; p"</span>);</span><br><span class="line"><span class="comment">// item.classList.add("read");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 迭代生成器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123;<span class="keyword">yield</span> curr;&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> n <span class="keyword">of</span> fibonacci()) &#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="for-in-of区别"><a href="#for-in-of区别" class="headerlink" title="for in/of区别"></a>for in/of区别</h2><p>迭代方式</p>
-<p>for…in 语句以任意顺序迭代对象的可枚举属性。<br>for…of 语句遍历可迭代对象定义要迭代的数据。</p>
-<h1 id="迭代器是什么"><a href="#迭代器是什么" class="headerlink" title="迭代器是什么"></a>迭代器是什么</h1><p>iterable（可迭代对象）:被外界访问的内部元素的数据结构,实现了 Symbol.iterator 方法<br>iterator（迭代器）:遍历数据结构元素的指针</p>
-<p>Array 或 Map 等内置可迭代对象有默认的迭代行为<br>Object 则没有所以不能直接用for…of ，可以用Object.keys(obj)，Object.entries(obj)</p>
-<p>先…到这儿</p>
-<!-- https://blog.csdn.net/weixin_33895475/article/details/88029498
-https://blog.csdn.net/xiaolongbaobushibao/article/details/90297745 -->
-
-
+<p>for…in 语句以任意顺序迭代对象的<code>可枚举属性</code>。<br>for…of 语句遍历<code>可迭代对象</code>定义要迭代的数据。</p>
+<h1 id="迭代器是什么"><a href="#迭代器是什么" class="headerlink" title="迭代器是什么"></a>迭代器是什么</h1><h2 id="迭代器是包含next方法的对象"><a href="#迭代器是包含next方法的对象" class="headerlink" title="迭代器是包含next方法的对象"></a>迭代器是包含next方法的<code>对象</code></h2><p>{done:是否结束，产生下一个值,value:返回值}<br>本质上，迭代器会不断调用其 next() 方法直到返回 done: true  </p>
+<p>Array 或 Map 等内置<code>可迭代对象</code>有默认的迭代行为<br>Object 则<code>没有</code>所以不能直接用for…of ，可以用Object.keys(obj)，Object.entries(obj)</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">for..of</span><br><span class="line">扩展运算符</span><br><span class="line">yield*</span><br><span class="line">解构赋值</span><br><span class="line">内置API在接收数组参数时会调用数组的迭代行为</span><br><span class="line"><span class="code">    Array.from()</span></span><br><span class="line"><span class="code">    Map(),Set(),WeakMap(),WeakSet()</span></span><br><span class="line"><span class="code">    Promise.all()/Promise.race()</span></span><br></pre></td></tr></table></figure>
 <hr>
 <hr>
 <hr>
@@ -131,7 +128,7 @@ https://blog.csdn.net/xiaolongbaobushibao/article/details/90297745 -->
 </blockquote>
 <a id="more"></a>
 <p>正在做 - 2020/6<br><code>uniapp v2.7</code><br><code>ECharts v4.8</code><br><code>vue-element-admin v4</code><br><code>Element ui</code> (维护频率变低，要流失到ant了- -)</p>
-<p>小目标 - 2020<br>更新博客-&gt;github标绿/天(就是kpi呗)</p>
+<p>小目标 - 2020<br>更新博客-&gt;github标绿/天</p>
 <p>计划项 - 2020<br><code>quasar</code><br><code>vue stable v3</code><br><code>webpack stable v5</code></p>
 <hr>
 <blockquote>
