@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>四类浏览器资源缓存</title>
+    <url>/2020/06/17/%E5%9B%9B%E7%B1%BB%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B5%84%E6%BA%90%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<blockquote>
+<p>优先级顺序依次为<code>Memory Cache</code>、<code>Service Worker Cache</code>、<code>HTTP Cache</code>、<code>Push Cache</code></p>
+</blockquote>
+<a id="more"></a>
+
+<p>面试时经常被问到对缓存有什么理解</p>
+<p>好吧每次都是回答的cookie/localstorage/sessionstorage三个本地存储的区别,而忽略了前端最常见的cache，有时候资源更新了页面资源没引用新的文件，就是cache在搞事情</p>
+<p>一般资源会经过<code>浏览器发起请求</code>，<code>服务端处理请求</code>，<code>浏览器响应加载</code>三个阶段<br>缓存的作用是性能优化，减少网络请求，减少延迟，重复利用</p>
+<hr>
+<h2 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h2><p>资源(js,font,img)从内存缓存中获取<br>不会向服务器请求<br>关闭页面会释放内存<br>这个词常在network面板的资源状态中看到from memory cache  </p>
+<p>还会看见from disk cache<br>这个是指资源(css)存在硬盘上，关闭页面不会删除资源</p>
+<p><code>&lt;link rel=&quot;prefetch&quot;&gt;</code>异步加载优化</p>
+<h2 id="Service-Worker-Cache"><a href="#Service-Worker-Cache" class="headerlink" title="Service Worker Cache"></a>Service Worker Cache</h2><p>浏览器离线缓存<br>Service Worker可以拦截修改访问的资源请求，不能访问dom，异步执行，必须https</p>
+<p>cache.addAll()缓存文件<br>caches.match(event.request)缓存请求内容</p>
+<h2 id="HTTP-Cache"><a href="#HTTP-Cache" class="headerlink" title="HTTP Cache"></a>HTTP Cache</h2><h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><p>200 不请求服务器，使用缓存</p>
+<ul>
+<li>expires过期时间内不请求  </li>
+<li>cache-control控制资源有效时间<ul>
+<li>max-age设置有效时间</li>
+<li>s-maxage更高优先级，代理服务器中只认这个字段作为有效时间</li>
+<li></li>
+<li>public客户端和代理服务器可缓存</li>
+<li>private只有客户端可缓存</li>
+<li></li>
+<li>no-cache进行协商缓存方案</li>
+<li>no-store直接请求新资源</li>
+</ul>
+</li>
+</ul>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>304 服务器告知资源未更新，使用缓存</p>
+<ul>
+<li>last-modified资源最后修改时间 &gt; If-modified-since</li>
+<li>etag唯一编码 &gt; If-None-Match</li>
+</ul>
+<h3 id="访问-刷新缓存"><a href="#访问-刷新缓存" class="headerlink" title="访问/刷新缓存"></a>访问/刷新缓存</h3><ul>
+<li>标签进入、输入url回车进入<ul>
+<li>step1 判断no-cache/no-store<ul>
+<li>强缓存    判断expires是否过期</li>
+</ul>
+</li>
+<li>step2 协商缓存</li>
+<li>step3 返回新资源200</li>
+</ul>
+</li>
+<li>按刷新按钮、F5 刷新、网页右键“重新加载”<ul>
+<li>step1 相当于cache-control 的 max-age = 0</li>
+<li>step2 协商缓存</li>
+</ul>
+</li>
+<li>ctrl + F5 强制刷新<ul>
+<li>step1 强制设置cache-control: no-cache</li>
+</ul>
+</li>
+</ul>
+<h2 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h2><p>推送缓存<br>属于http/2，当以上缓存都未命中时触发<br>会话结束释放缓存</p>
+<h2 id="合理使用缓存"><a href="#合理使用缓存" class="headerlink" title="合理使用缓存"></a>合理使用缓存</h2><ul>
+<li><p>频繁变动的资源</p>
+<ul>
+<li>Cache-Control: no-cache，减少响应数据大小</li>
+</ul>
+</li>
+<li><p>不变化的资源</p>
+<ul>
+<li>Cache-Control: max-age=31536000强制缓存</li>
+<li>加版本号更新</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>推荐浪里行舟的这篇文章<a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a>，有使用缓存的流程图</p>
+]]></content>
+      <categories>
+        <category>http</category>
+      </categories>
+      <tags>
+        <tag>http</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迭代器Iterator与生成器Generator</title>
     <url>/2020/06/16/%E8%BF%AD%E4%BB%A3%E5%99%A8Iterator%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8Generator/</url>
     <content><![CDATA[<blockquote>
