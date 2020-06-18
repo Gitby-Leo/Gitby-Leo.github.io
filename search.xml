@@ -1025,6 +1025,23 @@ console.log(`
       </tags>
   </entry>
   <entry>
+    <title>curl</title>
+    <url>/2020/02/28/curl/</url>
+    <content><![CDATA[<blockquote>
+<p>curl使用指南<br><a href="https://www.jianshu.com/p/fc0eb6c60816" target="_blank" rel="noopener">https://www.jianshu.com/p/fc0eb6c60816</a></p>
+</blockquote>
+<a id="more"></a>
+<p>curl 的用法指南 阮一峰<br><a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2019/09/curl-reference.html</a><br>学习笔记之 curl 命令用法详解<br><a href="https://www.cnblogs.com/doseoer/p/7044344.html" target="_blank" rel="noopener">https://www.cnblogs.com/doseoer/p/7044344.html</a></p>
+]]></content>
+      <categories>
+        <category>http</category>
+      </categories>
+      <tags>
+        <tag>http</tag>
+        <tag>curl</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>markdown语法</title>
     <url>/2020/02/27/markdown%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<blockquote>
