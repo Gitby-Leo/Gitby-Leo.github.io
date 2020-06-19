@@ -4,7 +4,7 @@
     <title>必知必会的bind-call-apply</title>
     <url>/2020/06/18/%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E7%9A%84bind-call-apply/</url>
     <content><![CDATA[<blockquote>
-<p>this是运行时才确定，用来改变this的指向<br>执行函数并绑定参数</p>
+<p>this是运行时才确定，用来改变this的指向<br>执行函数并绑定参数 </p>
 </blockquote>
 <a id="more"></a>
 
