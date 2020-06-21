@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>vscode插件夸夸神器Rainbow-Fart</title>
+    <url>/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/</url>
+    <content><![CDATA[<blockquote>
+<p>Rainbow Fart语音包</p>
+</blockquote>
+<a id="more"></a>
+
+<p><a href="https://github.com/SaekiRaku/vscode-rainbow-fart/blob/master/README.zh.md" target="_blank" rel="noopener">VSCode Rainbow Fart</a> 是一个在你编程时持续夸你写的牛逼的扩展，可以根据代码关键字播放贴近代码意义的真人语音</p>
+<p>扩展仓库搜索<code>Rainbow Fart</code>（五星那个就是了</p>
+<p>有vscode版本限制，我把v1.24升级到了v1.46即可正常从商店安装</p>
+<p>通过打开命令面板，执行Rainbow Fart，点击open按钮，会启动一个7777端口的server需要授权即可<br><a href="http://127.0.0.1:7777/" target="_blank" rel="noopener">http://127.0.0.1:7777/</a></p>
+<p>当你敲代码时候就会出提示音啦（建议带上耳机</p>
+]]></content>
+      <categories>
+        <category>vscode</category>
+      </categories>
+      <tags>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>必知必会的bind-call-apply</title>
     <url>/2020/06/18/%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E7%9A%84bind-call-apply/</url>
     <content><![CDATA[<blockquote>
@@ -271,8 +292,9 @@
     <title>最近在看</title>
     <url>/2020/06/12/%E6%9C%80%E8%BF%91%E5%9C%A8%E7%9C%8B/</url>
     <content><![CDATA[<blockquote>
-<p>想知道我最近关注什么 点进来看看<br>找工作中 T-T….base上海，<a href="http://www.leow.net.cn/resume/" target="_blank" rel="noopener">查看cv</a></p>
+<p>想知道我最近关注什么 点进来看看</p>
 </blockquote>
+<!-- > 找工作中 T-T....base上海，[查看cv](http://www.leow.net.cn/resume/) -->
 <a id="more"></a>
 <p>正在做 - 2020/6<br><code>uniapp v2.7</code><br><code>ECharts v4.8</code><br><code>vue-element-admin v4</code><br><code>Element ui</code> (维护频率变低，要流失到ant了- -)</p>
 <p>小目标 - 2020<br>更新博客-&gt;github标绿/天</p>
