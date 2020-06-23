@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>js异常捕获</title>
+    <url>/2020/06/23/js%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/</url>
+    <content><![CDATA[<blockquote>
+<p>try catch如何捕获运行时异常</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try catch"></a>try catch</h2><p>能捕捉到的异常必须是线程执行已经进入 try catch, 但 try catch 未执行完时抛出的异常</p>
+<h3 id="try-catch的执行周期"><a href="#try-catch的执行周期" class="headerlink" title="try catch的执行周期"></a>try catch的执行周期</h3><blockquote>
+<p>执行前 不能捕捉异常</p>
+</blockquote>
+<p>语法异常（syntaxError）在语法检查阶段报错，未进入 try catch </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    a.</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error"</span>,e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行中 能捕捉到异常</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    a.b</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error"</span>,e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行后 不能捕捉异常</p>
+</blockquote>
+<p>线程已经执行完</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;a.b&#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error"</span>,e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>try catch 无法捕捉 Promise  的异常，用Promise.prototype.catch<br>同步和异步的 Promise 异常都是由 reject 和 Promise.prototype.catch 来捕获</p>
+<p>因为 Promise 在执行回调中都用 try catch 包裹起来了，所有的异常都被内部捕获到了，并未往上抛异常，因此在外层的 try catch 看来没有异常</p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vscode插件夸夸神器Rainbow-Fart</title>
     <url>/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/</url>
     <content><![CDATA[<blockquote>
@@ -300,9 +336,11 @@
 </blockquote>
 <!-- > 找工作中 T-T....base上海，[查看cv](http://www.leow.net.cn/resume/) -->
 <a id="more"></a>
-<p>正在做 - 2020/6<br><code>uniapp v2.7</code><br><code>ECharts v4.8</code><br><code>vue-element-admin v4</code><br><code>Element ui</code> (维护频率变低，要流失到ant了- -)</p>
+<!-- 正在做 - 2020/6 -->
+<p><code>uniapp v2.7</code><br><code>ECharts v4.8</code><br><code>vue-element-admin v4</code><br><code>Element ui</code> (维护频率变低，要流失到ant了- -)</p>
 <p>小目标 - 2020<br>更新博客-&gt;github标绿/天</p>
-<p>计划项 - 2020<br><code>quasar</code></p>
+<!-- 计划项 - 2020 -->
+<p><code>quasar</code></p>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">ui库吧</span><br></pre></td></tr></table></figure>
 <p><code>vue stable v3</code></p>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">API解构，更hooks了</span><br></pre></td></tr></table></figure>
