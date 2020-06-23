@@ -4,7 +4,7 @@
     <title>js异常捕获</title>
     <url>/2020/06/23/js%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/</url>
     <content><![CDATA[<blockquote>
-<p>try catch如何捕获运行时异常</p>
+<p>try catch/Promise 如何捕获运行时异常</p>
 </blockquote>
 <a id="more"></a>
 
@@ -35,13 +35,13 @@
 <p>unhandledrejection</p>
 </blockquote>
 <p>通过监听unhandledrejection事件，可以捕获未处理的Promise错误</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'unhandledrejection'</span>, event =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(event.reason); <span class="comment">// 打印"Hello, Fundebug!"</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">Promise</span>.reject(<span class="string">'Hello, Fundebug!'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'unhandledrejection'</span>, event =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(event.reason);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">Promise</span>.reject(<span class="string">'gg'</span>);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>rejectionhandled</p>
 </blockquote>
 <p>当一个Promise错误最初未被处理，但是稍后又得到了处理，则会触发rejectionhandled事件</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'rejectionhandled'</span>, event =&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'rejection handled'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="string">'Hello, Fundebug!'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> r = foo();</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">    r.catch(<span class="function"><span class="params">e</span> =&gt;</span>&#123;&#125;);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'rejectionhandled'</span>, event =&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'rejection handled'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="string">'gg'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f = foo();</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">    f.catch(<span class="function"><span class="params">e</span> =&gt;</span>&#123;&#125;);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>javascript</category>
