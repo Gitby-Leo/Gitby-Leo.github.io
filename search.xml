@@ -26,8 +26,22 @@
 <p>线程已经执行完</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;a.b&#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error"</span>,e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>try catch 无法捕捉 Promise  的异常，用Promise.prototype.catch<br>同步和异步的 Promise 异常都是由 reject 和 Promise.prototype.catch 来捕获</p>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><blockquote>
+<p>catch</p>
+</blockquote>
+<p>try catch 无法捕捉 Promise  的异常，用Promise.prototype.catch<br>同步和异步的 Promise 异常都是由 reject 和 Promise.prototype.catch 来捕获</p>
 <p>因为 Promise 在执行回调中都用 try catch 包裹起来了，所有的异常都被内部捕获到了，并未往上抛异常，因此在外层的 try catch 看来没有异常</p>
+<blockquote>
+<p>unhandledrejection</p>
+</blockquote>
+<p>通过监听unhandledrejection事件，可以捕获未处理的Promise错误</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'unhandledrejection'</span>, event =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(event.reason); <span class="comment">// 打印"Hello, Fundebug!"</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">Promise</span>.reject(<span class="string">'Hello, Fundebug!'</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>rejectionhandled</p>
+</blockquote>
+<p>当一个Promise错误最初未被处理，但是稍后又得到了处理，则会触发rejectionhandled事件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'rejectionhandled'</span>, event =&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'rejection handled'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="string">'Hello, Fundebug!'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> r = foo();</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">    r.catch(<span class="function"><span class="params">e</span> =&gt;</span>&#123;&#125;);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>javascript</category>
