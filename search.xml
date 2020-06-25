@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>块级作用域和变量提升</title>
+    <url>/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<a id="more"></a>
+
+<p>上一篇(js 中 var-let-const 的区别)通过变量声明的不同方式简单描述了区别<br>这一篇继续看看这个块级作用域</p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>js异常捕获</title>
     <url>/2020/06/23/js%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/</url>
     <content><![CDATA[<blockquote>

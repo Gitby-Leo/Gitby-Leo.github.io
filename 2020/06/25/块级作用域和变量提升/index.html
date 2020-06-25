@@ -21,20 +21,18 @@
     var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Rainbow Fart语音包vscode&#x2F;git版本升级">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vscode插件夸夸神器Rainbow-Fart">
-<meta property="og:url" content="https://gitby-leo.github.io/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="块级作用域和变量提升">
+<meta property="og:url" content="https://gitby-leo.github.io/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/index.html">
 <meta property="og:site_name" content="Leo的云">
-<meta property="og:description" content="Rainbow Fart语音包vscode&#x2F;git版本升级">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-19T07:04:24.000Z">
-<meta property="article:modified_time" content="2020-06-22T11:43:03.550Z">
+<meta property="article:published_time" content="2020-06-25T12:54:28.000Z">
+<meta property="article:modified_time" content="2020-06-25T15:57:11.422Z">
 <meta property="article:author" content="Leo">
-<meta property="article:tag" content="vscode">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://gitby-leo.github.io/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/">
+<link rel="canonical" href="https://gitby-leo.github.io/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/">
 
 
 <script id="page-configurations">
@@ -46,7 +44,7 @@
   };
 </script>
 
-  <title>vscode插件夸夸神器Rainbow-Fart | Leo的云</title>
+  <title>块级作用域和变量提升 | Leo的云</title>
   
 
 
@@ -225,7 +223,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -238,7 +236,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          vscode插件夸夸神器Rainbow-Fart
+          块级作用域和变量提升
         </h2>
 
         <div class="post-meta">
@@ -250,7 +248,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-19 15:04:24" itemprop="dateCreated datePublished" datetime="2020-06-19T15:04:24+08:00">2020-06-19</time>
+              <time title="创建时间：2020-06-25 20:54:28" itemprop="dateCreated datePublished" datetime="2020-06-25T20:54:28+08:00">2020-06-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,14 +256,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vscode/" itemprop="url" rel="index">
-                    <span itemprop="name">vscode</span>
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/" class="post-meta-item leancloud_visitors" data-flag-title="vscode插件夸夸神器Rainbow-Fart" title="阅读次数">
+            <span id="/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/" class="post-meta-item leancloud_visitors" data-flag-title="块级作用域和变量提升" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -277,7 +275,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>497</span>
+              <span>56</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -297,19 +295,10 @@
 
       
         <blockquote>
-<p>Rainbow Fart语音包<br>vscode/git版本升级</p>
 </blockquote>
 <a id="more"></a>
 
-<h2 id="这是什么"><a href="#这是什么" class="headerlink" title="这是什么"></a>这是什么</h2><p><a href="https://github.com/SaekiRaku/vscode-rainbow-fart/blob/master/README.zh.md" target="_blank" rel="noopener">VSCode Rainbow Fart</a> 是一个在你编程时持续夸你写的牛逼的扩展，可以根据代码关键字播放贴近代码意义的真人语音</p>
-<p>扩展仓库搜索<code>Rainbow Fart</code>（五星那个就是了</p>
-<p>通过打开命令面板，执行Rainbow Fart，点击open按钮，会启动一个7777端口的server需要授权即可<br><a href="http://127.0.0.1:7777/" target="_blank" rel="noopener">http://127.0.0.1:7777/</a></p>
-<p>当你敲代码时候就会出提示音啦（建议带上耳机</p>
-<h2 id="vscode升级版本"><a href="#vscode升级版本" class="headerlink" title="vscode升级版本"></a>vscode升级版本</h2><p>有vscode版本限制，我把v1.24升级到了v1.46即可正常从商店安装</p>
-<p>升级版本后不用每次提交到仓库都敲一遍账号密码了，vscode简化了这步操作，赞</p>
-<h2 id="git升级版本"><a href="#git升级版本" class="headerlink" title="git升级版本"></a>git升级版本</h2><p>升级vscode v1.46之后遇到了暂存文件时git <code>&lt;file&gt; is outside directory</code>的问题，通过github上的<a href="https://github.com/microsoft/vscode/issues/99881#issuecomment-643056608" target="_blank" rel="noopener">issue</a>可以升级git版本解决</p>
-<p>git –version<br>当前版本是2.7.2，不支持git update,只有<a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">手动安装</a>到原目录</p>
-<p>2.14+版本可以使用<code>git update</code><br>2.17.1+版本可以使用<code>git update-git-for-windows</code></p>
+<p>上一篇(js 中 var-let-const 的区别)通过变量声明的不同方式简单描述了区别<br>这一篇继续看看这个块级作用域</p>
 
     </div>
 
@@ -345,7 +334,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://gitby-leo.github.io/2020/06/19/vscode%E6%8F%92%E4%BB%B6%E5%A4%B8%E5%A4%B8%E7%A5%9E%E5%99%A8Rainbow-Fart/" title="vscode插件夸夸神器Rainbow-Fart">https://gitby-leo.github.io/2020/06/19/vscode插件夸夸神器Rainbow-Fart/</a>
+    <a href="https://gitby-leo.github.io/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/" title="块级作用域和变量提升">https://gitby-leo.github.io/2020/06/25/块级作用域和变量提升/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -357,7 +346,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/vscode/" rel="tag"><i class="fa fa-tag"></i> vscode</a>
+              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
           </div>
 
         
@@ -370,13 +359,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/06/23/js%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/" rel="next" title="js异常捕获">
-    <i class="fa fa-chevron-left"></i> js异常捕获 
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/06/18/%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E7%9A%84bind-call-apply/" rel="prev" title="必知必会的bind-call-apply">
-    必知必会的bind-call-apply <i class="fa fa-chevron-right"></i> 
+    <a href="/2020/06/23/js%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/" rel="prev" title="js异常捕获">
+    js异常捕获 <i class="fa fa-chevron-right"></i> 
     </a></div>
     </div>
       </footer>
@@ -442,7 +428,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#这是什么"><span class="nav-number">1.</span> <span class="nav-text">这是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode升级版本"><span class="nav-number">2.</span> <span class="nav-text">vscode升级版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git升级版本"><span class="nav-number">3.</span> <span class="nav-text">git升级版本</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
