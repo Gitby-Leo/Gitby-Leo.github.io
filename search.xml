@@ -7,7 +7,20 @@
 </blockquote>
 <a id="more"></a>
 
-<p>上一篇(js 中 var-let-const 的区别)通过变量声明的不同方式简单描述了区别<br>这一篇继续看看这个块级作用域</p>
+<p>上一篇(js 中 var-let-const 的区别)通过变量声明的不同方式简单描述了区别<br>这一篇继续看看变量提升和函数提升</p>
+<hr>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">在群里看到一道题: <span class="keyword">var</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    a = <span class="number">21</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"a1"</span>, a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"a2"</span>, a);</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>var 声明的变量会提升至最顶层</p>
+<p>let,const 的特殊声明也会提前，并标记为不可再声明</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 正常打印</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 已声明未初始化</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数是【 定义函数名变量, 指针指向 函数内存块】</p>
+<p>函数存在块级作用域</p>
+<p>将函数声明提到函数级作用域最前面，然后将函数定义提升到块级作用域最前面</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a; <span class="comment">// 函数 a 的声明提前</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">0</span>; <span class="comment">// 赋值</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 函数定义 a 声明提升到块级最前面</span></span><br><span class="line">    a = <span class="number">1</span>; <span class="comment">// 块级作用域最前面的函数 a 重置为 1</span></span><br><span class="line">    a = <span class="number">21</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：<br>a1 = ‘21’<br>a2 = ‘1’</p>
 ]]></content>
       <categories>
         <category>javascript</category>
