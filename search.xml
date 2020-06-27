@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>如何理解js的面向对象</title>
+    <url>/2020/06/26/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3js%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<blockquote>
+<p>关键字：封装、继承、多态</p>
+</blockquote>
+<a id="more"></a>
+
+<p>对象 &gt;&gt;&gt; object</p>
+<blockquote>
+<p>面向对象三大特性可以</p>
+</blockquote>
+<p>更轻松的编写代码，用更轻松的方式将代码组织起来<br>在不了解他人代码的情况下配合开发<br>不需要知道程序的每一步细节</p>
+<p>对于框架来说，组件背后封装了大量逻辑，比如如何渲染，检测props变化后组件渲染，由于框架已经实现，我们只要去继承使用</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>不用知道内部工作原理，拿来即用</p>
+<ul>
+<li>汽车，手机</li>
+<li>jq 库和 npm 包</li>
+</ul>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>重用已有的类，不用从零开始，提高维护性</p>
+<ul>
+<li>基类是车，不同的内饰，外观，功能衍生出各种型号的车</li>
+<li>基类是角色，玩家和敌人都有生命值，控制行走，技能</li>
+<li>基类是武器，攻击值，攻击距离和攻击效果</li>
+</ul>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>建立在继承上，才有多态</p>
+<ul>
+<li>通过调用 type，程序自动选择合适的操作</li>
+</ul>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>块级作用域和变量提升</title>
     <url>/2020/06/25/%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/</url>
     <content><![CDATA[<blockquote>
