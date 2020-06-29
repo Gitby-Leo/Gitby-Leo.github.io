@@ -4,10 +4,10 @@
     <title>Quasar基于vue的前端框架-组件</title>
     <url>/2020/06/29/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-%E7%BB%84%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
+<p>上一篇介绍了基于quasar的配置能做些什么<br>本篇了解一下quasar的基于vue的组件</p>
 </blockquote>
 <a id="more"></a>
 
-<p>上一篇介绍了基于quasar的配置能做些说明<br>本篇了解一下quasar的基于vue的组件</p>
 <h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>通过v-xxx使用，并且在quasar.config配置文件中提前声明用到的指令<br>framework: {<br>    directives: [‘Ripple’]<br>}<br><code>&lt;div v-touch-pan=&quot;handler&quot;&gt;...&lt;/div&gt;</code></p>
 <h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>组件名用Q开头QBtn和QElementResizeObservable，同样需要在配置文件中提前声明<br>framework: {<br>  components: [‘QBtn’, ‘QIcon’]<br>}<br><code>&lt;q-icon name=&quot;alarm&quot; /&gt;</code></p>
 <h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>使用Notify，ActionSheet时，需要在配置文件中提前声明<br>framework: {<br>  plugins: [‘Notify’, ‘ActionSheet’]<br>}</p>
