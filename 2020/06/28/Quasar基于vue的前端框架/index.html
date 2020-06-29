@@ -29,7 +29,7 @@
 <meta property="og:description" content="一次编写，多端应用（非小程序）开箱即用，基于webpack &amp; Vue">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-28T14:27:31.000Z">
-<meta property="article:modified_time" content="2020-06-28T14:29:03.004Z">
+<meta property="article:modified_time" content="2020-06-29T14:20:36.349Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="Leo">
 <meta property="article:tag" content="Leo的云">
@@ -267,14 +267,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>3.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -291,53 +291,125 @@
 </blockquote>
 <a id="more"></a>
 
-<h2 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h2><h3 id="尚未发布v1-0版本"><a href="#尚未发布v1-0版本" class="headerlink" title="尚未发布v1.0版本"></a>尚未发布v1.0版本</h3><p>可能感觉上v1更正式吧，本文是v0.16</p>
+<h2 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h2><h3 id="官方文档-v1-12-8-版本，国内文档久未更新，本文参考国内站点"><a href="#官方文档-v1-12-8-版本，国内文档久未更新，本文参考国内站点" class="headerlink" title="官方文档 v1.12.8 版本，国内文档久未更新，本文参考国内站点"></a>官方文档 v1.12.8 版本，国内文档久未更新，本文参考国内站点</h3><p>蛮多人推荐 Quasar 的，github 星标也蛮多</p>
 <p>而且目前的二级域名也很有意思<a href="http://v0-16.quasarchs.com/guide/quasar-roadmap.html" target="_blank" rel="noopener">v0-16</a></p>
 <hr>
 <h3 id="能做什么"><a href="#能做什么" class="headerlink" title="能做什么"></a>能做什么</h3><ul>
-<li>响应式Web</li>
-<li>PWA/移动app</li>
+<li>响应式 Web</li>
+<li>PWA/移动 app</li>
 <li>桌面应用</li>
 </ul>
 <h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>开箱即用，默认配置集成（代码压缩、缓存清除、tree shaking、sourcemapping、热重载、代码分割和延迟加载、ES6转译、i18n、代码检查、可访问性功能 and so on）</li>
+<li>开箱即用，默认配置集成（代码压缩、缓存清除、tree shaking、sourcemapping、热重载、代码分割和延迟加载、ES6 转译、i18n、代码检查、可访问性功能 and so on）</li>
 <li>一次编写，多端部署</li>
 <li>体积小</li>
-<li>底层为webpack</li>
-<li>原生ui外观</li>
-<li>文档简洁(真的吗，我不信)</li>
+<li>底层为 webpack</li>
+<li>原生 ui 外观</li>
+<li>文档简洁(真的吗，我不信。。。果然很全面，内置大量组件及布局，文档很长)</li>
+<li>ie11+</li>
+<li>组件丰富</li>
 </ul>
-<h3 id="简单的官网示例"><a href="#简单的官网示例" class="headerlink" title="简单的官网示例"></a>简单的官网示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"q-app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span>&gt;</span></span><br><span class="line">        abcdefg</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">q-btn</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span> <span class="attr">color</span>=<span class="string">"primary"</span> <span class="attr">icon</span>=<span class="string">"warning"</span> <span class="attr">label</span>=<span class="string">"notify"</span> @<span class="attr">click</span>=<span class="string">"notify"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span>&gt;</span></span><br><span class="line">            show version is &#123;&#123;version&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">q-btn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>[Stylus 语法]</p>
+<h3 id="简单的官网示例"><a href="#简单的官网示例" class="headerlink" title="简单的官网示例"></a>简单的官网示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"q-app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span>&gt;</span></span><br><span class="line">    abcdefg</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">q-btn</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"q-ma-md"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">color</span>=<span class="string">"primary"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">icon</span>=<span class="string">"warning"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">label</span>=<span class="string">"notify"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">click</span>=<span class="string">"notify"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span>&gt;</span></span><br><span class="line">      show version is &#123;&#123;version&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">q-btn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="string">'#q-app'</span>,</span><br><span class="line">    data:()&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            version:Quasar.version</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        notify:()&#123;</span><br><span class="line">            <span class="keyword">this</span>.$q.notify(<span class="string">'[show] version is'</span>+<span class="keyword">this</span>.$q.version);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>虽然你现在还没有了解过Quasar语法，但是可以猜测到<br>Quasar可以结合Vue一起使用，Vue中默认挂载了$q代表Quasar</p>
+<p>虽然你现在还没有了解过 Quasar 语法，但是可以猜测到<br>Quasar 可以结合 Vue 一起使用，Vue 中默认挂载了$q 代表 Quasar</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>三种方式，功能覆盖均不一致</p>
 <ul>
 <li>UMD(CDN)</li>
 <li>Quasar Cli</li>
 <li>Vue cli</li>
 </ul>
-<p>官方推荐用自带的Cli</p>
+<p>官方推荐用自带的 Cli</p>
 <h3 id="入门套件安装"><a href="#入门套件安装" class="headerlink" title="入门套件安装"></a>入门套件安装</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">node &gt; <span class="number">8</span></span><br><span class="line">npm install -g vue-cli</span><br><span class="line">npm install -g quasar-cli</span><br><span class="line">quasar init &lt;project&gt;</span><br><span class="line">quasar dev</span><br><span class="line">quasar build</span><br></pre></td></tr></table></figure>
 
-<h3 id="quasar-conf-js配置文件"><a href="#quasar-conf-js配置文件" class="headerlink" title="quasar.conf.js配置文件"></a>quasar.conf.js配置文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数是对象，dev/build时创建，动态更改配置</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;</span><br><span class="line">    devServer:&#123;</span><br><span class="line">        <span class="comment">// 开发服务器8000,pwa9000,其他9090</span></span><br><span class="line">        prot:ctx.mode.spa ? <span class="number">8000</span></span><br><span class="line">            :(ctx.mode.pwa?<span class="number">9000</span>:<span class="number">9090</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    extras:[</span><br><span class="line">        <span class="comment">// ctx.theme.mat // 主题选择</span></span><br><span class="line">    ]</span><br><span class="line">    css:[</span><br><span class="line">        ctx.mode.spa?<span class="string">'app-spa.styl'</span>:<span class="literal">null</span>, <span class="comment">// 指向css/app-spa.sty</span></span><br><span class="line">        ctx.mode.cordova?<span class="string">'app-cordova.styl'</span>:<span class="literal">null</span> <span class="comment">// 指向css/app-cordova.styl </span></span><br><span class="line">    ]</span><br><span class="line">    build:&#123;</span><br><span class="line">        extendWebpack(cfg)&#123;</span><br><span class="line">            <span class="comment">// 扩展webpack功能加载器</span></span><br><span class="line">            cfg.module.rules.push(&#123;</span><br><span class="line">              test: <span class="regexp">/\.json$/</span>,</span><br><span class="line">              loader: <span class="string">'json-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 别名</span></span><br><span class="line">            cfg.resolve.alias = &#123;</span><br><span class="line">                 ...cfg.resolve.alias, <span class="comment">// 添加现有的别名，</span></span><br><span class="line">                <span class="comment">// 添加你自己的别名</span></span><br><span class="line">                myalias: path.resolve(__dirname, <span class="string">'./src/somefolder'</span>),</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 方法二实现extendWebpack功能</span></span><br><span class="line">        chainWebpack (chain) &#123;</span><br><span class="line">            chain.module.rule(<span class="string">'json'</span>)</span><br><span class="line">              .test(<span class="regexp">/\.json$/</span>)</span><br><span class="line">              .use(<span class="string">'json-loader'</span>)</span><br><span class="line">                .loader(<span class="string">'json-loader'</span>)</span><br><span class="line">            chain.resolve.alias</span><br><span class="line">                .set(<span class="string">'myalias'</span>, path.resolve(__dirname, <span class="string">'./src/somefolder'</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// supportIE,framework,animatins,sourceFiles等等配置类似webpack</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="quasar-conf-js-配置文件"><a href="#quasar-conf-js-配置文件" class="headerlink" title="quasar.conf.js 配置文件"></a>quasar.conf.js 配置文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数是对象，dev/build时创建，动态更改配置</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;</span><br><span class="line">    devServer:&#123;</span><br><span class="line">        <span class="comment">// 开发服务器8000,pwa9000,其他9090</span></span><br><span class="line">        prot:ctx.mode.spa ? <span class="number">8000</span></span><br><span class="line">            :(ctx.mode.pwa?<span class="number">9000</span>:<span class="number">9090</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    extras:[</span><br><span class="line">        <span class="comment">// ctx.theme.mat // 主题选择</span></span><br><span class="line">    ]</span><br><span class="line">    css:[</span><br><span class="line">        ctx.mode.spa?<span class="string">'app-spa.styl'</span>:<span class="literal">null</span>, <span class="comment">// 指向css/app-spa.sty</span></span><br><span class="line">        ctx.mode.cordova?<span class="string">'app-cordova.styl'</span>:<span class="literal">null</span> <span class="comment">// 指向css/app-cordova.styl</span></span><br><span class="line">    ]</span><br><span class="line">    build:&#123;</span><br><span class="line">        extendWebpack(cfg)&#123;</span><br><span class="line">            <span class="comment">// 扩展webpack功能加载器</span></span><br><span class="line">            cfg.module.rules.push(&#123;</span><br><span class="line">              test: <span class="regexp">/\.json$/</span>,</span><br><span class="line">              loader: <span class="string">'json-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 别名</span></span><br><span class="line">            cfg.resolve.alias = &#123;</span><br><span class="line">                 ...cfg.resolve.alias, <span class="comment">// 添加现有的别名，</span></span><br><span class="line">                <span class="comment">// 添加你自己的别名</span></span><br><span class="line">                myalias: path.resolve(__dirname, <span class="string">'./src/somefolder'</span>),</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 方法二实现extendWebpack功能</span></span><br><span class="line">        chainWebpack (chain) &#123;</span><br><span class="line">            chain.module.rule(<span class="string">'json'</span>)</span><br><span class="line">              .test(<span class="regexp">/\.json$/</span>)</span><br><span class="line">              .use(<span class="string">'json-loader'</span>)</span><br><span class="line">                .loader(<span class="string">'json-loader'</span>)</span><br><span class="line">            chain.resolve.alias</span><br><span class="line">                .set(<span class="string">'myalias'</span>, path.resolve(__dirname, <span class="string">'./src/somefolder'</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// supportIE,framework,animatins,sourceFiles等等配置类似webpack</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="路由-按需路由-资源处理-接口代理和vue一致"><a href="#路由-按需路由-资源处理-接口代理和vue一致" class="headerlink" title="路由/按需路由/资源处理/接口代理和vue一致"></a>路由/按需路由/资源处理/接口代理和vue一致</h3><h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>根据quasar规则解剖插件，以配合quasar运行</p>
-<p>vue根组件被实例化之前运行，当启动应用程序时，Quasar将调用导出的函数，并将具有以下属性的一个对象传递给该函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; app, router, store, Vue &#125;) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 根实例，路由，状态库，vue</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="路由-按需路由-资源处理-接口代理和-vue-一致"><a href="#路由-按需路由-资源处理-接口代理和-vue-一致" class="headerlink" title="路由/按需路由/资源处理/接口代理和 vue 一致"></a>路由/按需路由/资源处理/接口代理和 vue 一致</h3><h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>根据 quasar 规则解剖插件，以配合 quasar 运行</p>
+<p>vue 根组件被实例化之前运行，当启动应用程序时，Quasar 将调用导出的函数，并将具有以下属性的一个对象传递给该函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; app, router, store, Vue &#125;) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 根实例，路由，状态库，vue</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>插件用途比如：<br>挂载实例this.$xx、安装插件Vue.use()、路由router.beforeEach、状态存储库vuex-router-sync、请求库vuex-router-sync</p>
+<p>插件用途比如：<br>挂载实例 this.$xx、安装插件 Vue.use()、路由 router.beforeEach、状态存储库 vuex-router-sync、请求库 vuex-router-sync</p>
 <p>插件使用：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用Quasar CLI在/plugins/下生成一个新的插件</span></span><br><span class="line">quasar <span class="keyword">new</span> plugin &lt;name&gt;</span><br><span class="line"><span class="comment">// 配置文件写用到的插件</span></span><br><span class="line">plugins: [</span><br><span class="line">  <span class="string">'&lt;name&gt;'</span> <span class="comment">// 指向/src/plugins/&lt;name&gt;.js</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<h2 id="Quasar生命周期"><a href="#Quasar生命周期" class="headerlink" title="Quasar生命周期"></a>Quasar生命周期</h2><p>1、Quasar初始化（组件、插件、指令、图标等）<br>2、Quasar Extras导入（字体、动画、图标等）<br>3、Quasar css和css导入<br>4、App.vue加载<br>5、Store导入（如果使用了Store）<br>6、Quasar插件导入完成<br>    - 在Electron模式下）Electron 被导入并注入Vue原型<br>    - 在Cordova模式下）收听“deviceready”事件<br>    - 存在Boot插件，执行应用程序Boot插件<br>    - 不存在Boot插件，使用根组件实例化Vue并附加到DOM</p>
-<p>所以boot插件最终是用来new Vue(app)的</p>
+<h3 id="Quasar-生命周期"><a href="#Quasar-生命周期" class="headerlink" title="Quasar 生命周期"></a>Quasar 生命周期</h3><p>1、Quasar 初始化（组件、插件、指令、图标等）<br>2、Quasar Extras 导入（字体、动画、图标等）<br>3、Quasar css 和 css 导入<br>4、App.vue 加载<br>5、Store 导入（如果使用了 Store）<br>6、Quasar 插件导入完成</p>
+<ul>
+<li>7、在 Electron 模式下）Electron 被导入并注入 Vue 原型<ul>
+<li>在 Cordova 模式下）收听“deviceready”事件</li>
+<li>存在 Boot 插件，执行应用程序 Boot 插件</li>
+<li>不存在 Boot 插件，使用根组件实例化 Vue 并附加到 DOM</li>
+</ul>
+</li>
+</ul>
+<p>所以 boot 插件最终是用来 new Vue(app)的</p>
+<h3 id="vuex-模块"><a href="#vuex-模块" class="headerlink" title="vuex 模块"></a>vuex 模块</h3><p>和 vue 一致，quasar 提供了命令行模板简化初始化操作<br><code>quasar new store &lt;name&gt;</code>创建 module 模板，然后可以在主 store 里引用这个 modules</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>要不怎么说是 UI 框架呢，最大的特点还是它的主题风格<br>/css/themes<br>基于 Stylus 的 Material 和 iOS</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang=<span class="string">"stylus"</span>&gt;</span><br><span class="line">  <span class="comment">// Quasar CLI提供提供的Webpack别名，解析Stylus的变量 @import '~variables'</span></span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>9 个平台</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mat</td>
+<td>默认样式 Material 设计主题;Android 平台</td>
+</tr>
+<tr>
+<td>ios</td>
+<td>Apple 平台; iOS 主题</td>
+</tr>
+<tr>
+<td>desktop</td>
+<td>应用运行在一个桌面浏览器上</td>
+</tr>
+<tr>
+<td>mobile</td>
+<td>应用运行在一个手机浏览器上</td>
+</tr>
+<tr>
+<td>cordova</td>
+<td>Apache Cordova 包装的独立手机 App</td>
+</tr>
+<tr>
+<td>electron</td>
+<td>应用运行在 Electron 下</td>
+</tr>
+<tr>
+<td>touch</td>
+<td>触摸感知能力的平台</td>
+</tr>
+<tr>
+<td>no-touch</td>
+<td>没有触摸感知能力的平台</td>
+</tr>
+<tr>
+<td>within-iframe</td>
+<td>当整个网站都是在一个 IFRAME 标签下的时候</td>
+</tr>
+</tbody></table>
+<h2 id="多端"><a href="#多端" class="headerlink" title="多端"></a>多端</h2><p>文档中有多端打包的配置描述，这里也简述下</p>
+<h3 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h3><p>需要以下包含以下几点</p>
+<p>渐进式-不强制用框架标准开发，生态按需使用<br>响应式-布局适配各端<br>离线访问-service workers 离线并更新保持新状态<br>app 风格-app 式的导航与交互<br>https 安全<br>可发现，mainifests 和 service worker 注册允许被搜索为应用程序<br>推送通知<br>桌面安装-桌面图标<br>可链接</p>
+<p>Manifest 文件包含名称，图标和启动页<br>Service Worker 文件用来缓存资源，js 文件、请求数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加pwa模式</span></span><br><span class="line">quasar mode -a pwa</span><br><span class="line"><span class="comment">// 开发模式</span></span><br><span class="line">quasar dev -m pwa</span><br></pre></td></tr></table></figure>
+
+<h3 id="mobile-APP"><a href="#mobile-APP" class="headerlink" title="mobile APP"></a>mobile APP</h3><p>Cordova 移动开发框架<br>既不是真正的原生移动 APP（因为所有的布局渲染都是通过 Web 视图而不是平台的本地 UI 框架完成的），<br>也不是纯粹的基于 Web 的 APP（它们不仅仅是 Web APP，因为可以包装成可分发的 APP, 并可访问本机设备 API）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装cli</span></span><br><span class="line">npm install -g cordova</span><br><span class="line"><span class="comment">// pc安装Android sdk 略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加Cordova模式，生成一个文件夹</span></span><br><span class="line">quasar mode -a cordova</span><br><span class="line"><span class="comment">// 开发模式</span></span><br><span class="line">quasar dev -m cordova -T [android|ios]</span><br></pre></td></tr></table></figure>
+
+<p>Cordova 支持插件，配置获取原生设备信息<br>电池状态、相机、联系人、设备、设备运动、地理位置、媒体、媒体捕捉、网络信息、飞溅屏幕、振动、状态栏</p>
+<p>插件执行依赖 Quasar 监听事件 deviceready 完成，然后挂载根 Vue 组件</p>
+<h3 id="pc-Electron"><a href="#pc-Electron" class="headerlink" title="pc Electron"></a>pc Electron</h3><p>桌面 GUI 应用程序，后端 NodeJs，前端 Chromium<br>每个 Electron 应用有 2 个线程，主线程处理窗口和启动初始化，渲染线程处理 UI</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加模式</span></span><br><span class="line">quasar mode -a electron</span><br><span class="line"><span class="comment">// 开发模式</span></span><br><span class="line">quasar dev -m electron -t [mat|ios]</span><br></pre></td></tr></table></figure>
+
 <!-- - vue cli
   - vue --version 3.x
   - vue add quasar
   - 配置vue.config.js -->
-
     </div>
 
     
@@ -393,7 +465,10 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/29/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-%E7%BB%84%E4%BB%B6/" rel="next" title="Quasar基于vue的前端框架-组件">
+    <i class="fa fa-chevron-left"></i> Quasar基于vue的前端框架-组件 
+    </a></div>
       <div class="post-nav-item">
     <a href="/2020/06/26/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3js%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="prev" title="如何理解js的面向对象">
     如何理解js的面向对象 <i class="fa fa-chevron-right"></i> 
@@ -462,7 +537,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#指南"><span class="nav-number">1.</span> <span class="nav-text">指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尚未发布v1-0版本"><span class="nav-number">1.1.</span> <span class="nav-text">尚未发布v1.0版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#能做什么"><span class="nav-number">1.2.</span> <span class="nav-text">能做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优势"><span class="nav-number">1.3.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的官网示例"><span class="nav-number">1.4.</span> <span class="nav-text">简单的官网示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#入门套件安装"><span class="nav-number">2.1.</span> <span class="nav-text">入门套件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quasar-conf-js配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">quasar.conf.js配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由-按需路由-资源处理-接口代理和vue一致"><span class="nav-number">2.3.</span> <span class="nav-text">路由&#x2F;按需路由&#x2F;资源处理&#x2F;接口代理和vue一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件"><span class="nav-number">2.4.</span> <span class="nav-text">插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quasar生命周期"><span class="nav-number">3.</span> <span class="nav-text">Quasar生命周期</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#指南"><span class="nav-number">1.</span> <span class="nav-text">指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方文档-v1-12-8-版本，国内文档久未更新，本文参考国内站点"><span class="nav-number">1.1.</span> <span class="nav-text">官方文档 v1.12.8 版本，国内文档久未更新，本文参考国内站点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#能做什么"><span class="nav-number">1.2.</span> <span class="nav-text">能做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优势"><span class="nav-number">1.3.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的官网示例"><span class="nav-number">1.4.</span> <span class="nav-text">简单的官网示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#入门套件安装"><span class="nav-number">2.1.</span> <span class="nav-text">入门套件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quasar-conf-js-配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">quasar.conf.js 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由-按需路由-资源处理-接口代理和-vue-一致"><span class="nav-number">2.3.</span> <span class="nav-text">路由&#x2F;按需路由&#x2F;资源处理&#x2F;接口代理和 vue 一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件"><span class="nav-number">2.4.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quasar-生命周期"><span class="nav-number">2.5.</span> <span class="nav-text">Quasar 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vuex-模块"><span class="nav-number">2.6.</span> <span class="nav-text">vuex 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">2.7.</span> <span class="nav-text">主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多端"><span class="nav-number">3.</span> <span class="nav-text">多端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PWA"><span class="nav-number">3.1.</span> <span class="nav-text">PWA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobile-APP"><span class="nav-number">3.2.</span> <span class="nav-text">mobile APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc-Electron"><span class="nav-number">3.3.</span> <span class="nav-text">pc Electron</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -478,7 +553,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -533,7 +608,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">57k</span>
+    <span title="站点总字数">60k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
