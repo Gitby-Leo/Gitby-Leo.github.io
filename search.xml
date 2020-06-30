@@ -120,6 +120,12 @@
 <p>top、right、bootom、left、all、both left &amp; rigt、both top &amp; bottom</p>
 <p>比如：<br>class=”q-pa-sm” // 方向小padding<br>class=”q-mt-md q-mr-sm” // 顶部中margin右边小margin</p>
 <h2 id="flex系统"><a href="#flex系统" class="headerlink" title="flex系统"></a>flex系统</h2>]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>Quasar基于vue的前端框架</title>
@@ -248,6 +254,12 @@
   - vue --version 3.x
   - vue add quasar
   - 配置vue.config.js -->]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>如何理解js的面向对象</title>
@@ -554,12 +566,7 @@
 
 <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="遍历时删除，置顶合并数组"><a href="#遍历时删除，置顶合并数组" class="headerlink" title="遍历时删除，置顶合并数组"></a>遍历时删除，置顶合并数组</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 置顶数组中的指定对象</span></span><br><span class="line">baList(state) &#123;</span><br><span class="line">    <span class="keyword">if</span> (state.list.length == <span class="number">0</span>) <span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">let</span> needTopItemArr = [];<span class="comment">// 保存取出来的对象</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; state.list.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (state.list[i].serviceStar) &#123;</span><br><span class="line">            needTopItemArr.push(state.list[i]);</span><br><span class="line">            state.list.splice(i, <span class="number">1</span>);</span><br><span class="line">            i--;<span class="comment">// for边循环边删除需要修改i</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> needTopItemArr.concat(state.list)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><p>当有需求改动ui框架样式是，scoped 中的样式不生效，用 /deep/ 解决<br>但是 ios 移动端还不支持，只能这部分重写的内容不要放在 scoped 中</p>
 ]]></content>
   </entry>
   <entry>
