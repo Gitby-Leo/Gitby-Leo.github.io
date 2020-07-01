@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ngrok内网穿透工具</title>
+    <url>/2020/07/01/ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<blockquote>
+<p>没有云服务器不要紧，分分钟让局域网资源公网可访问</p>
+</blockquote>
+<a id="more"></a>
+
+<p>内网穿透 即 NAT穿透</p>
+<ul>
+<li>通过ngrok反向代理服务实现本机在无公网ip时被外部访问</li>
+<li>ngrok建立一个安全隧道,主机A的http请求传递给主机B</li>
+<li>本地端口所监听的进程转发到远端服务器上，实现穿透</li>
+</ul>
+<blockquote>
+<p>简单的国外官方服务器版 - free版不支持自定义域名</p>
+</blockquote>
+<p>注册并获取授权码<br>如通过github绑定注册的</p>
+<ol>
+<li>下载<a href="https://ngrok.com/download" target="_blank" rel="noopener">客户端</a><ul>
+<li>window版是.exe文件</li>
+</ul>
+</li>
+<li>配置授权码<ul>
+<li>Authentication里获取</li>
+<li>执行.exe,输入<code>ngrok authtoken xxxxx</code></li>
+<li>保存在<code>C:\Users\xxx\.ngrok2\</code>中</li>
+</ul>
+</li>
+<li>本地启动服务器，端口8080<ul>
+<li>推荐node下的anywhere，so easy</li>
+</ul>
+</li>
+<li>启动ngrok<ul>
+<li>在ngrok.exe进程的shell里 </li>
+<li>执行ngrok http 8080,</li>
+</ul>
+</li>
+<li>访问<code>http://xxx.ngrok.io</code>等于本地<code>localhost:8080</code><ul>
+<li>需等待官方同步</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>自建服务</p>
+</blockquote>
+<p>下次再说，哈哈哈</p>
+<p>（云服务器还是香，内网穿透不好用）</p>
+<!-- - 公网ip服务器
+- 域名及备案
+- 配置两条二级域名*.ngrok和ngrok
+- 安全组端口开通80、4443是服务通信、4444是tcp端口转发、8000是http请求转发
+- ngrok.sh传到服务器上,执行
+ -->
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Quasar基于vue的前端框架-组件</title>
     <url>/2020/06/29/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-%E7%BB%84%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
