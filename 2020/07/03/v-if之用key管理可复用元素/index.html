@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="key解决了引入相同组件切换时数据互不影响">
+  <meta name="description" content="vue key解决了引入相同组件切换时数据互不影响">
 <meta property="og:type" content="article">
 <meta property="og:title" content="v-if之用key管理可复用元素">
 <meta property="og:url" content="https://gitby-leo.github.io/2020/07/03/v-if%E4%B9%8B%E7%94%A8key%E7%AE%A1%E7%90%86%E5%8F%AF%E5%A4%8D%E7%94%A8%E5%85%83%E7%B4%A0/index.html">
 <meta property="og:site_name" content="Leo的云">
-<meta property="og:description" content="key解决了引入相同组件切换时数据互不影响">
+<meta property="og:description" content="vue key解决了引入相同组件切换时数据互不影响">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-03T15:55:18.000Z">
-<meta property="article:modified_time" content="2020-07-03T15:59:14.354Z">
+<meta property="article:modified_time" content="2020-07-03T16:20:17.552Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary">
@@ -277,14 +277,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>146</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -297,19 +297,26 @@
 
       
         <blockquote>
-<p>key解决了引入相同组件切换时数据互不影响</p>
+<p>vue key解决了引入相同组件切换时数据互不影响</p>
 </blockquote>
 <a id="more"></a>
 
 <p>文档细节遗忘导致的问题（面试官：这是基础）</p>
 <hr>
 <p>日常开发中，遇到一个问题，相同组件引入后，切换发现组件内的数据没有更新/重置</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==1"</span>/&gt;</span><br><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==2"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父</span></span><br><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==1"</span>/&gt;</span><br><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==2"</span>/&gt;</span><br><span class="line"><span class="keyword">import</span> codeSame <span class="keyword">from</span> <span class="string">"./components/code.vue"</span>;</span><br><span class="line"><span class="comment">// 子</span></span><br><span class="line">&lt;input type=<span class="string">"text"</span> /&gt;</span><br></pre></td></tr></table></figure>
 
+<h2 id="思考1"><a href="#思考1" class="headerlink" title="思考1"></a>思考1</h2><p>是不是受到了keep-alive影响缓存，然而场景下并没有用动态组件，而是v-if</p>
+<h2 id="尝试了4种情况"><a href="#尝试了4种情况" class="headerlink" title="尝试了4种情况"></a>尝试了4种情况</h2><p>components引入不同实例组件时正常，而只实例化一次的组件就会缓存</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;!-- 正常 --&gt;</span><br><span class="line">    &lt;code1 v-<span class="keyword">if</span>=<span class="string">"code==1"</span>/&gt;</span><br><span class="line">    &lt;code2 v-<span class="keyword">if</span>=<span class="string">"code==2"</span>/&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;!-- 缓存 --&gt;</span></span><br><span class="line"><span class="regexp">    &lt;code-same v-if="code==1" :key="c1"/</span>&gt;</span><br><span class="line">    &lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==2"</span> :key=<span class="string">"c2"</span>/&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;!-- 缓存 --&gt;</span></span><br><span class="line"><span class="regexp">    &lt;code-same  v-if="code==`$&#123;code&#125;`" :key="xxx"/</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;!-- 正常 --&gt;</span></span><br><span class="line"><span class="regexp">    &lt;code-same v-if="code==1" ref="c1" /</span>&gt;</span><br><span class="line">    &lt;code-same2 v-<span class="keyword">if</span>=<span class="string">"code==2"</span> ref=<span class="string">"c2"</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">import code1 from "./</span>components/code1.vue<span class="string">";</span></span><br><span class="line"><span class="string">import code2 from "</span>./components/code2.vue<span class="string">";</span></span><br><span class="line"><span class="string">import codeSame from "</span>./components/code.vue<span class="string">";</span></span><br><span class="line"><span class="string">import codeSame2 from "</span>./components/code.vue<span class="string">";</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="思考2"><a href="#思考2" class="headerlink" title="思考2"></a>思考2</h2><p>即时父组件上用了key也不生效<br>等等<br>既然试了父组件的key，也试试子组件的key呗</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input :key=<span class="string">"`c$&#123;dnumber&#125;`"</span> type=<span class="string">"text"</span> /&gt;</span><br></pre></td></tr></table></figure>
 
-
-
+<p>这次成功了，上面2种缓存的情况回复了正常，切换时输入框不再有值</p>
+<p><code>v-if + components</code>时为什么需要加key呢，那就前往官方文档看看~<br><a href="https://cn.vuejs.org/v2/guide/conditional.html" target="_blank" rel="noopener">用key管理可复用的元素</a></p>
+<p><code>(Vue 为你提供了一种方式来表达“这两个元素是完全独立的，不要复用它们”。只需添加一个具有唯一值的 key attribute 即可)</code></p>
+<p>（震惊了，我感觉我没看过文档，尤小右牛皮!）</p>
 
     </div>
 
@@ -439,6 +446,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#思考1"><span class="nav-number">1.</span> <span class="nav-text">思考1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试了4种情况"><span class="nav-number">2.</span> <span class="nav-text">尝试了4种情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考2"><span class="nav-number">3.</span> <span class="nav-text">思考2</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -509,7 +517,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">62k</span>
+    <span title="站点总字数">63k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

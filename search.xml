@@ -4,19 +4,26 @@
     <title>v-if之用key管理可复用元素</title>
     <url>/2020/07/03/v-if%E4%B9%8B%E7%94%A8key%E7%AE%A1%E7%90%86%E5%8F%AF%E5%A4%8D%E7%94%A8%E5%85%83%E7%B4%A0/</url>
     <content><![CDATA[<blockquote>
-<p>key解决了引入相同组件切换时数据互不影响</p>
+<p>vue key解决了引入相同组件切换时数据互不影响</p>
 </blockquote>
 <a id="more"></a>
 
 <p>文档细节遗忘导致的问题（面试官：这是基础）</p>
 <hr>
 <p>日常开发中，遇到一个问题，相同组件引入后，切换发现组件内的数据没有更新/重置</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==1"</span>/&gt;</span><br><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==2"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 父</span></span><br><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==1"</span>/&gt;</span><br><span class="line">&lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==2"</span>/&gt;</span><br><span class="line"><span class="keyword">import</span> codeSame <span class="keyword">from</span> <span class="string">"./components/code.vue"</span>;</span><br><span class="line"><span class="comment">// 子</span></span><br><span class="line">&lt;input type=<span class="string">"text"</span> /&gt;</span><br></pre></td></tr></table></figure>
 
+<h2 id="思考1"><a href="#思考1" class="headerlink" title="思考1"></a>思考1</h2><p>是不是受到了keep-alive影响缓存，然而场景下并没有用动态组件，而是v-if</p>
+<h2 id="尝试了4种情况"><a href="#尝试了4种情况" class="headerlink" title="尝试了4种情况"></a>尝试了4种情况</h2><p>components引入不同实例组件时正常，而只实例化一次的组件就会缓存</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;!-- 正常 --&gt;</span><br><span class="line">    &lt;code1 v-<span class="keyword">if</span>=<span class="string">"code==1"</span>/&gt;</span><br><span class="line">    &lt;code2 v-<span class="keyword">if</span>=<span class="string">"code==2"</span>/&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;!-- 缓存 --&gt;</span></span><br><span class="line"><span class="regexp">    &lt;code-same v-if="code==1" :key="c1"/</span>&gt;</span><br><span class="line">    &lt;code-same v-<span class="keyword">if</span>=<span class="string">"code==2"</span> :key=<span class="string">"c2"</span>/&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;!-- 缓存 --&gt;</span></span><br><span class="line"><span class="regexp">    &lt;code-same  v-if="code==`$&#123;code&#125;`" :key="xxx"/</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;!-- 正常 --&gt;</span></span><br><span class="line"><span class="regexp">    &lt;code-same v-if="code==1" ref="c1" /</span>&gt;</span><br><span class="line">    &lt;code-same2 v-<span class="keyword">if</span>=<span class="string">"code==2"</span> ref=<span class="string">"c2"</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">import code1 from "./</span>components/code1.vue<span class="string">";</span></span><br><span class="line"><span class="string">import code2 from "</span>./components/code2.vue<span class="string">";</span></span><br><span class="line"><span class="string">import codeSame from "</span>./components/code.vue<span class="string">";</span></span><br><span class="line"><span class="string">import codeSame2 from "</span>./components/code.vue<span class="string">";</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="思考2"><a href="#思考2" class="headerlink" title="思考2"></a>思考2</h2><p>即时父组件上用了key也不生效<br>等等<br>既然试了父组件的key，也试试子组件的key呗</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input :key=<span class="string">"`c$&#123;dnumber&#125;`"</span> type=<span class="string">"text"</span> /&gt;</span><br></pre></td></tr></table></figure>
 
-
-
+<p>这次成功了，上面2种缓存的情况回复了正常，切换时输入框不再有值</p>
+<p><code>v-if + components</code>时为什么需要加key呢，那就前往官方文档看看~<br><a href="https://cn.vuejs.org/v2/guide/conditional.html" target="_blank" rel="noopener">用key管理可复用的元素</a></p>
+<p><code>(Vue 为你提供了一种方式来表达“这两个元素是完全独立的，不要复用它们”。只需添加一个具有唯一值的 key attribute 即可)</code></p>
+<p>（震惊了，我感觉我没看过文档，尤小右牛皮!）</p>
 ]]></content>
       <categories>
         <category>vue</category>
