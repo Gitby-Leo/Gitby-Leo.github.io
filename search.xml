@@ -17,7 +17,21 @@
 <h2 id="未暂存前，撤销修改"><a href="#未暂存前，撤销修改" class="headerlink" title="未暂存前，撤销修改"></a>未暂存前，撤销修改</h2><p><code>git checkout -- .</code><br>撤销所有本地修改</p>
 <p><code>git checkout -- [filename]</code><br>撤销指定文件修改</p>
 <h2 id="暂存后-撤销修改"><a href="#暂存后-撤销修改" class="headerlink" title="暂存后,撤销修改"></a>暂存后,撤销修改</h2><p><code>git reset .</code><br>撤销暂存区的全部修改</p>
-<h2 id="提交到本地仓库后-撤销提交"><a href="#提交到本地仓库后-撤销提交" class="headerlink" title="提交到本地仓库后,撤销提交"></a>提交到本地仓库后,撤销提交</h2><p><code>git commit -m &quot;modify some files&quot;</code>  </p>
+<h2 id="提交到本地仓库后-撤销提交"><a href="#提交到本地仓库后-撤销提交" class="headerlink" title="提交到本地仓库后,撤销提交"></a>提交到本地仓库后,撤销提交</h2><p><code>git commit -m &quot;modify some files&quot;</code><br>提交历史里面会有一条记录</p>
+<p><code>git checkout a18c6fa</code><br><code>git log</code><br>回到上一次提交记录，执行log</p>
+<p><code>git reset --hard HEAD~1</code><br>或者重置</p>
+<p><code>git reflog</code><br><code>git reset --hard f8651ff</code><br>又反悔了，那就再找到f8651ff</p>
+<h2 id="修改提交"><a href="#修改提交" class="headerlink" title="修改提交"></a>修改提交</h2><p>提交了一个文件,又想提交一个，但不想2条记录<br><code>git add xx</code><br><code>git commit -m &quot;add test block&quot;</code><br><code>git log</code><br><code>git add src/app/app.component.css</code><br><code>git commit --amend</code>  </p>
+<p>修改一个词，会改变之前的id<br><code>git commit --amend -m &quot;add test container&quot;</code></p>
+<h2 id="撤销提交历史中的某一次提交"><a href="#撤销提交历史中的某一次提交" class="headerlink" title="撤销提交历史中的某一次提交"></a>撤销提交历史中的某一次提交</h2><p><code>git revert 711bb0b</code></p>
+<h2 id="合并出现冲突时撤销合并"><a href="#合并出现冲突时撤销合并" class="headerlink" title="合并出现冲突时撤销合并"></a>合并出现冲突时撤销合并</h2><p><code>git merge --abort</code><br>撤销这个合并,恢复合并之前的状态</p>
+<h2 id="移除暂存区的文件"><a href="#移除暂存区的文件" class="headerlink" title="移除暂存区的文件"></a>移除暂存区的文件</h2><p><code>git rm --cached src/test.pptx</code></p>
+<h2 id="分支重命名"><a href="#分支重命名" class="headerlink" title="分支重命名"></a>分支重命名</h2><p><code>git br -m [old_br] [new_br]</code></p>
+<h2 id="撤销变基操作"><a href="#撤销变基操作" class="headerlink" title="撤销变基操作"></a>撤销变基操作</h2><p><code>git co rebase_test</code><br><code>git rebase master</code></p>
+<p>1.使用 git reflog 命令找到变基前的提交 09b0adc<br>2.使用 git reset –hard 09b0adc 重置到该提交</p>
+<h2 id="删除远端仓库记录"><a href="#删除远端仓库记录" class="headerlink" title="删除远端仓库记录"></a>删除远端仓库记录</h2><p>密码文件可以通过git快照恢复</p>
+<p>git filter-branch –tree-filter ‘rm -f passwords.txt’ HEAD</p>
+<h2 id="交互式变基"><a href="#交互式变基" class="headerlink" title="交互式变基"></a>交互式变基</h2><p><code>git rebase -i</code><br>过去做过的事情进行“反悔”</p>
 ]]></content>
   </entry>
   <entry>
