@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git版本管理工具命令概述</title>
+    <url>/2020/07/06/git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>git的命令行语法噢</p>
+</blockquote>
+<a id="more"></a>
+
+<p>接触git进行版本管理源代码，常用一些基础的推拉命令/sourceTree<br>今天看着旁边大佬一顿操作命令行，执行速度杠杠的，sourceTree在这方面完全不能比</p>
+<hr>
+<h2 id="三大区域"><a href="#三大区域" class="headerlink" title="三大区域"></a>三大区域</h2><p>工作区、暂存区和Git仓库(本地/远端)</p>
+<p><code>git add</code><br>会将工作区的文件标记为已暂存，保存在暂存区</p>
+<p><code>git commit</code><br>会将标记为已暂存的文件保存都本地Git仓库，并生成一个快照</p>
+<p><code>git diff</code><br>查看修改，谢谢您了这个请用可视化吧</p>
+<h2 id="未暂存前，撤销修改"><a href="#未暂存前，撤销修改" class="headerlink" title="未暂存前，撤销修改"></a>未暂存前，撤销修改</h2><p><code>git checkout -- .</code><br>撤销所有本地修改</p>
+<p><code>git checkout -- [filename]</code><br>撤销指定文件修改</p>
+<h2 id="暂存后-撤销修改"><a href="#暂存后-撤销修改" class="headerlink" title="暂存后,撤销修改"></a>暂存后,撤销修改</h2><p><code>git reset .</code><br>撤销暂存区的全部修改</p>
+<h2 id="提交到本地仓库后-撤销提交"><a href="#提交到本地仓库后-撤销提交" class="headerlink" title="提交到本地仓库后,撤销提交"></a>提交到本地仓库后,撤销提交</h2><p><code>git commit -m &quot;modify some files&quot;</code>  </p>
+]]></content>
+  </entry>
+  <entry>
     <title>v-if之用key管理可复用元素</title>
     <url>/2020/07/03/v-if%E4%B9%8B%E7%94%A8key%E7%AE%A1%E7%90%86%E5%8F%AF%E5%A4%8D%E7%94%A8%E5%85%83%E7%B4%A0/</url>
     <content><![CDATA[<blockquote>
