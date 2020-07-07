@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>一条SQL查询语句是如何执行的</title>
+    <url>/2020/07/07/%E4%B8%80%E6%9D%A1SQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</url>
+    <content><![CDATA[<blockquote>
+<p>执行sql语句时都进行了哪些操作</p>
+</blockquote>
+<a id="more"></a>
+
+<p>这个标题就和点击一个url时都做了什么一样，找寻背后的原理</p>
+<hr>
+<p><code>mysql&gt; select * from T where Id=10</code></p>
+<p>Server层和存储引擎层</p>
+<ul>
+<li><ol>
+<li>客户端操作</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>连接器</li>
+</ol>
+<ul>
+<li>管理连接，权限验证</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>查询缓存</li>
+</ol>
+<ul>
+<li>命中返回结果</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>分析器</li>
+</ol>
+<ul>
+<li>词法分析，语法分析</li>
+<li>查询缓存</li>
+</ul>
+</li>
+<li><ol start="4">
+<li>优化器</li>
+</ol>
+<ul>
+<li>索引选择</li>
+</ul>
+</li>
+<li><ol start="5">
+<li>执行器</li>
+</ol>
+<ul>
+<li>返回结果</li>
+</ul>
+</li>
+<li><ol start="6">
+<li>存储引擎</li>
+</ol>
+<ul>
+<li>读写接口，存储</li>
+</ul>
+</li>
+</ul>
+<p>Server层包括连接器、查询缓存、分析器、优化器、执行器，内置函数，存储过程、触发器、视图</p>
+<p>存储引擎层负责数据的存储和提取，支持InnoDB、MyISAM、Memory等多个存储引擎，MySQL 5.5.5默认InnoDB</p>
+<p>在create table语句中使用engine=memory, 来指定使用内存引擎创建表<br>不同的存储引擎共用一个Server层</p>
+<h2 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h2><p>mysql -h$ip -P$port -u$user -p</p>
+<p>连接命令中的mysql是客户端工具，用来跟服务端建立连接。在完成经典的TCP握手后，连接器就要开始认证你的身份，这个时候用的就是你输入的用户名和密码</p>
+<ul>
+<li>用户名或密码不对<ul>
+<li>报错，客户端程序结束</li>
+</ul>
+</li>
+<li>用户名密码认证通过<ul>
+<li>到权限表里面查出你拥有的权限</li>
+<li>权限修改后要重新连接才会刷新</li>
+</ul>
+</li>
+</ul>
+<p>show processlist查看状态，空闲状态默认值是8小时</p>
+<p>长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接<br>短连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个</p>
+<p>MySQL在执行过程中临时使用的内存是管理在连接对象里面的。这些资源会在连接断开的时候才释放，<br>长连接占用内存涨得快，内存占用太大会导致MySQL异常重启</p>
+<p>定期断开长连接，程序里面判断执行过一个占用内存的大查询后，断开连接，之后要查询再重连<br>5.7+用mysql_reset_connection重新初始化，跳过重连和权限验证</p>
+<h2 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h2><p>MySQL 8.0删除了这个功能</p>
+<p>到查询缓存看看，之前是不是执行过这条语句，结果可能会以key-value对的形式，被直接缓存在内存中</p>
+<p>不要使用查询缓存，查询缓存的失效非常频繁，只要有对一个表的更新，这个表上所有的查询缓存都会被清空<br>一张静态表，很长时间才会更新一次才适合使用查询缓存</p>
+<p>按需使用<br>query_cache_type设置成DEMAND，不使用查询缓存<br>select SQL_CACHE * from T where ID=10使用查询缓存的语句</p>
+<h2 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h2><p>执行语句，对SQL语句做解析</p>
+<p>词法分析，识别关键字如select查询,T是表名，id是列名</p>
+<p>语法分析，根据语法规则判断语句合法</p>
+]]></content>
+      <categories>
+        <category>sql</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git版本管理工具命令概述</title>
     <url>/2020/07/06/git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<blockquote>
@@ -10,7 +106,9 @@
 
 <p>接触git进行版本管理源代码，常用一些基础的推拉命令/sourceTree<br>今天看着旁边大佬一顿操作命令行，执行速度杠杠的，sourceTree在这方面完全不能比</p>
 <hr>
+<!-- https://copyfuture.com/blogs-details/20200601122538850lylhabd6xw46urm -->
 <h2 id="三大区域"><a href="#三大区域" class="headerlink" title="三大区域"></a>三大区域</h2><p>工作区、暂存区和Git仓库(本地/远端)</p>
+<p><code>git add, git commit, git push, git merge, git pull, git log</code></p>
 <p><code>git add</code><br>会将工作区的文件标记为已暂存，保存在暂存区</p>
 <p><code>git commit</code><br>会将标记为已暂存的文件保存都本地Git仓库，并生成一个快照</p>
 <p><code>git diff</code><br>查看修改，谢谢您了这个请用可视化吧</p>
@@ -31,8 +129,14 @@
 <p>1.使用 git reflog 命令找到变基前的提交 09b0adc<br>2.使用 git reset –hard 09b0adc 重置到该提交</p>
 <h2 id="删除远端仓库记录"><a href="#删除远端仓库记录" class="headerlink" title="删除远端仓库记录"></a>删除远端仓库记录</h2><p>密码文件可以通过git快照恢复</p>
 <p>git filter-branch –tree-filter ‘rm -f passwords.txt’ HEAD</p>
-<h2 id="交互式变基"><a href="#交互式变基" class="headerlink" title="交互式变基"></a>交互式变基</h2><p><code>git rebase -i</code><br>过去做过的事情进行“反悔”</p>
+<h2 id="交互式变基"><a href="#交互式变基" class="headerlink" title="交互式变基"></a>交互式变基</h2><p><code>git rebase -i</code><br>对本地分支进行合并操作，让提交变成一条直线，不适合远程分支操作</p>
 ]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
   </entry>
   <entry>
     <title>v-if之用key管理可复用元素</title>
