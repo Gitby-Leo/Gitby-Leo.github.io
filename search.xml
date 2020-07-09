@@ -9,6 +9,8 @@
 <a id="more"></a>
 
 <p>运维工具？不存在的，作为开发什么都得了解，之前公司手动部署流程可太麻烦了，不同项目不同流程手动处理，小本本都记不下了</p>
+<p>本篇是centos搭建Jenkins持续集成环境的教程</p>
+<p><a href="https://mp.weixin.qq.com/s/oiznlZ_4L_0Am2SNOonLDw" target="_blank" rel="noopener">图文版参考链接</a></p>
 <hr>
 <blockquote>
 <p>Jenkins能做什么</p>
@@ -20,16 +22,61 @@
 <li>完成安装node插件并且打包</li>
 <li>通过Publish Over SSH插件，将打包出来的文件，部署到目标服务器上</li>
 </ul>
-<blockquote>
-<p>准备</p>
-</blockquote>
-<p>github、centos、java sdk、nginx、jenkins</p>
-<blockquote>
-<p>安装过程</p>
-</blockquote>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yum install java</span><br><span class="line"></span><br><span class="line">wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo</span><br><span class="line"></span><br><span class="line">rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key </span><br><span class="line"></span><br><span class="line">yum install jenkins</span><br><span class="line"></span><br><span class="line">service jenkins restart  //启动 jenkins</span><br><span class="line"></span><br><span class="line">cat /var/lib/jenkins/secrets/initialAdminPassword 查看初始密码</span><br></pre></td></tr></table></figure>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>github、centos、java sdk、nginx、jenkins</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$yum install java</span><br><span class="line"></span><br><span class="line">$ wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo</span><br><span class="line"></span><br><span class="line">$ rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key</span><br><span class="line"></span><br><span class="line">$ yum install jenkins //这一步会比较慢</span><br><span class="line"></span><br><span class="line">// 下载成功，但收到警告xxx.rpm公钥未安装，<span class="built_in">cd</span>到包的目录，执行</span><br><span class="line">rpm -ivh xxx.rpm手动安装</span><br><span class="line"></span><br><span class="line">$ service jenkins restart  //启动 jenkins</span><br><span class="line"></span><br><span class="line">$ cat /var/lib/jenkins/secrets/initialAdminPassword 查看初始密码</span><br></pre></td></tr></table></figure>
 
-<p>简单描述。。<br>因为印象笔记普通版还有上传流量60M限制，写好的文字都没拷贝下了，先记一下，下次做活动开个会员</p>
+<h2 id="配置jenkis的端口"><a href="#配置jenkis的端口" class="headerlink" title="配置jenkis的端口"></a>配置jenkis的端口</h2><p>vi /etc/sysconfig/jenkins<br>修改<br>JENKINS_PORT=”8080”</p>
+<p>service jenkins start    // 默认8080，记得服务器开端口<br>service jenkins stop<br>service jenkins restart</p>
+<p>systemctl daemon-reload  // 重启</p>
+<p>// 选择安装推荐的插件<br>// 等待大约20个包安装<br>// 创建管理员账户<br>// 然后再安装推荐的插件 Rebuilder， SafeRestart，Publish over SSH插件</p>
+<p>Publish Over SSH插件安装后进入Configure System，最底下有Publish Over SSH配置</p>
+<p>需要配置jenkins服务器和centos服务器的密钥认证</p>
+<h2 id="构建第一个任务"><a href="#构建第一个任务" class="headerlink" title="构建第一个任务"></a>构建第一个任务</h2><ul>
+<li>选择自由风格</li>
+<li>源码管理<code>https://github.com/Gitby-Leo/xxx.git</code><ul>
+<li>Credentials绑定仓库账号</li>
+</ul>
+</li>
+<li>构建环境 Provide Node &amp; npm bin/ folder to PATH<ul>
+<li>选择开发时的Node版本</li>
+</ul>
+</li>
+<li>构建<ul>
+<li>执行shell</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">node -v &amp;&amp;</span><br><span class="line">npm i yarn -g &amp;&amp;</span><br><span class="line">yarn config set registry https://registry.npm.taobao.org &amp;&amp;</span><br><span class="line">yarn install &amp;&amp;</span><br><span class="line">yarn build</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置服务器部署"><a href="#配置服务器部署" class="headerlink" title="配置服务器部署"></a>配置服务器部署</h2><ul>
+<li>构建后操作  SSH Server</li>
+</ul>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Name     leo_aly</span><br><span class="line">Source files     build/<span class="emphasis">**/*</span>         编译打包后的目标文件/文件夹</span><br><span class="line">Remove prefix     build            删除目录</span><br><span class="line">Remote directory test1_yarn     创建目录</span><br><span class="line">Exec command</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>应用、保存</li>
+</ul>
+<p>当仓库有内容时，执行构建可以看到构建进度</p>
+<blockquote>
+<p>注意Nginx非proxy_pass模式的路径配置</p>
+</blockquote>
+<h2 id="配置自动构建"><a href="#配置自动构建" class="headerlink" title="配置自动构建"></a>配置自动构建</h2><h3 id="jenkins配置"><a href="#jenkins配置" class="headerlink" title="jenkins配置"></a>jenkins配置</h3><ul>
+<li>安装Generic Webhook Trigger插件，用来push代码后自动构建jenkins</li>
+<li>配置工程中的构建触发器，选择Generic Webhook Trigger，填写token，才能和github仓库关联<ul>
+<li>比如设置简单的16位md5加密123456，token=49ba59abbe56e057</li>
+</ul>
+</li>
+</ul>
+<h3 id="github配置"><a href="#github配置" class="headerlink" title="github配置"></a>github配置</h3><ul>
+<li>进入仓库settings,左侧webhooks，add webhooks</li>
+<li>url配置为xxx:8080/generic-webhook-trigger/invoke?token=49ba59abbe56e057</li>
+<li>Just the push event在push代码时触发webhook<br>提交</li>
+</ul>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>修改一个字符，提交到github，可以看到jenkins面版里自动开始构建，并成功更新</p>
+<blockquote>
+<p>很久不用docker了</p>
+</blockquote>
+<p>下一篇用docker打包镜像，自动化容器构建</p>
 ]]></content>
       <categories>
         <category>Jenkins</category>
@@ -46,7 +93,7 @@
 </blockquote>
 <a id="more"></a>
 
-<p>这个标题就和点击一个url时都做了什么一样，找寻背后的原理</p>
+<p>这个标题就和点击一个url时都做了什么一样，找寻<a href="https://time.geekbang.org/column/intro/139" target="_blank" rel="noopener">背后的原理</a></p>
 <hr>
 <p><code>mysql&gt; select * from T where Id=10</code></p>
 <p>Server层和存储引擎层</p>
@@ -294,14 +341,17 @@
 </blockquote>
 <a id="more"></a>
 
+<p>太多教程标题党1分钟、10分钟完成一个ngrok的搭建，这里我只想说，funny mud pee，经过一堆配置报错异常处理后，本篇才是真正的10分钟</p>
+<hr>
 <p>内网穿透 即 NAT穿透</p>
+<p><a href="http://ngrok.cn/docs.html#expose" target="_blank" rel="noopener">详细的中文文档说明</a></p>
 <ul>
 <li>通过ngrok反向代理服务实现本机在无公网ip时被外部访问</li>
 <li>ngrok建立一个安全隧道,主机A的http请求传递给主机B</li>
 <li>本地端口所监听的进程转发到远端服务器上，实现穿透</li>
 </ul>
 <blockquote>
-<p>简单的国外官方服务器版 - free版不支持自定义域名</p>
+<p>简单的国外官方服务器版 -v2.x - free版不支持自定义域名</p>
 </blockquote>
 <p>注册并获取授权码<br>如通过github绑定注册的</p>
 <ol>
@@ -320,7 +370,7 @@
 </ul>
 </li>
 <li>启动ngrok<ul>
-<li>在ngrok.exe进程的shell里 </li>
+<li>在ngrok.exe进程的shell里</li>
 <li>执行ngrok http 8080,</li>
 </ul>
 </li>
@@ -330,25 +380,33 @@
 </li>
 </ol>
 <blockquote>
-<p>自建服务</p>
+<p>自建服务centos    -v1.7    -自己的域名 （云服务器还是香）</p>
 </blockquote>
-<p>下次再说，哈哈哈</p>
-<p>（云服务器还是香，内网穿透不好用）</p>
-<!-- - 公网ip服务器
-- 域名及备案
-- 配置两条二级域名*.ngrok和ngrok
-- 安全组端口开通80、4443是服务通信、4444是tcp端口转发、8000是http请求转发
-- ngrok.sh传到服务器上,执行
- -->
+<p><a href="https://www.jianshu.com/p/53c72ae1446c" target="_blank" rel="noopener">采用了文中的go+docker方案</a></p>
+<ul>
+<li>公网ip服务器</li>
+<li>域名及备案</li>
+<li>配置两条二级域名*.ngrok和ngrok</li>
+<li>安全组端口开通80、4443是服务通信、4444是tcp端口转发、8000是http请求转发</li>
+<li>安全组添加端口白名单和域名</li>
+<li>ngrok.sh传到服务器上,执行</li>
+</ul>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><h3 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h3><p><code>docker build -t ngrok .</code></p>
+<p>一共10个Step<br>go install -tags ‘release’ ngrok/main/ngrokd会比较慢，等待install8次才成功</p>
+<h3 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h3><p><code>docker run -it -p 8081:8081 -p 4443:4443 -p 4444:4444 -p 4445:4445 -d ngrok /ngrok/bin/ngrokd -domain=&quot;ngrok.xxx.com&quot; -httpAddr=&quot;:8081&quot;</code></p>
+<h3 id="查看镜像列表"><a href="#查看镜像列表" class="headerlink" title="查看镜像列表"></a>查看镜像列表</h3><p><code>docker images</code>，拿到镜像ID，image id</p>
+<h3 id="查看正在运行的容器"><a href="#查看正在运行的容器" class="headerlink" title="查看正在运行的容器"></a>查看正在运行的容器</h3><p><code>docker ps</code>，拿到容器ID，container id</p>
+<h3 id="查看镜像-容器信息"><a href="#查看镜像-容器信息" class="headerlink" title="查看镜像/容器信息"></a>查看镜像/容器信息</h3><p><code>docker inspect id</code></p>
+<p>找到挂载目录Mounts.Source</p>
+<p>进入这个目录，找到bin/里面选择客户端版本ngrok.exe，下载</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>新建配置文件config.yml，放在刚刚下载的同一层</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server_addr:</span> <span class="string">"ngrok.xxx.com:4443"</span></span><br><span class="line"><span class="attr">trust_host_root_certs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">tunnels:</span></span><br><span class="line">  <span class="attr">webapp:</span></span><br><span class="line">    <span class="attr">proto:</span> <span class="comment"># 本地端口</span></span><br><span class="line">      <span class="attr">http:</span> <span class="number">8080</span></span><br><span class="line">    <span class="attr">subdomain:</span> <span class="string">test</span> <span class="comment"># 二级域名，没有则自动生成</span></span><br><span class="line">  <span class="attr">tcp12345:</span></span><br><span class="line">    <span class="attr">remote_port:</span> <span class="number">4444</span>  <span class="comment"># tcp隧道中远程服务器端口</span></span><br><span class="line">    <span class="attr">proto:</span></span><br><span class="line">      <span class="attr">tcp:</span> <span class="number">12345</span></span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
+<p>如果是window客户端，用cmd进入目录后执行<br><code>ngrok -config=config.yml start-all</code></p>
+<p>棒不棒！(๑•̀ㅂ•́)و✧，可以通过域名访问本地内容了</p>
+<p>如果切换盘符失败可以用<code>cd /d xxx</code></p>
+<p>8080是本地启动服务的端口<br>访问时加载速度取决于服务端的带宽</p>
+<p><code>http://localhost:4040</code>可以查看本地请求的资源信息</p>
 ]]></content>
       <categories>
         <category>工具</category>
@@ -1034,6 +1092,8 @@
 <p><code>uniapp v2.7</code><br><code>ECharts v4.8</code><br><code>vue-element-admin v4</code><br><code>Element ui</code> (维护频率变低，要流失到ant了- -)</p>
 <p>小目标 - 2020<br>更新博客-&gt;github标绿/天</p>
 <!-- 计划项 - 2020 -->
+<p><code>docker+jenkins</code></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">周边同事都在用的自动部署方案</span><br></pre></td></tr></table></figure>
 <p><code>quasar</code></p>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">ui库吧</span><br></pre></td></tr></table></figure>
 <p><code>vue stable v3</code></p>
