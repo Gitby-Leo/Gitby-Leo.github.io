@@ -29,7 +29,7 @@
 <meta property="og:description" content="Leo：跨域啦，跨域啦，求后端小哥开放白名单吧大佬：自己解决Leo：&#x2F;(ㄒoㄒ)&#x2F;~~">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-10T15:43:55.000Z">
-<meta property="article:modified_time" content="2020-07-11T15:58:09.186Z">
+<meta property="article:modified_time" content="2020-07-11T17:30:10.532Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -277,14 +277,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>657</span>
+              <span>3.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -309,8 +309,52 @@
 <li>服务端侧是没有的，所以有些新入门/不了解的服务端同学会疑惑postman上可以正常请求</li>
 </ul>
 <h2 id="什么是同源啦"><a href="#什么是同源啦" class="headerlink" title="什么是同源啦"></a>什么是同源啦</h2><p>protocol（协议）、domain（域名）、port（端口）三者一致</p>
-<h2 id="1、CORS控制响应头"><a href="#1、CORS控制响应头" class="headerlink" title="1、CORS控制响应头"></a>1、CORS控制响应头</h2><p><code>Access-Control-Allow-Origin</code>控制哪些域名可以获取资源</p>
+<p>http即默认80<br>https即默认443</p>
+<p>说到domain域名，示例<code>map.baidu.com</code>中  </p>
+<ul>
+<li><p><a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D" target="_blank" rel="noopener">维基百科</a></p>
+<ul>
+<li>baidu.com叫做二级域名</li>
+<li>map.baidu.com叫做三级域名</li>
+</ul>
+</li>
+<li><p>而我更倾向于称呼</p>
+<ul>
+<li>baidu.com叫做一级域名，【主域名】<ul>
+<li>.com是顶级域，baidu是一级名</li>
+</ul>
+</li>
+<li>map.baidu.com叫做二级域名，【子域名】<ul>
+<li>map是二级名</li>
+</ul>
+</li>
+<li><strong><em>不接受反驳</em></strong>，你上阿里云/腾讯云买的是后缀域和名，可以自行配置多个子域名</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="解决它"><a href="#解决它" class="headerlink" title="解决它"></a>解决它</h2><h2 id="1、CORS控制响应头"><a href="#1、CORS控制响应头" class="headerlink" title="1、CORS控制响应头"></a>1、CORS控制响应头</h2><p><code>Access-Control-Allow-Origin</code>控制哪些域名可以获取资源</p>
 <p>通常解决是设置响应头<code>Access-Control-Allow-Origin: *</code></p>
+<h3 id="简单-复杂请求"><a href="#简单-复杂请求" class="headerlink" title="简单/复杂请求"></a>简单/复杂请求</h3><p>触发简单：</p>
+<ul>
+<li>Method<ul>
+<li>GET、HEAD、POST</li>
+</ul>
+</li>
+<li>Content-Type<ul>
+<li>text/plain、multipart/form-data、application/x-www-form-urlencoded</li>
+</ul>
+</li>
+<li>header<ul>
+<li>Accept、Accept-Language、Content-Language、Content-Type、DPR、Downlink、Save-Data、Viewport-Width、Width</li>
+</ul>
+</li>
+<li>XMLHttpRequestUpload没有事件监听</li>
+<li>ReadableStream不存在</li>
+</ul>
+<p>触发预检：Options</p>
+<p>就是除了简单条件以外的，比如put和application/json</p>
+<p><strong><em>ie9请使用jsonp</em></strong></p>
 <h3 id="Origin请求头"><a href="#Origin请求头" class="headerlink" title="Origin请求头"></a>Origin请求头</h3><ul>
 <li>存在跨域，浏览器带上Origin</li>
 <li>不存在跨域，请求不带Origin</li>
@@ -320,17 +364,48 @@
 <h3 id="Vary缓存处理"><a href="#Vary缓存处理" class="headerlink" title="Vary缓存处理"></a>Vary缓存处理</h3><p>当存在多个域名需要通过CORS时，会存在响应缓存，需要【避免CDN缓存】，可以配置<code>Vary:Origin</code></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getOrigin = ctx.get(<span class="string">'Origin'</span>);</span><br><span class="line">ctx.set(<span class="string">'Vary'</span>, <span class="string">'Origin'</span>)</span><br><span class="line"><span class="comment">// xxx</span></span><br></pre></td></tr></table></figure>
 
-<!-- ## 2、Node proxy
+<h3 id="cookie处理"><a href="#cookie处理" class="headerlink" title="cookie处理"></a>cookie处理</h3><ul>
+<li>withCredentials为true</li>
+<li>Access-Control-Allow-Origin为非 *</li>
+<li>Access-Control-Allow-Credentials 为 true</li>
+</ul>
+<h2 id="2、正向代理Node-proxy"><a href="#2、正向代理Node-proxy" class="headerlink" title="2、正向代理Node proxy"></a>2、正向代理Node proxy</h2><p>代理的是客户端</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本地开发时的接口请求域名设为空</span></span><br><span class="line">proxy: &#123;</span><br><span class="line">    <span class="string">"/api"</span>: &#123;</span><br><span class="line">        target: <span class="string">"http://10.130.10.10:1234"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-## 3、Nginx反向代理
+<p>charles抓包工具拦截处理代理</p>
+<p>在 tools/map remote 中设置Map from和Map to</p>
+<h2 id="3、反向代理Nginx"><a href="#3、反向代理Nginx" class="headerlink" title="3、反向代理Nginx"></a>3、反向代理Nginx</h2><p>代理的是服务端</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /api &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://localhost:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-## 4、JSONP
+<h2 id="4、JSONP"><a href="#4、JSONP" class="headerlink" title="4、JSONP"></a>4、JSONP</h2><p>script标签，GET方法</p>
+<ul>
+<li>定义函数jsonpCallback=function(){}</li>
+<li>定义请求参数cb=jsonpCallback</li>
+<li>动态接口返回结果运行jsonpCallback({xxx:xxx})</li>
+</ul>
+<h2 id="5、Websocket"><a href="#5、Websocket" class="headerlink" title="5、Websocket"></a>5、Websocket</h2><p>客户端和服务器之间存在非HTTP，持久，全双工连接</p>
+<p>因为不用HTTP，所以就没限制了</p>
+<h2 id="6、window-postMessage"><a href="#6、window-postMessage" class="headerlink" title="6、window.postMessage"></a>6、window.postMessage</h2><p><strong><em>可以在 http 返回头 添加X-Frame-Options: SAMEORIGIN 防止被别人添加至 iframe</em></strong></p>
+<p><code>&lt;iframe id=&quot;frame&quot; frameborder=&quot;0&quot; onload=&quot;load()&quot; src=&quot;http://b.test.com/b.html&quot;&gt;&lt;/iframe&gt;</code></p>
+<ul>
+<li>页面和其打开的新窗口的数据传递</li>
+<li>多窗口之间消息传递</li>
+<li>页面与嵌套的 iframe 消息传递</li>
+</ul>
+<h2 id="7、document-domain-iframe"><a href="#7、document-domain-iframe" class="headerlink" title="7、document.domain + iframe"></a>7、document.domain + iframe</h2><p>相同主域名，页面A可以拿到iframe页面B的内容</p>
+<h2 id="8、window-location-hash-iframe"><a href="#8、window-location-hash-iframe" class="headerlink" title="8、window.location.hash + iframe"></a>8、window.location.hash + iframe</h2><p>A：<code>&lt;iframe src=&quot;http://localhost:8080/hash/c.html#name1&quot;&gt;&lt;/iframe&gt;</code></p>
+<p>C：<code>const iframe = document.createElement(&quot;iframe&quot;); iframe.src = &quot;http://localhost:8000/hash/b.html#name2&quot;;
+document.body.appendChild(iframe);</code></p>
+<p>B：<code>window.parent.parent.location.hash = location.hash;</code></p>
+<p>页面A的url的hash值 -&gt; C     AC跨域<br>页面C的url接收hash值 -&gt; B   BC跨域<br>页面B结果给页面A的hash值 -&gt; A   AB跨域</p>
+<h2 id="9、window-name-iframe"><a href="#9、window-name-iframe" class="headerlink" title="9、window.name + iframe"></a>9、window.name + iframe</h2><p>location 变化，重新加载，name 可以不变</p>
+<p>就是先读取一次后换个iframe的src路径重新加载</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A：</span></span><br><span class="line"><span class="keyword">let</span> first = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// onload事件会触发2次，第1次加载跨域页，并留存数据于window.name</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (first) &#123;</span><br><span class="line">        <span class="comment">// 第1次onload(跨域页)成功后，切换到同域代理页面</span></span><br><span class="line">        iframe.src = <span class="string">"http://localhost:8000/name/b.html"</span>;</span><br><span class="line">        first = <span class="literal">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 第2次onload(同域b.html页)成功后，读取同域window.name中数据</span></span><br><span class="line">        <span class="built_in">console</span>.log(iframe.contentWindow.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// b.html</span></span><br><span class="line">&lt;div&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ c.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  window.name = "秋风的笔记";</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
 
-## 5、
+<h2 id="10、浏览器配置"><a href="#10、浏览器配置" class="headerlink" title="10、浏览器配置"></a>10、浏览器配置</h2><p>【慎用】</p>
+<p>Windows<br>找到你安装的目录<br>.\Google\Chrome\Application\chrome.exe –disable-web-security –user-data-dir=xxxx</p>
+<p>Mac<br><del>/Downloads/chrome-data<br>/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary  –disable-web-security –user-data-dir=</del>/Downloads/chrome-data</p>
 
-## 6、 -->
-
-<h2 id="等待更新"><a href="#等待更新" class="headerlink" title="等待更新"></a>等待更新</h2>
     </div>
 
     
@@ -459,7 +534,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域啦"><span class="nav-number">1.</span> <span class="nav-text">什么是跨域啦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源啦"><span class="nav-number">2.</span> <span class="nav-text">什么是同源啦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、CORS控制响应头"><span class="nav-number">3.</span> <span class="nav-text">1、CORS控制响应头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Origin请求头"><span class="nav-number">3.1.</span> <span class="nav-text">Origin请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vary缓存处理"><span class="nav-number">3.2.</span> <span class="nav-text">Vary缓存处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等待更新"><span class="nav-number">4.</span> <span class="nav-text">等待更新</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域啦"><span class="nav-number">1.</span> <span class="nav-text">什么是跨域啦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源啦"><span class="nav-number">2.</span> <span class="nav-text">什么是同源啦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决它"><span class="nav-number">3.</span> <span class="nav-text">解决它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、CORS控制响应头"><span class="nav-number">4.</span> <span class="nav-text">1、CORS控制响应头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单-复杂请求"><span class="nav-number">4.1.</span> <span class="nav-text">简单&#x2F;复杂请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Origin请求头"><span class="nav-number">4.2.</span> <span class="nav-text">Origin请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vary缓存处理"><span class="nav-number">4.3.</span> <span class="nav-text">Vary缓存处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie处理"><span class="nav-number">4.4.</span> <span class="nav-text">cookie处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、正向代理Node-proxy"><span class="nav-number">5.</span> <span class="nav-text">2、正向代理Node proxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、反向代理Nginx"><span class="nav-number">6.</span> <span class="nav-text">3、反向代理Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、JSONP"><span class="nav-number">7.</span> <span class="nav-text">4、JSONP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、Websocket"><span class="nav-number">8.</span> <span class="nav-text">5、Websocket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、window-postMessage"><span class="nav-number">9.</span> <span class="nav-text">6、window.postMessage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、document-domain-iframe"><span class="nav-number">10.</span> <span class="nav-text">7、document.domain + iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、window-location-hash-iframe"><span class="nav-number">11.</span> <span class="nav-text">8、window.location.hash + iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、window-name-iframe"><span class="nav-number">12.</span> <span class="nav-text">9、window.name + iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、浏览器配置"><span class="nav-number">13.</span> <span class="nav-text">10、浏览器配置</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -530,7 +605,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">73k</span>
+    <span title="站点总字数">76k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
