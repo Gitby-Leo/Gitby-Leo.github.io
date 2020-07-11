@@ -9,9 +9,14 @@
 <a id="more"></a>
 
 <p>记得以前最频繁的处理跨域需求就是本地调不通测试站点的接口，只好找后端重新部署一次，开放CORS限制</p>
-<p>后来有了nginx和cli proxy就方便多了</p>
+<p>后来有了nginx和cli-proxy就方便多了</p>
 <hr>
-<h2 id="CORS控制响应头"><a href="#CORS控制响应头" class="headerlink" title="CORS控制响应头"></a>CORS控制响应头</h2><p><code>Access-Control-Allow-Origin</code>控制哪些域名可以获取资源</p>
+<h2 id="什么是跨域啦"><a href="#什么是跨域啦" class="headerlink" title="什么是跨域啦"></a>什么是跨域啦</h2><ul>
+<li>浏览器侧的同源策略，用来限制请求资源交互，减少服务器被攻击的渠道之一</li>
+<li>服务端侧是没有的，所以有些新入门/不了解的服务端同学会疑惑postman上可以正常请求</li>
+</ul>
+<h2 id="什么是同源啦"><a href="#什么是同源啦" class="headerlink" title="什么是同源啦"></a>什么是同源啦</h2><p>protocol（协议）、domain（域名）、port（端口）三者一致</p>
+<h2 id="1、CORS控制响应头"><a href="#1、CORS控制响应头" class="headerlink" title="1、CORS控制响应头"></a>1、CORS控制响应头</h2><p><code>Access-Control-Allow-Origin</code>控制哪些域名可以获取资源</p>
 <p>通常解决是设置响应头<code>Access-Control-Allow-Origin: *</code></p>
 <h3 id="Origin请求头"><a href="#Origin请求头" class="headerlink" title="Origin请求头"></a>Origin请求头</h3><ul>
 <li>存在跨域，浏览器带上Origin</li>
@@ -19,7 +24,19 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> xxx(ctx,next)&#123;</span><br><span class="line">  <span class="keyword">const</span> getOrigin = ctx.get(<span class="string">'Origin'</span>);</span><br><span class="line">  <span class="keyword">if</span>(!getOrigin) <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">  <span class="comment">// 解决跨域请求</span></span><br><span class="line">  ctx.set(<span class="string">'Access-Control-Allow-Origin'</span>,getOrigin)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Vary缓存处理"><a href="#Vary缓存处理" class="headerlink" title="Vary缓存处理"></a>Vary缓存处理</h3><p>配置<code>Vary:Origin</code></p>
+<h3 id="Vary缓存处理"><a href="#Vary缓存处理" class="headerlink" title="Vary缓存处理"></a>Vary缓存处理</h3><p>当存在多个域名需要通过CORS时，会存在响应缓存，需要【避免CDN缓存】，可以配置<code>Vary:Origin</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> getOrigin = ctx.get(<span class="string">'Origin'</span>);</span><br><span class="line">ctx.set(<span class="string">'Vary'</span>, <span class="string">'Origin'</span>)</span><br><span class="line"><span class="comment">// xxx</span></span><br></pre></td></tr></table></figure>
+
+<!-- ## 2、Node proxy
+
+## 3、Nginx反向代理
+
+## 4、JSONP
+
+## 5、
+
+## 6、 -->
+
 <h2 id="等待更新"><a href="#等待更新" class="headerlink" title="等待更新"></a>等待更新</h2>]]></content>
       <categories>
         <category>javascript</category>
