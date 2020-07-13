@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>网站前端登录原理</title>
+    <url>/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<blockquote>
+<p>登录/扫码，背后用到了什么功能</p>
+</blockquote>
+<a id="more"></a>
+
+<p>最近也是看到一个需求，网站接入微信扫码登录，并且扫码同时还需要关注公众号，那么就乘此时机回顾下各类登录方式</p>
+<hr>
+<h2 id="Cookie-Session"><a href="#Cookie-Session" class="headerlink" title="Cookie+Session"></a>Cookie+Session</h2><p>经典的登录模式</p>
+<p>由于http的无状态特性，服务端是不知道客户端是谁的，也就无法判断每次请求的用户是否相关联，所以不知道用户是否已经是登录态</p>
+<p>cookie作用是服务端发送给客户端的字符串，以文本方式保存，再下次请求时携带</p>
+<p>session是服务端对接收的信息进行验证，服务端会分配一个内存区域/文件/数据库，用于缓存session对象</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>首次登录<ul>
+<li>用户访问页面，输入密码</li>
+<li>验证成功，分配sessionId</li>
+<li>响应头写入cookie，告知客户端登录成功</li>
+</ul>
+</li>
+<li>二次登录<ul>
+<li>用户发送请求携带cookie给服务端</li>
+<li>验证有效，允许访问，表示cookie中解析出来的sessionId一致</li>
+<li>验证失效，重新登录</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>客户端数量上升，服务端需分配更大量的空间存放sessionId，增大服务端压力</li>
+<li>分布式/集群，同步登录态需要每一台机器</li>
+<li>sessionId存放在cookie中，有CSRF攻击风险</li>
+</ul>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>轻松处理10种跨域请求</title>
     <url>/2020/07/10/%E8%BD%BB%E6%9D%BE%E5%A4%84%E7%90%8610%E7%A7%8D%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/</url>
     <content><![CDATA[<blockquote>

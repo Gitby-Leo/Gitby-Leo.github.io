@@ -21,23 +21,19 @@
     var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="看板娘登陆平台     html, body { 	height: 100%; } body { 	display: flex; 	align-items: center; 	justify-content: center; 	padding-top: 40px; 	padding-bottom: 40px; 	background-color: #f5f5f5; } .form-sig">
+  <meta name="description" content="这里是Leo的云">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Leo的云">
-<meta property="og:url" content="https://gitby-leo.github.io/live2d-widget/demo/demo2.html">
+<meta property="og:url" content="https://gitby-leo.github.io/categories/javascript/page/3/index.html">
 <meta property="og:site_name" content="Leo的云">
-<meta property="og:description" content="看板娘登陆平台     html, body { 	height: 100%; } body { 	display: flex; 	align-items: center; 	justify-content: center; 	padding-top: 40px; 	padding-bottom: 40px; 	background-color: #f5f5f5; } .form-sig">
+<meta property="og:description" content="这里是Leo的云">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitby-leo.github.io/live2d-widget/assets/screenshot-1.png">
-<meta property="article:published_time" content="2020-02-25T07:45:01.478Z">
-<meta property="article:modified_time" content="2020-02-10T14:20:54.000Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="Leo">
 <meta property="article:tag" content="Leo的云">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitby-leo.github.io/live2d-widget/assets/screenshot-1.png">
 
-<link rel="canonical" href="https://gitby-leo.github.io/live2d-widget/demo/demo2">
+<link rel="canonical" href="https://gitby-leo.github.io/categories/javascript/page/3/">
 
 
 <script id="page-configurations">
@@ -49,8 +45,7 @@
   };
 </script>
 
-  <title> | Leo的云
-  </title>
+  <title>分类: javascript | Leo的云</title>
   
 
 
@@ -220,319 +215,61 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
-  <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h2 class="post-title" itemprop="name headline">
-</h2>
-
-<div class="post-meta">
   
-  <ul class="breadcrumb">
-          
-            <li><a href="/live2d-widget/">LIVE2D-WIDGET</a></li>
-            <li><a href="/live2d-widget/demo/">DEMO</a></li>
-            <li>DEMO2</li>
-          
-  </ul>
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>看板娘登陆平台</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-<script src="../live2d.min.js"></script>
-<style>
-html, body {
-	height: 100%;
-}
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-top: 40px;
-	padding-bottom: 40px;
-	background-color: #f5f5f5;
-}
-.form-signin {
-	width: 100%;
-	max-width: 330px;
-	padding: 15px;
-	margin: 0 auto;
-}
-.form-signin .checkbox {
-	font-weight: 400;
-}
-.form-signin .form-control {
-	position: relative;
-	box-sizing: border-box;
-	height: auto;
-	padding: 10px;
-	font-size: 16px;
-}
-.form-signin .form-control:focus {
-	z-index: 2;
-}
-.form-signin input[type=text] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-}
-.form-signin input[type=password] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-}
-#stage {
-	position: relative;
-}
-#stage img {
-	width: 100%;
-	margin-bottom: 20px;
-	border-radius: 20px;
-}
-#stage a {
-	position: absolute;
-	width: 2em;
-	height: 2em;
-	border-radius: 50%;
-}
-#inner {
-	position: relative;
-	background-color: #999;
-	clip-path: circle(120px at center);
-	-webkit-clip-path: circle(120px at center);
-}
-#cover {
-	position: absolute;
-	background-color: #CB3837;
-	width: 100%;
-	height: 100%;
-	bottom: 10%;
-	transition: all 1s;
-	box-shadow: 0 0 0 5px rgba(0, 0, 0, .1);
-}
-#text {
-	position: absolute;
-	bottom: 30%;
-	font-size: 2em;
-	left: 50%;
-	transform: translateX(-50%);
-	opacity: 0.4;
-	font-weight: bold;
-}
-#detail {
-	position: absolute;
-	background: rgba(255, 255, 255, .1);
-	width: 100%;
-	height: 10px;
-	bottom: 0;
-}
-#handle {
-	position: absolute;
-	background: #ccc;
-	bottom: -2px;
-	box-shadow: 0 1px 0 1px rgba(0, 0, 0, .1);
-	height: 8px;
-	left: 50%;
-	margin-left: -15px;
-	width: 30px;
-	cursor: pointer;
-}
-#info {
-	left: 40px;
-	bottom: 20px;
-}
-#refresh {
-	right: 40px;
-	bottom: 20px;
-}
-#live2d {
-	cursor: grab;
-}
-#live2d:active {
-	cursor: grabbing;
-}
-</style>
-</head>
-<body class="text-center">
-<form class="form-signin" action="login.php" method="post">
-	<div id="stage">
-		<div id="inner">
-			<div id="cover">
-				<div id="text">
-					<span style="color: cyan;">MIMI</span><span style="color: white">POWERED</span>
-				</div>
-				<div id="detail"></div>
-				<div id="handle"></div>
-			</div>
-			<canvas class="mb-4" id="live2d" width="300" height="300"></canvas>
-		</div>
-		<a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
-		<a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
-	</div>
-	<h1 class="h3 mb-3 font-weight-normal">看板娘登陆平台</h1>
-	<label for="room" class="sr-only">用户名</label>
-	<input type="text" name="room" class="form-control" placeholder="用户名" required autofocus>
-	<label for="pass" class="sr-only">密码</label>
-	<input type="password" name="pass" class="form-control" placeholder="密码" required>
-	<div class="checkbox mb-3">
-		<label>
-			<input type="checkbox" value="remember-me"> 记住我
-		</label>
-	</div>
-	<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-	<p class="mt-5 mb-3 text-muted">Copyleft &copy; Mimi 2019</p>
-</form>
-<script>
-window.addEventListener("load", () => {
-	"use strict";
-
-	if (!CSS.supports("clip-path", "circle(120px at center)") && !CSS.supports("-webkit-clip-path", "circle(120px at center)")) {
-		document.getElementById("stage").innerHTML = '<img src="../assets/screenshot-1.png">';
-		return;
-	}
-
-	var apiPath = "https://live2d.fghrsh.net/api", state = 0,
-		modelId = localStorage.getItem("modelId"),
-		modelTexturesId = localStorage.getItem("modelTexturesId");
-	if (modelId === null) {
-		modelId = 1;
-		modelTexturesId = 53;
-	}
-	loadModel(modelId, modelTexturesId);
-
-	function loadModel(modelId, modelTexturesId) {
-		localStorage.setItem("modelId", modelId);
-		if (modelTexturesId === undefined) modelTexturesId = 0;
-		localStorage.setItem("modelTexturesId", modelTexturesId);
-		loadlive2d("live2d", `${apiPath}/get/?id=${modelId}-${modelTexturesId}`, null);
-		console.log("live2d", `模型 ${modelId}-${modelTexturesId} 加载完成`);
-		setTimeout(() => {
-			coverPosition("80%");
-			state = 2;
-		}, 2000);
-	}
-
-	function loadRandModel() {
-		var modelId = localStorage.getItem("modelId"),
-			modelTexturesId = localStorage.getItem("modelTexturesId");
-		fetch(`${apiPath}/rand_textures/?id=${modelId}-${modelTexturesId}`)
-			.then(response => response.json())
-			.then(result => {
-				loadModel(modelId, result.textures.id);
-				setTimeout(() => {
-					state = 2;
-					coverPosition("80%");
-					document.getElementById("refresh").setAttribute("href", "javascript:refresh()");
-				}, 1000);
-			});
-	}
-
-	function loadOtherModel() {
-		var modelId = localStorage.getItem("modelId");
-		fetch(`${apiPath}/switch/?id=${modelId}`)
-			.then(response => response.json())
-			.then(result => {
-				loadModel(result.model.id);
-			});
-	}
-
-	function coverPosition(pos) {
-		document.getElementById("cover").style.bottom = pos;
-	}
-
-	window.info = function() {
-		fetch("https://v1.hitokoto.cn")
-			.then(response => response.json())
-			.then(result => {
-				alert("「" + result.hitokoto + "」——" + result.from);
-			});
-	}
-
-	window.refresh = function() {
-		state = 0;
-		coverPosition("10%");
-		document.getElementById("refresh").setAttribute("href", "javascript:void(0)");
-		setTimeout(loadRandModel, 1000);
-	}
-
-	document.getElementById("handle").addEventListener("click", () => {
-		if (state === 1) {
-			state = 2;
-			coverPosition("80%");
-		}
-		else if (state === 2) {
-			state = 1;
-			coverPosition("20%");
-		}
-	});
-
-	document.querySelector("input[type=password]").addEventListener("focus", () => {
-		if (state === 2) {
-			state = 1;
-			coverPosition("20%");
-		}
-	});
-	document.querySelector("input[type=password]").addEventListener("blur", () => {
-		if (state === 1) {
-			state = 2;
-			coverPosition("80%");
-		}
-	});
-});
-</script>
-</body>
-</html>
-
+  
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">javascript
+          <small>分类</small>
+        </h2>
       </div>
-      
-      
-      
-    </div>
-    
-  <ul class="breadcrumb">
-          
-            <li><a href="/live2d-widget/">LIVE2D-WIDGET</a></li>
-            <li><a href="/live2d-widget/demo/">DEMO</a></li>
-            <li>DEMO2</li>
-          
-  </ul>
 
-    
-    
-    
+      
+    <div class="collection-year">
+      <h2 class="collection-header">2020</h2>
+    </div>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-02-28T01:01:42+08:00"
+              content="2020-02-28">
+          02-28
+        </time>
+      </div>
+
+      <h3 class="post-title">
+          <a class="post-title-link" href="/2020/02/28/js%E6%95%B0%E7%BB%84%E6%8B%8D%E5%B9%B3%20%E6%89%81%E5%B9%B3%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F/" itemprop="url">
+            <span itemprop="name">js数组拍平 扁平化的方式</span>
+          </a>
+      </h3>
+
+    </header>
+  </article>
+
+    </div>
   </div>
+  
+  
+  
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/categories/javascript/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/javascript/">1</a><a class="page-number" href="/categories/javascript/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
           
-    
-  <div class="comments">
-    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODc1OS8yNTI1Mw=="></div>
-  </div>
-  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -579,7 +316,6 @@ window.addEventListener("load", () => {
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">看板娘登陆平台</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -866,21 +602,6 @@ window.addEventListener("load", () => {
 
   
 
-<script>
-NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
-  window.livereOptions = {
-    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
-  };
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-});
-</script>
 
   
   // 用户脚本
