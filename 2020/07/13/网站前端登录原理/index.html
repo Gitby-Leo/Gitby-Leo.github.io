@@ -29,7 +29,7 @@
 <meta property="og:description" content="登录&#x2F;扫码，背后用到了什么功能">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-13T15:43:07.000Z">
-<meta property="article:modified_time" content="2020-07-13T15:57:30.395Z">
+<meta property="article:modified_time" content="2020-07-13T16:37:56.374Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -277,14 +277,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>453</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -324,8 +324,74 @@
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
 <li>客户端数量上升，服务端需分配更大量的空间存放sessionId，增大服务端压力</li>
 <li>分布式/集群，同步登录态需要每一台机器</li>
-<li>sessionId存放在cookie中，有CSRF攻击风险</li>
+<li>sessionId存放在cookie中，有CSRF攻击风险<ul>
+<li>这里简述跨站脚本攻击，中间人无法拿到/解析cookie，但是能通过真实cookie向服务端发送请求，改变发送的数据，所以攻击的是改POST，而非读GET</li>
+<li>如果业务走安全审计流程么，一般会给出具体的解决方案（专业审计，价格老贵了，四大审计真的业务方向啥都审）<ul>
+<li>验证 HTTP Referer 字段</li>
+<li>在请求地址中添加 token 并验证</li>
+<li>在 HTTP 头中自定义属性并验证</li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="token"><a href="#token" class="headerlink" title="token"></a>token</h2><p>token优化了传统cookie+session的服务端压力问题，之前我最常用的则是JWT</p>
+<h3 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>首次登录<ul>
+<li>用户访问页面，输入密码</li>
+<li>验证成功，生成token</li>
+<li>返回token，告知客户端登录成功</li>
+</ul>
+</li>
+<li>二次登录<ul>
+<li>用户发送请求携带token给服务端</li>
+<li>验证有效，允许访问</li>
+<li>验证失效，重新登录</li>
+</ul>
+</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>服务端无需保存，利用客户端天然的分布式优势缓存token，每次请求时校验</li>
+<li>不存在cookie中</li>
+<li>登录态有效期由服务端决定</li>
+</ul>
+<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>格式为header.playload.signature字符串</p>
+<p>头部指定签名算法，消息体包含数据，签名对前两部base64url+对称加密</p>
+<p>当然不一定要强制按格式，能够产生类似功能的字符串与服务端匹配就可以称为JWT</p>
+<p>服务端拿到字符串后执行相同对称加密动作，判断签名一致</p>
+<ul>
+<li>问题点在于对称加密，密钥是暴露的  </li>
+<li>但是前端安全的本质是防止中间人通过各种方式篡改/攻击数据库，执行改权限之前是经过其他权限验证的真实用户，不能防止黑客作为真实用户去进行请求  </li>
+<li>所以JWT也是有价值的，当然更大的价值在于减轻服务端压力</li>
+</ul>
+<h2 id="SSO单点登录"><a href="#SSO单点登录" class="headerlink" title="SSO单点登录"></a>SSO单点登录</h2><p>品牌内部的公共认证中心，所有产品一次登录，其他产品无需登录，常见比如腾讯的子域名游戏、综艺等</p>
+<h3 id="流程-2"><a href="#流程-2" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>首次登录<ul>
+<li>用户访问页面A，跳转到renz认证中心统一登录页B，并url带上redirect地址，发送请求并验证</li>
+<li>输入密码，认证中心验证成功，创建全局会话&amp;ticket</li>
+<li>带上统一登录的登录态cookie，重定向跳转回页面A，此时url上含有ticket</li>
+<li>页面A请求，认证中心验证ticket有效，带上页面A的登录态cookie</li>
+<li>登录成功，客户端有2个cookie</li>
+</ul>
+</li>
+<li>二次登录页面A<ul>
+<li>验证ticket，cookie已存在，令牌有效，登录成功</li>
+</ul>
+</li>
+<li>二次登录页面B<ul>
+<li>通过认证中心统一登录页B，验证认证中心登录态</li>
+<li>验证通过，带上ticket重定向回B</li>
+</ul>
+</li>
+<li>退出<ul>
+<li>在验证ticket时，请求为退出的api接口即可</li>
+<li>清除c的登录态cookie</li>
+<li>清除认证中心的cookie，执行退出方法</li>
+<li>遍历下发过ticket的产品，执行的退出方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="Oauth"><a href="#Oauth" class="headerlink" title="Oauth"></a>Oauth</h2><p>比如微信扫码，还在写</p>
 
     </div>
 
@@ -455,7 +521,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-Session"><span class="nav-number">1.</span> <span class="nav-text">Cookie+Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.2.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-Session"><span class="nav-number">1.</span> <span class="nav-text">Cookie+Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#token"><span class="nav-number">2.</span> <span class="nav-text">token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程-1"><span class="nav-number">2.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT"><span class="nav-number">2.3.</span> <span class="nav-text">JWT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSO单点登录"><span class="nav-number">3.</span> <span class="nav-text">SSO单点登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程-2"><span class="nav-number">3.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oauth"><span class="nav-number">4.</span> <span class="nav-text">Oauth</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -526,7 +592,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">76k</span>
+    <span title="站点总字数">77k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
