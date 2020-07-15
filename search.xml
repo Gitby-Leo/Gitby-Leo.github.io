@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>API接口设计攻略</title>
+    <url>/2020/07/15/API%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1%E6%94%BB%E7%95%A5/</url>
+    <content><![CDATA[<blockquote>
+<p>前端业务需要怎么样的接口，如何保证交互安全</p>
+</blockquote>
+<a id="more"></a>
+
+<p>本篇不是RESTful风格的描述，提供思路仅供参考</p>
+<hr>
+<h2 id="https"><a href="#https" class="headerlink" title="https"></a>https</h2><p>防抓包不用多说</p>
+<h2 id="格式规范JSON"><a href="#格式规范JSON" class="headerlink" title="格式规范JSON"></a>格式规范JSON</h2><p>对一个项目来说，统一格式的返回数据，前后端可以进行优雅抽象，简洁处理业务代码<br>对一个团队来说，统一格式，可以封装通用类，作为沉淀</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    code:<span class="built_in">Number</span>,</span><br><span class="line">    data:<span class="built_in">Array</span> | <span class="built_in">Object</span>,</span><br><span class="line">    msg:<span class="built_in">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="token"><a href="#token" class="headerlink" title="token"></a>token</h2><p>访问令牌字符串，用于标识客户端的身份</p>
+<p>服务端返回appid和key，(这里的客户端是指接口的请求方，服务端是指接口的处理方)，这个key需要保存到客户端，并作安全处理</p>
+<p>举例抖音的signature，我还没找到是如何生成的（知道的小伙伴可以下方留言告诉我）</p>
+<p>token作为key，关联信息作为value，缓存到redis中，当请求处理时检查token存在及过期时间，否则返回异常</p>
+<h3 id="API-token-接口令牌"><a href="#API-token-接口令牌" class="headerlink" title="API token 接口令牌"></a>API token 接口令牌</h3><p>访问不需要登录的数据，比如登录注册，基本数据获取</p>
+<p>通过appid、timestamp、sign来换token</p>
+<h3 id="USER-toekn-用户令牌"><a href="#USER-toekn-用户令牌" class="headerlink" title="USER toekn 用户令牌"></a>USER toekn 用户令牌</h3><p>访问登录后的数据，用户信息，增删改</p>
+<p>通过用户名、密码来换token</p>
+<h3 id="时效性"><a href="#时效性" class="headerlink" title="时效性"></a>时效性</h3><ul>
+<li>一次性<ul>
+<li>调用后销毁</li>
+</ul>
+</li>
+<li>过期时间<ul>
+<li>20分钟~2小时</li>
+</ul>
+</li>
+<li>过期后激活并续期<ul>
+<li>用旧token请求，返回新token，延长过期时间，下次用新token</li>
+</ul>
+</li>
+</ul>
+<h2 id="timestamp"><a href="#timestamp" class="headerlink" title="timestamp"></a>timestamp</h2><p>接口调用时的客户端时间戳，缩短Dos攻击时间</p>
+<p>服务端判断时间差或者解析sign在几分钟内通过，以外的拦截过滤掉</p>
+<p>Dos是指利用网络协议层的缺陷，大量请求服务器资源、占用带宽、填充硬盘空间，导致服务器无法正常工作，直至停止响应崩溃</p>
+<ul>
+<li>简述Dos方式<ul>
+<li>Pingflood Ping包，堵塞网络&amp;主机资源</li>
+<li>Synflood SYN包，收到主机ACK不回应，建立维护大量连接队列，消耗主机资源</li>
+<li>Smurf ICMP包，伪装客户端为目标主机地址，向子网广播地址发包，使子网主机回应目标主机，形成攻击</li>
+<li>Land-based 设置包的源地址和目标地址为主机地址，通过ip欺骗方式发给目标主机，造成与自身建立连接的死循环</li>
+<li>Ping of Death 包长度分割片段，总和大于65536字节上限，造成宕机</li>
+<li>Teardrop 包分割小片段，使合并前分配大量资源堆栈</li>
+</ul>
+</li>
+</ul>
+<h2 id="sign"><a href="#sign" class="headerlink" title="sign"></a>sign</h2><p>参数签名，防止篡改</p>
+<p>ascii码升序+token+key+timestamp+随机数，加密</p>
+<p>可以放在请求体中，也可以放在header中，即使参数被修改，通过sign解析在接收时验证</p>
+<p>（有人说sign是骗自己，没有增加防护效果，这里再提一次，抖音的signature是怎么加密的呢）</p>
+<h2 id="重复提交"><a href="#重复提交" class="headerlink" title="重复提交"></a>重复提交</h2><p>前端做请求触发的拦截<br>后端设置超时时间<br>    - 第一次提交时sign保存、超时时间<br>    - 第二次请求时检测是否存在sign<br>      - 存在为重复提交，因为如果sign过期token也会过期</p>
+<p>增加装饰器自定义接口防重功能</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><ul>
+<li>客户端申请appid和key</li>
+<li>客户端携带appid、timestamp、sign获取服务端api token<ul>
+<li>客户端请求普通接口</li>
+</ul>
+</li>
+<li>客户端登录，用户名密码换取user token<ul>
+<li>客户端请求权限接口</li>
+</ul>
+</li>
+</ul>
+<h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>Thread多线程，单个线程中，方法共享内存，能从上下文取值</p>
+<ul>
+<li>api接收参数时，拦截器校验token合法</li>
+<li>找到token对应的用户信息，存储到Thread中，这样在生命周期中都能获取到</li>
+</ul>
+<h2 id="文档工具"><a href="#文档工具" class="headerlink" title="文档工具"></a>文档工具</h2><p>Swagger / Yapi / Postman / Online&amp;Offline Website / Excel / PPT / Word</p>
+]]></content>
+      <categories>
+        <category>API</category>
+      </categories>
+      <tags>
+        <tag>API</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>网站前端登录原理</title>
     <url>/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<blockquote>
