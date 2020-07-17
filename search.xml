@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>持续集成之Github Actions</title>
+    <url>/2020/07/17/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E4%B9%8BGithub%20Actions/</url>
+    <content><![CDATA[<blockquote>
+<p>持续集成是指代码提到到仓库后的所有：服务器编译、测试、打包、部署自动执行</p>
+</blockquote>
+<a id="more"></a>
+
+<p>上次，写了一篇关于Jenkins的搭建流程，也实现了推送后的webhooks钩子响应并编译发布</p>
+<p>而本篇的Github Actions则是代替Jenkins手工搭建，并节省服务器资源的一种新方式</p>
+<hr>
+<h2 id="Actions"><a href="#Actions" class="headerlink" title="Actions"></a>Actions</h2><p>熟悉vuex/redux的童鞋一定不陌生这个词</p>
+<ul>
+<li><p>vuex中表示保存异步修改状态的方法</p>
+</li>
+<li><p>redux中表示触发store中的数据更新的唯一来源</p>
+<p>而这里，每一个操作/脚本可以理解为一个action，叠加起来很多操作就是actions</p>
+<p>github有一个<a href="https://github.com/marketplace?type=actions" target="_blank" rel="noopener">官方市场</a>可以让你的项目添加不同的action</p>
+</li>
+</ul>
+<h2 id="创建action工作流"><a href="#创建action工作流" class="headerlink" title="创建action工作流"></a>创建action工作流</h2><p>在仓库的actions选项卡中, set up a workflow yourself</p>
+<p>发布到github则需要 GitHub 密钥，在仓库的Settings/Secrets新建一个</p>
+<h2 id="编写action"><a href="#编写action" class="headerlink" title="编写action"></a>编写action</h2><p>配置文件在仓库的.github/workflows目录下，格式为yaml，像hexo就是这种.yml啦</p>
+<p><a href="https://help.github.com/en/articles/workflow-syntax-for-github-actions" target="_blank" rel="noopener">配置字段</a></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">demo</span> <span class="comment"># 脚本名</span></span><br><span class="line"><span class="attr">on:</span>        <span class="comment"># 触发条件为推送到master分支</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"><span class="attr">jobs:</span>      <span class="comment"># 需要执行的动作</span></span><br><span class="line">  <span class="attr">build:</span>   <span class="comment"># 用ubuntu执行构建，uses是用了什么库</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">build</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xxx</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">appleboy/ssh-action@master</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自动登陆服务器打包"><a href="#自动登陆服务器打包" class="headerlink" title="自动登陆服务器打包"></a>自动登陆服务器打包</h2><p>推送后，自动拉取最新代码打包</p>
+<p><a href="https://github.com/appleboy/ssh-action" target="_blank" rel="noopener">自动模拟ssh登录</a></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">demo</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">build</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">nodejs</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xx</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">appleboy/ssh-action@master</span></span><br><span class="line">        <span class="attr">width:</span>  <span class="comment"># 帐密放在github仓库的settings-secrets配置里</span></span><br><span class="line">          <span class="attr">host:</span> <span class="string">$&#123;&#123;secrets.HOST&#125;&#125;</span></span><br><span class="line">          <span class="attr">username:</span> <span class="string">$&#123;&#123;secrets.USERNAME&#125;&#125;</span></span><br><span class="line">          <span class="attr">password:</span> <span class="string">$&#123;&#123;secrets.password&#125;&#125;</span></span><br><span class="line">          <span class="attr">command_timeout:</span> <span class="string">5m</span></span><br><span class="line">          <span class="attr">scripts:</span> <span class="string">|</span></span><br><span class="line">            <span class="string">cd</span> <span class="string">~/test</span></span><br><span class="line">            <span class="string">git</span> <span class="string">pull</span> <span class="string">origin</span> <span class="string">master</span></span><br><span class="line">            <span class="string">yarn</span></span><br><span class="line">            <span class="string">yarn</span> <span class="string">build</span></span><br></pre></td></tr></table></figure>
+
+<p>进入服务器，进入目录，拉取代码，打包，完成</p>
+]]></content>
+      <categories>
+        <category>ci/cd</category>
+      </categories>
+      <tags>
+        <tag>ci/cd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>API接口设计攻略</title>
     <url>/2020/07/15/API%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1%E6%94%BB%E7%95%A5/</url>
     <content><![CDATA[<blockquote>
