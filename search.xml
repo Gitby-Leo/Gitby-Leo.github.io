@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git提交规范</title>
+    <url>/2020/07/20/git%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83/</url>
+    <content><![CDATA[<blockquote>
+<p>规范的git命名在多人共同开发项目时很有帮助</p>
+</blockquote>
+<a id="more"></a>
+
+<ul>
+<li>feat： 新增一个功能</li>
+<li>fix: 修复bug</li>
+<li>docs: 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等</li>
+<li>style: 仅仅修改了空格、格式缩进等等，不改变代码逻辑</li>
+<li>refactor: 代码重构，没有加新功能或者修复bug</li>
+<li>perf: 优化相关，比如提升性能、体验</li>
+<li>test: 测试用例，包括增加缺失用例或者修正测试用例</li>
+</ul>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Marp用markdown制作PPT</title>
     <url>/2020/07/19/Marp%E7%94%A8markdown%E5%88%B6%E4%BD%9CPPT/</url>
     <content><![CDATA[<blockquote>
