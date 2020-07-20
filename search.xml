@@ -4,19 +4,37 @@
     <title>git提交规范</title>
     <url>/2020/07/20/git%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83/</url>
     <content><![CDATA[<blockquote>
-<p>规范的git命名在多人共同开发项目时很有帮助</p>
+<p>规范的git信息在多人共同协作开发项目时很有帮助<br>commitizen工具用于规范提交信息</p>
 </blockquote>
 <a id="more"></a>
 
+<p>分支命名，个人习惯：feature/需求_昵称</p>
 <ul>
 <li>feat： 新增一个功能</li>
 <li>fix: 修复bug</li>
-<li>docs: 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等</li>
 <li>style: 仅仅修改了空格、格式缩进等等，不改变代码逻辑</li>
-<li>refactor: 代码重构，没有加新功能或者修复bug</li>
-<li>perf: 优化相关，比如提升性能、体验</li>
+<li>docs: 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等</li>
 <li>test: 测试用例，包括增加缺失用例或者修正测试用例</li>
+<li>perf: 优化相关，比如提升性能、体验</li>
+<li>refactor: 代码重构，没有加新功能或者修复bug</li>
 </ul>
+<h2 id="commitizen"><a href="#commitizen" class="headerlink" title="commitizen"></a>commitizen</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">commitizen</span> <span class="string">-D</span> <span class="comment"># 提交时填写所有必需的提交字段</span></span><br><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">cz-conventional-changelog</span> <span class="string">-D</span> <span class="comment"># 用来规范提交信息</span></span><br><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">-S</span> <span class="string">conventional-changelog-cli</span> <span class="comment"># 从git metadata生成变更日志</span></span><br></pre></td></tr></table></figure>
+
+<p>在package.json中添加命令</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"scripts"</span>:&#123;</span><br><span class="line">        <span class="attr">"commit"</span>: <span class="string">"git-cz"</span>, <span class="comment">// 替换git commit -m.</span></span><br><span class="line">        <span class="attr">"genlog"</span>: <span class="string">"conventional-changelog -p angular -i CHANGELOG.md -s"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"config"</span>:&#123;</span><br><span class="line">        <span class="attr">"commitizen"</span>:&#123;</span><br><span class="line">            <span class="attr">"path"</span>: <span class="string">"./node_modules/cz-conventional-changelog"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="规范提交文案"><a href="#规范提交文案" class="headerlink" title="规范提交文案"></a>规范提交文案</h2><p><code>npm run commit</code></p>
+<p>每次提交，Commit message 都包括三个部分：Header，Body 和 Footer。</p>
+<h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p>包括三个字段：type（必需）、scope（可选）和subject（必需）</p>
+<h4 id="type"><a href="#type" class="headerlink" title="type"></a>type</h4><p>类型feat/fix/test等</p>
+<h4 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h4><p>说明 commit 影响的范围，比如数据层、控制层、视图层等等</p>
+<h4 id="subject"><a href="#subject" class="headerlink" title="subject"></a>subject</h4><p>commit 目的的简短描述，不超过50个字符，动词开头</p>
+<h3 id="Body"><a href="#Body" class="headerlink" title="Body"></a>Body</h3><p>详细描述，可以分成多行</p>
+<h3 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h3><ul>
+<li>不兼容变动，理由和方法</li>
+<li>关闭 Issue：Closes #234</li>
+</ul>
+<h2 id="生成日志"><a href="#生成日志" class="headerlink" title="生成日志"></a>生成日志</h2><p><code>npm run genlog</code></p>
 ]]></content>
       <categories>
         <category>git</category>
