@@ -21,20 +21,19 @@
     var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="登录&#x2F;扫码，背后用到了什么功能">
-<meta property="og:type" content="article">
-<meta property="og:title" content="网站前端登录原理">
-<meta property="og:url" content="https://gitby-leo.github.io/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/index.html">
+  <meta name="description" content="这里是Leo的云">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leo的云">
+<meta property="og:url" content="https://gitby-leo.github.io/tags/data-analytic/index.html">
 <meta property="og:site_name" content="Leo的云">
-<meta property="og:description" content="登录&#x2F;扫码，背后用到了什么功能">
+<meta property="og:description" content="这里是Leo的云">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-13T15:43:07.000Z">
-<meta property="article:modified_time" content="2020-07-14T17:00:07.115Z">
 <meta property="article:author" content="Leo">
-<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="Leo">
+<meta property="article:tag" content="Leo的云">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://gitby-leo.github.io/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/">
+<link rel="canonical" href="https://gitby-leo.github.io/tags/data-analytic/">
 
 
 <script id="page-configurations">
@@ -42,11 +41,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true
+    isPost: false
   };
 </script>
 
-  <title>网站前端登录原理 | Leo的云</title>
+  <title>标签: data analytic | Leo的云</title>
   
 
 
@@ -220,295 +219,54 @@
           <div class="content">
             
 
-  <div class="posts-expand">
-      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Leo">
-      <meta itemprop="description" content="这里是Leo的云">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leo的云">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          网站前端登录原理
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">data analytic
+          <small>标签</small>
         </h2>
-
-        <div class="post-meta">
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-13 23:43:07" itemprop="dateCreated datePublished" datetime="2020-07-13T23:43:07+08:00">2020-07-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="网站前端登录原理" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <blockquote>
-<p>登录/扫码，背后用到了什么功能</p>
-</blockquote>
-<a id="more"></a>
-
-<p>最近也是看到一个需求，网站接入微信扫码登录，并且扫码同时还需要关注公众号，那么就乘此时机回顾下各类登录方式</p>
-<hr>
-<h2 id="Cookie-Session"><a href="#Cookie-Session" class="headerlink" title="Cookie+Session"></a>Cookie+Session</h2><p>经典的登录模式</p>
-<p>由于http的无状态特性，服务端是不知道客户端是谁的，也就无法判断每次请求的用户是否相关联，所以不知道用户是否已经是登录态</p>
-<p>cookie作用是服务端发送给客户端的字符串，以文本方式保存，再下次请求时携带</p>
-<p>session是服务端对接收的信息进行验证，服务端会分配一个内存区域/文件/数据库，用于缓存session对象</p>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>首次登录<ul>
-<li>用户访问页面，输入密码</li>
-<li>验证成功，分配sessionId</li>
-<li>响应头写入cookie，告知客户端登录成功</li>
-</ul>
-</li>
-<li>二次登录<ul>
-<li>用户发送请求携带cookie给服务端</li>
-<li>验证有效，允许访问，表示cookie中解析出来的sessionId一致</li>
-<li>验证失效，重新登录</li>
-</ul>
-</li>
-</ul>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
-<li>客户端数量上升，服务端需分配更大量的空间存放sessionId，增大服务端压力</li>
-<li>分布式/集群，同步登录态需要每一台机器</li>
-<li>sessionId存放在cookie中，有CSRF攻击风险<ul>
-<li>这里简述跨站脚本攻击，中间人无法拿到/解析cookie，但是能通过真实cookie向服务端发送请求，改变发送的数据，所以攻击的是改POST，而非读GET</li>
-<li>如果业务走安全审计流程么，一般会给出具体的解决方案（专业审计，价格老贵了，四大审计真的业务方向啥都审）<ul>
-<li>验证 HTTP Referer 字段</li>
-<li>在请求地址中添加 token 并验证</li>
-<li>在 HTTP 头中自定义属性并验证</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="token"><a href="#token" class="headerlink" title="token"></a>token</h2><p>token优化了传统cookie+session的服务端压力问题，之前我最常用的则是JWT</p>
-<h3 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>首次登录<ul>
-<li>用户访问页面，输入密码</li>
-<li>验证成功，生成token</li>
-<li>返回token，告知客户端登录成功</li>
-</ul>
-</li>
-<li>二次登录<ul>
-<li>用户发送请求携带token给服务端</li>
-<li>验证有效，允许访问</li>
-<li>验证失效，重新登录</li>
-</ul>
-</li>
-</ul>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>服务端无需保存，利用客户端天然的分布式优势缓存token，每次请求时校验</li>
-<li>不存在cookie中</li>
-<li>登录态有效期由服务端决定</li>
-</ul>
-<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>格式为header.playload.signature字符串</p>
-<p>头部指定签名算法，消息体包含数据，签名对前两部base64url+对称加密</p>
-<p>当然不一定要强制按格式，能够产生类似功能的字符串与服务端匹配就可以称为JWT</p>
-<p>服务端拿到字符串后执行相同对称加密动作，判断签名一致</p>
-<ul>
-<li>问题点在于对称加密，密钥是暴露的  </li>
-<li>但是前端安全的本质是防止中间人通过各种方式篡改/攻击数据库，执行改权限之前是经过其他权限验证的真实用户，不能防止黑客作为真实用户去进行请求  </li>
-<li>所以JWT也是有价值的，当然更大的价值在于减轻服务端压力</li>
-</ul>
-<h2 id="SSO单点登录"><a href="#SSO单点登录" class="headerlink" title="SSO单点登录"></a>SSO单点登录</h2><p>品牌内部的公共认证中心，所有产品一次登录，其他产品无需登录，常见比如腾讯的子域名游戏、综艺等</p>
-<h3 id="流程-2"><a href="#流程-2" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>首次登录<ul>
-<li>用户访问页面A，跳转到renz认证中心统一登录页B，并url带上redirect地址，发送请求并验证</li>
-<li>输入密码，认证中心验证成功，创建全局会话&amp;ticket</li>
-<li>带上统一登录的登录态cookie，重定向跳转回页面A，此时url上含有ticket</li>
-<li>页面A请求，认证中心验证ticket有效，带上页面A的登录态cookie</li>
-<li>登录成功，客户端有2个cookie</li>
-</ul>
-</li>
-<li>二次登录页面A<ul>
-<li>验证ticket，cookie已存在，令牌有效，登录成功</li>
-</ul>
-</li>
-<li>二次登录页面B<ul>
-<li>通过认证中心统一登录页B，验证认证中心登录态</li>
-<li>验证通过，带上ticket重定向回B</li>
-</ul>
-</li>
-<li>退出<ul>
-<li>在验证ticket时，请求为退出的api接口即可</li>
-<li>清除c的登录态cookie</li>
-<li>清除认证中心的cookie，执行退出方法</li>
-<li>遍历下发过ticket的产品，执行的退出方法</li>
-</ul>
-</li>
-</ul>
-<h2 id="Oauth"><a href="#Oauth" class="headerlink" title="Oauth"></a>Oauth</h2><p>比如微信、qq、微博,授权机制，客户端携带令牌可以访问所有者的资源</p>
-<ul>
-<li>接入的第三方应用获取appid,appsecret</li>
-<li>用户进入时，跳转平台Oauth授权，平台发送请求用户确认</li>
-<li>确认后重新进入第三方站点，并带上临时code</li>
-<li>第三方应用根据code、id、secret向平台申请token</li>
-<li>第三方应用拿到用户信息，保存登录态</li>
-</ul>
-<h3 id="Oauth2-0"><a href="#Oauth2-0" class="headerlink" title="Oauth2.0"></a>Oauth2.0</h3><p>获取token的过程，4种授权方式，都需要第三方有appid和appsecret，需要分发token和refresh</p>
-<ul>
-<li>授权码，最复杂，安全高，如微信</li>
-<li>隐藏式，客户端直接获取token</li>
-<li>密码式，第三方拿用户账密登录平台，危险风险大</li>
-<li>凭证式，客户端分配了id,secret标识身份 </li>
-</ul>
-<p>token放header中</p>
-<h3 id="令牌过期处理"><a href="#令牌过期处理" class="headerlink" title="令牌过期处理"></a>令牌过期处理</h3><p>token是有时效的，重新授权的流程体验不好，更优雅得处理过期问题</p>
-<p>一个令牌请求API，一个令牌请求refresh_token，当一个失效时，下一次请求更新token，即可优化前端流程</p>
-<h2 id="扫码登录及关注"><a href="#扫码登录及关注" class="headerlink" title="扫码登录及关注"></a>扫码登录及关注</h2><p>简述一下思路，扫码后&amp;关注默认为已授权</p>
-<ul>
-<li>嵌入网页的平台二维码展示，客户端存jwt用于验证</li>
-<li>服务端生成微信临时带参二维码，每三分钟更新</li>
-<li>客户端每隔3秒请求一次API获取最新状态，5次后每隔5秒，再往后时间间隔变长，优化请求，这里也可以用socket更简洁(简述三点接口性能，有空写一篇关于socket的)<ul>
-<li>大量链接的创建和关闭</li>
-<li>长时间保持大量连接</li>
-<li>大量推送消息</li>
-</ul>
-</li>
-<li>用户扫码后关注/直接进入公众号，服务端根据临时二维码区分渠道，得到授权状态，更新API、token、数据库</li>
-<li>客户端切换页面内容A，刷新页面从缓存中取token值，验证成功后直接进入页面A，不再重新扫码</li>
-<li>授权/关注流程结束，需求实现</li>
-</ul>
-
-    </div>
-
-    
-    
-    
-        <div class="reward-container">
-  <div>听说，打赏我的人最后都找到了真爱 <br> ↘ 此处应有打赏 ↙</div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/pay/wechatpay.jpg" alt="Leo 微信支付">
-        <p>微信支付</p>
-      </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/pay/alipay.jpg" alt="Leo 支付宝">
-        <p>支付宝</p>
       </div>
 
-  </div>
-</div>
-
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>Leo
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://gitby-leo.github.io/2020/07/13/%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95%E5%8E%9F%E7%90%86/" title="网站前端登录原理">https://gitby-leo.github.io/2020/07/13/网站前端登录原理/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
-          </div>
-
-        
-  <div class="post-widgets">
-    <div class="wp_rating">
-      <div id="wpac-rating"></div>
+      
+    <div class="collection-year">
+      <h2 class="collection-header">2020</h2>
     </div>
-  </div>
 
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/07/15/API%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1%E6%94%BB%E7%95%A5/" rel="next" title="API接口设计攻略">
-    <i class="fa fa-chevron-left"></i> API接口设计攻略 
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/10/%E8%BD%BB%E6%9D%BE%E5%A4%84%E7%90%8610%E7%A7%8D%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/" rel="prev" title="轻松处理10种跨域请求">
-    轻松处理10种跨域请求 <i class="fa fa-chevron-right"></i> 
-    </a></div>
-    </div>
-      </footer>
-    
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-07-23T23:15:08+08:00"
+              content="2020-07-23">
+          07-23
+        </time>
+      </div>
+
+      <h3 class="post-title">
+          <a class="post-title-link" href="/2020/07/23/GrowingIO%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/" itemprop="url">
+            <span itemprop="name">GrowingIO用户行为分析工具</span>
+          </a>
+      </h3>
+
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
   
 
-  </div>
+  
+
 
 
           </div>
           
-    
-  <div class="comments">
-    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODc1OS8yNTI1Mw=="></div>
-  </div>
-  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -555,7 +313,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-Session"><span class="nav-number">1.</span> <span class="nav-text">Cookie+Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#token"><span class="nav-number">2.</span> <span class="nav-text">token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程-1"><span class="nav-number">2.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT"><span class="nav-number">2.3.</span> <span class="nav-text">JWT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSO单点登录"><span class="nav-number">3.</span> <span class="nav-text">SSO单点登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程-2"><span class="nav-number">3.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oauth"><span class="nav-number">4.</span> <span class="nav-text">Oauth</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Oauth2-0"><span class="nav-number">4.1.</span> <span class="nav-text">Oauth2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#令牌过期处理"><span class="nav-number">4.2.</span> <span class="nav-text">令牌过期处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫码登录及关注"><span class="nav-number">5.</span> <span class="nav-text">扫码登录及关注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -842,21 +599,6 @@
 
   
 
-<script>
-NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
-  window.livereOptions = {
-    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
-  };
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-});
-</script>
 
   
   // 用户脚本

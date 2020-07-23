@@ -1,6 +1,531 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GrowingIO用户行为分析工具</title>
+    <url>/2020/07/23/GrowingIO%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<blockquote>
+<p>关于GrowingIO工具</p>
+</blockquote>
+<a id="more"></a>
+
+<p>虽然之前工作内容涉及很多埋点事件，也写过简单的手动埋点脚本，但一直没有系统了解过埋点工具里能做什么，涉及的专有名词都是什么意思，这次了解 GrowingIO 时就做个记录吧</p>
+<hr>
+<h2 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h2><p>核心：<code>用户</code>、<code>行为</code>、<code>分析</code></p>
+<h3 id="用户模型"><a href="#用户模型" class="headerlink" title="用户模型"></a>用户模型</h3><p>不同的分析场景，需要不同的模型进行处理</p>
+<h4 id="访问用户"><a href="#访问用户" class="headerlink" title="访问用户"></a>访问用户</h4><p>终端 生成 唯一标识 ID，<code>一个终端关联一个用户</code>的行为，可以理解为 openid</p>
+<p>清除缓存或卸载后会更新此类 id</p>
+<ul>
+<li>四种 sdk<ul>
+<li>web:<ul>
+<li>存储到 Cookie/Storage</li>
+<li>uuid 通用唯一标识符</li>
+</ul>
+</li>
+<li>ios:【文档说依次获取？这是对于访客】<ul>
+<li>存储到 keychain ios 的密码管理系统中</li>
+<li>IDFA 苹果官方唯一允许广告获取用户的信息,每次打开关闭都会更新，无法追踪个人信息，不可用于识别用户</li>
+<li>IDFV 一台设备中同一个应用厂商的 app 标识符 IDFV 相同，如果用户卸载了而不是删除同一厂商的所有 app，并重新安装，IDFV 会改变，同一厂商的生产版本 app 和开发版本 app 的 IDFV 也不同</li>
+<li>GUID 全球唯一标识符，广泛用于微软的平台，ios 应该也有自己的一套格式</li>
+</ul>
+</li>
+<li>android:<ul>
+<li>MD5 加密后将之存储至设备本地文件系统</li>
+<li>Android ID 有 5 种， IMEI 设备串号，MAC 地址，SIM ID 手机卡唯一标识，Android id 每次系统初始化后的 id，Serial Number 序列号</li>
+<li>IMEI</li>
+<li>UUID</li>
+</ul>
+</li>
+<li>mini<ul>
+<li>存储到 Cookie/Storage</li>
+<li>UUID</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="登录用户"><a href="#登录用户" class="headerlink" title="登录用户"></a>登录用户</h4><p>数据库 保存 唯一标识 ID，登录注册后用于跨平台之间的身份识别，<code>多个终端关联一个用户</code>的行为，可以理解为 unionid</p>
+<p>用于分析多端用户注册、访问频率、事件行为等用户属性&amp;行为分析</p>
+<h4 id="用户属性"><a href="#用户属性" class="headerlink" title="用户属性"></a>用户属性</h4><p>id 只能满足用户数量的分析，需要拆分某一个用户的属性、特征分析用户行为</p>
+<ul>
+<li>登录用户属性<ul>
+<li>用户基本信息</li>
+<li>分类</li>
+<li>标签</li>
+</ul>
+</li>
+<li>访问用户属性<ul>
+<li>匿名用户，如未登录时的小程序</li>
+</ul>
+</li>
+</ul>
+<h3 id="事件模型"><a href="#事件模型" class="headerlink" title="事件模型"></a>事件模型</h3><h4 id="什么是事件"><a href="#什么是事件" class="headerlink" title="什么是事件"></a>什么是事件</h4><p>统计和分析用户行为的记录</p>
+<p>用户、时间、行为、行为作用的对象</p>
+<p>用户-&gt; 访问 -&gt; 页面 -&gt; 动作， 这样导出为树形层级直观可见</p>
+<h5 id="访问事件"><a href="#访问事件" class="headerlink" title="访问事件"></a>访问事件</h5><ul>
+<li>用户设备信息<ul>
+<li>操作系统及版本、设备品牌、设备型号、设备类型（手机/平板）、设备制造商、浏览器及版本、系统语言、屏幕大小、设备方向</li>
+</ul>
+</li>
+<li>用户位置信息<ul>
+<li>国家、地区、城市名称、国家代码</li>
+</ul>
+</li>
+<li>用户访问的应用信息<ul>
+<li>应用平台、App 版本</li>
+</ul>
+</li>
+<li>页面信息<ul>
+<li>域名、页面</li>
+<li>访问来源、页面来源</li>
+</ul>
+</li>
+</ul>
+<h5 id="页面事件"><a href="#页面事件" class="headerlink" title="页面事件"></a>页面事件</h5><ul>
+<li>域名/包名</li>
+<li>页面 url</li>
+<li>页面来源</li>
+</ul>
+<h5 id="动作事件"><a href="#动作事件" class="headerlink" title="动作事件"></a>动作事件</h5><ul>
+<li>用户点击元素、浏览元素、提交表单、元素位置</li>
+</ul>
+<h4 id="埋点事件"><a href="#埋点事件" class="headerlink" title="埋点事件"></a>埋点事件</h4><p>写对应代码，通过触发 sdk 提供的 api 上报数据</p>
+<p>客户端埋点、服务端埋点</p>
+<h4 id="无埋点事件"><a href="#无埋点事件" class="headerlink" title="无埋点事件"></a>无埋点事件</h4><p>不写代码，捕获用户行为，通过 sdk 自动采集生成的事件</p>
+<ul>
+<li>比如监听如下事件<ul>
+<li>page 事件 切换页面时</li>
+<li>vst 事件 新的访问时</li>
+<li>activate 事件 当 App 首次激活打开时</li>
+<li>reengage 事件 由 GrowingIO Deep Link 唤醒 App 时</li>
+<li>click 事件 当用户对 App 上的可点击元素有点击行为时</li>
+<li>change 事件 当用户对 App 上的输入元素有改变的行为时<br>imp 事件 当有元素展现时</li>
+</ul>
+</li>
+</ul>
+<h3 id="统计模型"><a href="#统计模型" class="headerlink" title="统计模型"></a>统计模型</h3><h4 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h4><p>用来统计事件的量</p>
+<ul>
+<li>预定义指标:访问量、浏览量</li>
+<li>无埋点指标：页面点击或元素点击</li>
+<li>埋点指标：订单金额</li>
+</ul>
+<h4 id="维度"><a href="#维度" class="headerlink" title="维度"></a>维度</h4><p>用于分解、过滤以及对比指标的角度、属性</p>
+<p>网址浏览量 5000 次，分解为 ie 和 chrome 不同的浏览量</p>
+<ul>
+<li>从高到低<ul>
+<li>访问级维度</li>
+<li>页面级维度</li>
+<li>动作级维度<ul>
+<li>无埋点事件维度</li>
+<li>埋点事件维度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>维度的层级关系，高维度用于分解低维度事件的指标，</p>
+<h4 id="预定义指标"><a href="#预定义指标" class="headerlink" title="预定义指标"></a>预定义指标</h4><blockquote>
+<p>用户级指标</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">用户级指标</th>
+<th align="center">用户总量统计</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">访问量</td>
+<td align="center">访问用户的数量</td>
+</tr>
+<tr>
+<td align="center">新访问量</td>
+<td align="center">一年内的访问用户的数量</td>
+</tr>
+<tr>
+<td align="center">登录量</td>
+<td align="center">登录用户的数量</td>
+</tr>
+<tr>
+<td align="center">新登录量</td>
+<td align="center">第一次登录用户的数量</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>访问级指标</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">访问级指标</th>
+<th align="center">衡量网站总体访问情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">访问量</td>
+<td align="center">访问的数量/次数</td>
+</tr>
+<tr>
+<td align="center">每次访问页面浏览量</td>
+<td align="center">每次访问浏览的页面的数量 <br> = <code>页面浏览量/访问量</code></td>
+</tr>
+<tr>
+<td align="center">人均访问页数</td>
+<td align="center">每次访问浏览的页面的数量 <br> = <code>页面浏览量/访问量</code></td>
+</tr>
+<tr>
+<td align="center">人均访问次数</td>
+<td align="center">每个用户实际浏览网页数 <br> = <code>页面浏览量/用户量</code></td>
+</tr>
+<tr>
+<td align="center">总访问时长</td>
+<td align="center">所有访问的总时长，分钟为单位，排除小于 1s 和大于 1 天，排除 web 端最后页面的访问时长</td>
+</tr>
+<tr>
+<td align="center">平均访问时长</td>
+<td align="center">每次访问时长 <br> = <code>总访问时长/访问量</code></td>
+</tr>
+<tr>
+<td align="center">人均访问时长</td>
+<td align="center">每个用户的访问时长 <br> = <code>总访问时长/用户量</code></td>
+</tr>
+<tr>
+<td align="center">退出次数</td>
+<td align="center">该页面作为用户一次访问中的最后一个页面的访问的次数</td>
+</tr>
+<tr>
+<td align="center">退出率</td>
+<td align="center">该页面作为退出页的次数，占这个页面被访问的总体数量的比例 <br> = <code>退出次数/访问量</code></td>
+</tr>
+<tr>
+<td align="center">总页面停留时长</td>
+<td align="center">当前页面上停留的总时长，不统计停留时长大于 3 个小时的页面</td>
+</tr>
+<tr>
+<td align="center">平均页面停留时长</td>
+<td align="center">当前页面上停留的平均时长 <br> = <code>总页面停留时长/（页面浏览量-退出次数）</code></td>
+</tr>
+<tr>
+<td align="center">进入量</td>
+<td align="center">访问用户进入网站的数量。</td>
+</tr>
+<tr>
+<td align="center">访问用户人均进入次数</td>
+<td align="center">每个访问用户进入网站/小程序进行访问的数量 <br> = <code>进入量/访问用户量</code></td>
+</tr>
+<tr>
+<td align="center">总进入时长</td>
+<td align="center">该页面作为用户一次访问中的第一个页面的访问的时长，以分钟作为单位</td>
+</tr>
+<tr>
+<td align="center">平均进入时长</td>
+<td align="center">每次进入网站/小程序进行访问的平均时长 <br> = <code>总进入时长/进入量</code></td>
+</tr>
+<tr>
+<td align="center">每次进入页面浏览量</td>
+<td align="center">每次进入带来的页面浏览的数量 <br> = <code>进入总页面浏览量/进入量</code></td>
+</tr>
+<tr>
+<td align="center">跳出次数</td>
+<td align="center">访问一个页面就离开的次数,一次访问中只访问了一个页面</td>
+</tr>
+<tr>
+<td align="center">跳出率</td>
+<td align="center">只有一个页面浏览的访问占所有访问的比率 <br> = <code>跳出次数/进入量</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>页面级指标</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">衡量页面的访问情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">页面浏览量</td>
+<td align="center">用户实际浏览过的网页数量</td>
+</tr>
+<tr>
+<td align="center">通过圈选定义的页面浏览量</td>
+<td align="center">定义一个/一组页面的浏览量</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>事件级指标</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">事件级指标</th>
+<th align="center">可以通过圈选和创建自定义事件来实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">通过圈选定义的元素指标化后</td>
+<td align="center">标化为“该元素点击（浏览）的人数或次数</td>
+</tr>
+<tr>
+<td align="center">自定义事件</td>
+<td align="center">埋点创建的自定义事件</td>
+</tr>
+</tbody></table>
+<h4 id="预定义维度"><a href="#预定义维度" class="headerlink" title="预定义维度"></a>预定义维度</h4><blockquote>
+<p>用户来源维度</p>
+</blockquote>
+<p>.</p>
+<blockquote>
+<blockquote>
+<p>访问来源（Web）‌</p>
+</blockquote>
+</blockquote>
+<p>通过用户来源了解用户是怎样来到你的网站上的</p>
+<table>
+<thead>
+<tr>
+<th align="center">访问来源具体值</th>
+<th align="center">场景</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">微信 - 公众号</td>
+<td align="center">公众号中查看图文消息-点击“阅读原文”</td>
+<td align="center">微信会返回“公众号”访问来源链接，即可以判断出公众号的来源。</td>
+</tr>
+<tr>
+<td align="center">微信-朋友圈</td>
+<td align="center">朋友圈里查看分享的页面类链接</td>
+<td align="center">参数判断为朋友圈打开。</td>
+</tr>
+<tr>
+<td align="center">微信-群聊</td>
+<td align="center">查看分享给群组的页面链接</td>
+<td align="center">参数判断为群组信息中打开。</td>
+</tr>
+<tr>
+<td align="center">微信-好友</td>
+<td align="center">查看分享给单个好友的页面链接</td>
+<td align="center">参数判断为好友信息中打开。</td>
+</tr>
+<tr>
+<td align="center">微信-二维码</td>
+<td align="center">扫描二维码在微信中打开 H5 页面查看</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">微信-图文链接</td>
+<td align="center">公众号直接给文字/图片链接，用户打开</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">微信-链接</td>
+<td align="center">打开分享到朋友圈、群聊、单聊消息中的 URL 链接</td>
+<td align="center">如果仅是 URL，只会追踪具体的 URL，但可以识别在微信环境中打开。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<blockquote>
+<p>一级访问来源</p>
+</blockquote>
+</blockquote>
+<p>直接访问、搜索引擎、社交媒体、视频媒体、新闻媒体、外部链接</p>
+<ul>
+<li>直接访问<ul>
+<li>直接在浏览器中输入了一个域名或使用书签进行访问</li>
+<li>邮件中点击链接访问</li>
+<li>从 Microsoft Office 或 PDF 文件中点击链接访问</li>
+<li>短链接访问网站</li>
+<li>App 点击链接访问</li>
+<li>https 类型的 url 访问一个 http 类型的 url</li>
+</ul>
+</li>
+<li>搜索引擎<ul>
+<li>常见搜索百度、谷歌、必应啥的</li>
+</ul>
+</li>
+<li>社交媒体<ul>
+<li>微信、微博、知乎、以及境外社交媒体</li>
+</ul>
+</li>
+<li>视频媒体<ul>
+<li>腾讯视频、爱奇艺、优酷、b 站、斗鱼</li>
+</ul>
+</li>
+<li>新闻媒体<ul>
+<li>腾讯新闻、搜狐、头条</li>
+</ul>
+</li>
+<li>外部链接<ul>
+<li>除了以上的</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>搜索词</p>
+</blockquote>
+</blockquote>
+<p>付费搜索的可以被解析</p>
+<p>自然搜索的就不会被解析了</p>
+<blockquote>
+<blockquote>
+<p>App 版本 &amp; App 渠道</p>
+</blockquote>
+</blockquote>
+<p>.</p>
+<blockquote>
+<blockquote>
+<p>广告监测</p>
+</blockquote>
+</blockquote>
+<p>获取推广效果</p>
+<p>UTM 渠道归因模式为非直接访问的最后一次访问</p>
+<table>
+<thead>
+<tr>
+<th align="center">UTM 参数</th>
+<th align="center">使用方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">utm_source</td>
+<td align="center">广告来源</td>
+</tr>
+<tr>
+<td align="center">utm_medium</td>
+<td align="center">广告媒介,CPC、Banner、EDM</td>
+</tr>
+<tr>
+<td align="center">utm_campaign</td>
+<td align="center">广告名称</td>
+</tr>
+<tr>
+<td align="center">utm_term</td>
+<td align="center">广告关键词</td>
+</tr>
+<tr>
+<td align="center">utm_content</td>
+<td align="center">广告内容</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>地域信息维度</p>
+</blockquote>
+<p>了解用户在哪里访问你的网站</p>
+<table>
+<thead>
+<tr>
+<th align="center">维度</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">城市名称</td>
+<td align="center">GPS 或 ip 以城市作为维度值</td>
+</tr>
+<tr>
+<td align="center">地区名称</td>
+<td align="center">GPS 或 ip 包含国内省级以上行政区，以及国外地区</td>
+</tr>
+<tr>
+<td align="center">国家代码</td>
+<td align="center">英文缩写</td>
+</tr>
+<tr>
+<td align="center">国家名称</td>
+<td align="center">中文名称</td>
+</tr>
+<tr>
+<td align="center">微信用户所在城市、省、国</td>
+<td align="center">小程序特有维度</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>设备信息维度</p>
+</blockquote>
+<p>了解用户使用说明设备访问你的网站</p>
+<blockquote>
+<p>其他维度</p>
+</blockquote>
+<p>域名、页面、来源、元素内容、元素位置、 时间</p>
+<h2 id="数据定义"><a href="#数据定义" class="headerlink" title="数据定义"></a>数据定义</h2><h3 id="用户变量"><a href="#用户变量" class="headerlink" title="用户变量"></a>用户变量</h3><p>保存跟用户本身相关的信息</p>
+<p>不要在用户变量中保存跟交互行为相关的信息，比如商品，可以使用页面级变量和转化变量来保存</p>
+<p>登录用户变量用来保存跟登录用户本身相关的信息，例如用户的姓名，性别，会员卡等级等等</p>
+<p>访问用户变量用来保存用户在非登录情况下跟用户本身相关的信息，例如用户的性别、A/B 测试分组等等</p>
+<blockquote>
+<p>归因模型</p>
+</blockquote>
+<p>比如银卡会员升级到了金卡后，他的后续行为事件归到登录用户变量中的哪一个值上</p>
+<ul>
+<li>最近<ul>
+<li>离事件发生的时间最近的值，一段时间内的分配给银卡</li>
+</ul>
+</li>
+<li>最终<ul>
+<li>最终设置的值，归为金卡</li>
+</ul>
+</li>
+</ul>
+<h4 id="页面级变量"><a href="#页面级变量" class="headerlink" title="页面级变量"></a>页面级变量</h4><p>仅在当前页面内，作为维度，实际上就看产品或者看页面数据</p>
+<ul>
+<li>各个不同板块页面的用户访问情况分析，使用页面级变量保存页面所属板块的名称。</li>
+<li>各个不同子站点的用户访问情况分析，使用页面级变量保存页面所属子站点的名称。</li>
+<li>各个不同类型页面的用户访问情况分析，使用页面级变量保存页面所属的类型名称。例如功能引导页面，购物流程页面等。</li>
+</ul>
+<h4 id="埋点事件和事件级变量"><a href="#埋点事件和事件级变量" class="headerlink" title="埋点事件和事件级变量"></a>埋点事件和事件级变量</h4><blockquote>
+<p>数据规划</p>
+</blockquote>
+<p>将数据需求转化为具体的“指标+维度”</p>
+<p>对于电商在分析用户下单情况时，用户的下单量就是我们需要量化的“指标”，而每个订单所含具体商品、商品分类、优惠券信息、下单金额等就是“维度”</p>
+<p>指标：订单总量<br>维度：商品 ID/名称、商品 SKU、优惠券名称、收货地址、下单金额</p>
+<blockquote>
+<p>转化变量</p>
+</blockquote>
+<p>转化变量是一种强大的变量类型，可以根据不同的业务需求去配置一个转化变量的归因方式和持久性范围。随着归因模型的不同，持久性范围的不同，用户发生的事件将会归到或者不归到某一个转化变量的值上。</p>
+<blockquote>
+<p>归因方式</p>
+</blockquote>
+<ul>
+<li>最近<ul>
+<li>当事件发生时，往前看，事件所有的权重将全部分配给转化变量中还在持久性范围之内并且离事件发生的时间点最近的值上</li>
+</ul>
+</li>
+<li>线性<ul>
+<li>当事件发生时，往前看，事件所有的权重将平均分配所有还在持久性范围之内，还没有失效的那些值上。</li>
+</ul>
+</li>
+<li>最初<ul>
+<li>当事件发生时，往前看，事件所有的权重将全部分配给转化变量中还在持久性范围之内并且离事件发生的时间点最远的那个值上。从用户的角度来说也就是还在持久性范围之内的最初的那个值获得发生事件的所有权重。</li>
+</ul>
+</li>
+</ul>
+<p>.</p>
+<ul>
+<li>使用最初归因模型，某个内部活动带来了多少注册，多少订单。</li>
+<li>使用线性归因模型，内部搜索的效果怎样，某个具体的搜索词带来了多少订单，营业收入。</li>
+<li>使用最近归因模型，同一个内部活动的不同入口分别带来了多少内部活动详情页面的浏览</li>
+</ul>
+<h2 id="产品分析"><a href="#产品分析" class="headerlink" title="产品分析"></a>产品分析</h2><h3 id="事件分析"><a href="#事件分析" class="headerlink" title="事件分析"></a>事件分析</h3><h3 id="漏斗分析"><a href="#漏斗分析" class="headerlink" title="漏斗分析"></a>漏斗分析</h3><h3 id="留存分析"><a href="#留存分析" class="headerlink" title="留存分析"></a>留存分析</h3><h3 id="分布分析"><a href="#分布分析" class="headerlink" title="分布分析"></a>分布分析</h3><h3 id="热图分析"><a href="#热图分析" class="headerlink" title="热图分析"></a>热图分析</h3><!-- https://docs.growingio.com/docs/product-manual/product-analysis/ -->
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>data analytic</category>
+      </categories>
+      <tags>
+        <tag>data analytic</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>css控制动画播放暂停</title>
     <url>/2020/07/21/css%E6%8E%A7%E5%88%B6%E5%8A%A8%E7%94%BB%E6%92%AD%E6%94%BE%E6%9A%82%E5%81%9C/</url>
     <content><![CDATA[<blockquote>
