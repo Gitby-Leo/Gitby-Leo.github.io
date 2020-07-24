@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>vue插件封装一个video组件</title>
+    <url>/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>使用<code>@vue/cli-service-global</code>快速启动插件环境</p>
+</blockquote>
+<a id="more"></a>
+
+<p>关于cli-service-global这个工具，是在面试线上做题时遇到的，配合vue/cli启动环境写两个功能，可以快速安装&amp;启动原型开发环境，本文是基于video.js对<code>&lt;video&gt;</code>进行封装</p>
+<hr>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br><span class="line">npm install -g @vue/cli-service-global</span><br><span class="line"></span><br><span class="line">npm install -S video.js</span><br><span class="line">npm install -S videojs-markers</span><br></pre></td></tr></table></figure>
+
+<p>入口文件是index.js/main.js/app.vue/App.vue</p>
+<p>vue serve 启动,或者vue serve xxx.vue<br>vue build 打包,或者vue build xxx.vue</p>
+<ul>
+<li>/目录/<ul>
+<li>package.json</li>
+<li>App.vue</li>
+<li>test.vue</li>
+<li>/assets/<ul>
+<li>image&amp;video</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GrowingIO用户行为分析工具</title>
     <url>/2020/07/23/GrowingIO%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</url>
     <content><![CDATA[<blockquote>
