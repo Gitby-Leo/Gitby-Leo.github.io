@@ -4,11 +4,11 @@
     <title>vue插件封装一个video组件</title>
     <url>/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
-<p>使用<code>@vue/cli-service-global</code>快速启动插件环境</p>
+<p>使用<code>@vue/cli-service-global</code>快速启动插件环境<br>codepen预览代码</p>
 </blockquote>
 <a id="more"></a>
 
-<p>关于cli-service-global这个工具，是在面试线上做题时遇到的，配合vue/cli启动环境写两个功能，可以快速安装&amp;启动原型开发环境，本文是基于video.js对<code>&lt;video&gt;</code>进行封装</p>
+<p>关于cli-service-global这个工具，是在面试线上做题时遇到的，配合vue/cli启动环境写两个功能，可以快速安装&amp;启动原型开发环境，本文是基于video.js对<code>&lt;video&gt;</code>进行封装，并由于长代码贴出来没有一i是，故放于code上展示</p>
 <hr>
 <h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br><span class="line">npm install -g @vue/cli-service-global</span><br><span class="line"></span><br><span class="line">npm install -S video.js</span><br><span class="line">npm install -S videojs-markers</span><br></pre></td></tr></table></figure>
 
@@ -26,6 +26,17 @@
 </ul>
 </li>
 </ul>
+<h2 id="codepen"><a href="#codepen" class="headerlink" title="codepen"></a>codepen</h2><p>众所周知，codepen是一款展示html/css/js的分(she)享(jiao)工(ruan)具(jian)</p>
+<p>那如何放vue代码呢</p>
+<p>没有搜索到相关方法，良久 未解，只好一个个点进去看，终于：</p>
+<p>左侧explore探索下的topics话题，选择vue，Open Vue Editor</p>
+<h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p>进入了<code>https://codepen.io/pen/editor/vue</code>，美滋滋，代码略长就可以直接放codepen上了<br>（关闭result面版）</p>
+<iframe id="cp_embed_XWXGxYK" src="//codepen.io/gitby-leo/embed/XWXGxYK?height=456&theme-id=dark&slug-hash=XWXGxYK&default-tab=css,js,result&embed-version=2" scrolling="no" frameborder="no" height="456" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>暂时还未在codepen上找到多文件的预览方式，就继续贴代码吧（关闭result查看效果）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 父组件test.vue</span><br><span class="line">&lt;video-player</span><br><span class="line">    ref&#x3D;&quot;video&quot;</span><br><span class="line">    :src&#x3D;&quot;videoSrc&quot;</span><br><span class="line">    type&#x3D;&quot;video&#x2F;mp4&quot;</span><br><span class="line">    :options&#x3D;&quot;videoOptions&quot;</span><br><span class="line">    :markers&#x3D;&quot;videoMarkers&quot;</span><br><span class="line">    webkit-playsinline&#x3D;&quot;true&quot;</span><br><span class="line">&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">import VideoPlayer from &quot;.&#x2F;App.vue&quot;;</span><br><span class="line"></span><br><span class="line">data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      videoSrc: videoMp4,</span><br><span class="line">      videoOptions: &#123;</span><br><span class="line">        autoplay: false,</span><br><span class="line">        controls: true,</span><br><span class="line">        poster: posterJpg</span><br><span class="line">      &#125;,</span><br><span class="line">      videoMarkers: &#123;</span><br><span class="line">        markers: [</span><br><span class="line">          &#123;</span><br><span class="line">            time: 10,</span><br><span class="line">            text: &quot;点位一&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            time: 20,</span><br><span class="line">            text: &quot;点位二&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    videoBtnHandler(type) &#123;</span><br><span class="line">      console.log(type);</span><br><span class="line">      this.$refs.video.player[type] &amp;&amp; this.$refs.video.player[type]();</span><br><span class="line">    &#125;,</span><br><span class="line">    changeVideo() &#123;</span><br><span class="line">      this.$refs.video.player[&quot;src&quot;] &amp;&amp;</span><br><span class="line">        this.$refs.video.player[&quot;src&quot;](videoMp42);</span><br><span class="line">    &#125;,</span><br><span class="line">    changeVideo2() &#123;</span><br><span class="line">      this.videoSrc &#x3D; videoMp42;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺少预览是因为codepen 要pro高级版才可以上传，基本是基于video.js的功能做了封装到vue</p>
 ]]></content>
       <categories>
         <category>Vue</category>
