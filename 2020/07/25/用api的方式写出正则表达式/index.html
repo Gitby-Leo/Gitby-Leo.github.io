@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="super-expressive库及其api文档【翻译】对应的中文文档方便理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用api的方式写出正则表达式">
+<meta property="og:url" content="https://gitby-leo.github.io/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Leo的云">
+<meta property="og:description" content="super-expressive库及其api文档【翻译】对应的中文文档方便理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-25T12:50:28.000Z">
+<meta property="article:modified_time" content="2020-07-26T09:06:41.386Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://gitby-leo.github.io/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>用api的方式写出正则表达式 | Leo的云</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?de8327176da94526bf95aa05bd2b84fb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo的云</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle site-subtitle-opacity0" itemprop="description">飞雪连天射白鹿，笑书神侠倚碧鸳</h1>
+      
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+<script>
+    window.addEventListener('load',function(e){
+        function GetRandomNum(Min,Max){
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return(Min + Math.round(Rand * Range));
+        }
+        var get_subtitle = "飞雪连天射白鹿，笑书神侠倚碧鸳,洗剑浣花新月残，飞刀杀人血气飘\n 花山桃林飞蝶舞，边城天穹孤鹰飞\n 银钩画月曲局行，白玉雕龙梅花香\n 玄箭狂枪战绝代，花翎怒剑泪侠刀\n 英雄风情一笑引，大侠传奇一生多,侠骨文心笑看云霄飘一羽，\n 孤怀统揽曾经沧海慨平生,桃花影落飞神剑，碧海潮生按玉箫,春沟水动茶花白，夏谷云生荔枝红";
+        var subtitleArr = get_subtitle.split(",");// ,分割
+        var index = GetRandomNum(0,subtitleArr.length-1); // 取随机数
+        var val = subtitleArr[index];
+        $('.header .site-subtitle').html(val.replace(/\n/g,'<br/>'));
+        // $('.header .site-subtitle').css({'opacity':'1!important','height':'auto'});
+        $('.header .site-subtitle').removeClass('site-subtitle-opacity0');
+        // 重置左侧高度
+        $('.main-inner .sidebar').css({'marginTop':Math.floor($('.header-inner').height())+10+'px'});
+    },false);
+</script>
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-somenews">
+
+    <a href="/myPages/someNews/" rel="section"><i class="fa fa-fw fa-newspaper-o"></i>一些新鲜事</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          用api的方式写出正则表达式
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-25 20:50:28" itemprop="dateCreated datePublished" datetime="2020-07-25T20:50:28+08:00">2020-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-meta-item leancloud_visitors" data-flag-title="用api的方式写出正则表达式" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>23 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>super-expressive库及其api文档<br>【翻译】对应的中文文档方便理解</p>
+</blockquote>
+<a id="more"></a>
+
+<p>一年前做编辑器二次开发相关项目时，涉及了正则处理就好好学习了下，然而现在都忘完了，最近发现了这个开源工具，通过api的方式生成所需要的正则表达式，COOL!</p>
+<p>截至目前<a href="https://github.com/francisrstokes/super-expressive" target="_blank" rel="noopener">super-expressive</a> star 3k，但是还没有中文文档，截至发文时有50个</p>
+<p>本篇是一篇翻译后的API中文文档，对示例将保持原样</p>
+<hr>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><details>
+<summary><span style="color:#6868ff;">api列表</span></summary>
+  - [SuperExpressive()](#SuperExpressive)
+  - [.allowMultipleMatches](#allowMultipleMatches)
+  - [.lineByLine](#lineByLine)
+  - [.caseInsensitive](#caseInsensitive)
+  - [.sticky](#sticky)
+  - [.unicode](#unicode)
+  - [.singleLine](#singleLine)
+  - [.anyChar](#anyChar)
+  - [.whitespaceChar](#whitespaceChar)
+  - [.nonWhitespaceChar](#nonWhitespaceChar)
+  - [.digit](#digit)
+  - [.nonDigit](#nonDigit)
+  - [.word](#word)
+  - [.nonWord](#nonWord)
+  - [.wordBoundary](#wordBoundary)
+  - [.nonWordBoundary](#nonWordBoundary)
+  - [.newline](#newline)
+  - [.carriageReturn](#carriageReturn)
+  - [.tab](#tab)
+  - [.nullByte](#nullByte)
+  - [.anyOf](#anyOf)
+  - [.capture](#capture)
+  - [.namedCapture(name)](#namedCapturename)
+  - [.backreference(index)](#backreferenceindex)
+  - [.namedBackreference(index)](#namedBackreferenceindex)
+  - [.group](#group)
+  - [.end()](#end())
+  - [.assertAhead](#assertAhead)
+  - [.assertNotAhead](#assertNotAhead)
+  - [.optional](#optional)
+  - [.zeroOrMore](#zeroOrMore)
+  - [.zeroOrMoreLazy](#zeroOrMoreLazy)
+  - [.oneOrMore](#oneOrMore)
+  - [.oneOrMoreLazy](#oneOrMoreLazy)
+  - [.exactly(n)](#exactlyn)
+  - [.atLeast(n)](#atLeastn)
+  - [.between(x, y)](#betweenx-y)
+  - [.betweenLazy(x, y)](#betweenLazyx-y)
+  - [.startOfInput](#startOfInput)
+  - [.endOfInput](#endOfInput)
+  - [.anyOfChars(chars)](#anyOfCharschars)
+  - [.anythingButChars(chars)](#anythingButCharschars)
+  - [.anythingButString(str)](#anythingButStringstr)
+  - [.anythingButRange(a, b)](#anythingButRangea-b)
+  - [.string(s)](#strings)
+  - [.char(c)](#charc)
+  - [.range(a, b)](#rangea-b)
+  - [.subexpression(expr, opts)](#subexpressionexpr-opts)
+  - [.toRegexString()](#toRegexString)
+  - [.toRegex()](#toRegex)
+</details>
+
+<h3 id="SuperExpressive"><a href="#SuperExpressive" class="headerlink" title="SuperExpressive()"></a>SuperExpressive()</h3><p>创建一个实例</p>
+<h3 id="allowMultipleMatches"><a href="#allowMultipleMatches" class="headerlink" title=".allowMultipleMatches"></a>.allowMultipleMatches</h3><p>使用修饰符<code>/g</code>，表示查找所有可能的匹配</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .allowMultipleMatches</span><br><span class="line">  .string(<span class="string">'hello'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/hello/g</span><br></pre></td></tr></table></figure>
+
+<h3 id="lineByLine"><a href="#lineByLine" class="headerlink" title=".lineByLine"></a>.lineByLine</h3><p>使用修饰符<code>/m</code>，表示多行匹配</p>
+<p>字符串无论是否换行只有一个开始^和结尾$，<br>如果采用多行匹配，那么每一个行都有一个^和结尾$</p>
+<p><a href="#startOfInput">.startOfInput</a> 和 <a href="#endOfInput">.endOfInput</a>标记作为行的开始和结束</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .lineByLine</span><br><span class="line">  .string(<span class="string">'^hello$'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\^hello\$/m</span><br></pre></td></tr></table></figure>
+
+<h3 id="caseInsensitive"><a href="#caseInsensitive" class="headerlink" title=".caseInsensitive"></a>.caseInsensitive</h3><p>使用修饰符<code>/i</code>，表示匹配时应忽略大小写区分</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .caseInsensitive</span><br><span class="line">  .string(<span class="string">'HELLO'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/HELLO/i</span><br></pre></td></tr></table></figure>
+
+<h3 id="sticky"><a href="#sticky" class="headerlink" title=".sticky"></a>.sticky</h3><p>使用修饰符<code>/y</code>，表示匹配时从lastIndex位置开始进行匹配,直到匹配失败时停止</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .sticky</span><br><span class="line">  .string(<span class="string">'hello'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/hello/y</span><br></pre></td></tr></table></figure>
+
+<h3 id="unicode"><a href="#unicode" class="headerlink" title=".unicode"></a>.unicode</h3><p>使用修饰符<code>/u</code>，表示使用完全unicode匹配，即四个字节的UTF-16编码/Unicode字符</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .unicode</span><br><span class="line">  .string(<span class="string">'héllo'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/héllo/u</span><br></pre></td></tr></table></figure>
+
+<h3 id="singleLine"><a href="#singleLine" class="headerlink" title=".singleLine"></a>.singleLine</h3><p>使用修饰符<code>/s</code>，表示单行匹配</p>
+<p><a href="#startOfInput">.startOfInput</a> 和 <a href="#endOfInput">.endOfInput</a>标记作为行的开始和结束，和<a href="#anyChar">.anyChar</a>一起用时表示匹配新行</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .singleLine</span><br><span class="line">  .string(<span class="string">'hello'</span>)</span><br><span class="line">  .anyChar</span><br><span class="line">  .string(<span class="string">'world'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/hello.world/s</span><br></pre></td></tr></table></figure>
+
+<h3 id="anyChar"><a href="#anyChar" class="headerlink" title=".anyChar"></a>.anyChar</h3><p>元字符<code>.</code>，匹配除换行以外的任何单个字符，和<a href="#singleLine">.singleLine</a>一起用时表示匹配新行</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .anyChar</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/./</span><br></pre></td></tr></table></figure>
+
+<h3 id="whitespaceChar"><a href="#whitespaceChar" class="headerlink" title=".whitespaceChar"></a>.whitespaceChar</h3><p>元字符<code>\s</code>,匹配任何【空白】字符，【包括】特殊的空白字符：<code>\r\n\t\f\v</code></p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .whitespaceChar</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\s/</span><br></pre></td></tr></table></figure>
+
+<h3 id="nonWhitespaceChar"><a href="#nonWhitespaceChar" class="headerlink" title=".nonWhitespaceChar"></a>.nonWhitespaceChar</h3><p>元字符<code>/S</code>，匹配任何【非空白】字符，【不包括】特殊空格字符：<code>\r\n\t\f\v</code></p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .nonWhitespaceChar</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\S/</span><br></pre></td></tr></table></figure>
+
+<h3 id="digit"><a href="#digit" class="headerlink" title=".digit"></a>.digit</h3><p>元字符<code>/d</code>，匹配“0-9”中的任何数字</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d/</span><br></pre></td></tr></table></figure>
+
+<h3 id="nonDigit"><a href="#nonDigit" class="headerlink" title=".nonDigit"></a>.nonDigit</h3><p>元字符<code>/D</code>，匹配任何非数字</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .nonDigit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\D/</span><br></pre></td></tr></table></figure>
+
+<h3 id="word"><a href="#word" class="headerlink" title=".word"></a>.word</h3><p>元字符<code>/w</code>，匹配任何字母数字（<code>a-z，a-z，0-9</code>）字符以及<code>_</code>。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .word</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\w/</span><br></pre></td></tr></table></figure>
+
+<h3 id="nonWord"><a href="#nonWord" class="headerlink" title=".nonWord"></a>.nonWord</h3><p>元字符<code>/W</code>，匹配任何非字母数字（<code>a-z，a-z，0-9</code>）字符，也不包括<code>_</code></p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .nonWord</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\W/</span><br></pre></td></tr></table></figure>
+
+<h3 id="wordBoundary"><a href="#wordBoundary" class="headerlink" title=".wordBoundary"></a>.wordBoundary</h3><p>立即匹配（不消耗任何字符）</p>
+<p>在<a href="#word">.word</a>匹配的字符和<a href="#word">.word</a>不匹配的字符之间（以任何顺序）</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .digit</span><br><span class="line">  .wordBoundary</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d\b/</span><br></pre></td></tr></table></figure>
+
+<h3 id="nonWordBoundary"><a href="#nonWordBoundary" class="headerlink" title=".nonWordBoundary"></a>.nonWordBoundary</h3><p>在由[.word]（#word）匹配的两个字符之间的位置匹配（不消耗任何字符）。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .digit</span><br><span class="line">  .nonWordBoundary</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d\B/</span><br></pre></td></tr></table></figure>
+
+<h3 id="newline"><a href="#newline" class="headerlink" title=".newline"></a>.newline</h3><p>元字符<code>\n</code>，匹配换行符</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .newline</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\n/</span><br></pre></td></tr></table></figure>
+
+<h3 id="carriageReturn"><a href="#carriageReturn" class="headerlink" title=".carriageReturn"></a>.carriageReturn</h3><p>元字符<code>\r</code>，匹配回车符</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .carriageReturn</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\r/</span><br></pre></td></tr></table></figure>
+
+<h3 id="tab"><a href="#tab" class="headerlink" title=".tab"></a>.tab</h3><p>元字符<code>\t</code>，匹配制表符</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .tab</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\t/</span><br></pre></td></tr></table></figure>
+
+<h3 id="nullByte"><a href="#nullByte" class="headerlink" title=".nullByte"></a>.nullByte</h3><p>元字符<code>\0</code>，匹配空字符，null或\u0000(Unicode十六进制编码)</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .nullByte</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\<span class="number">0</span>/</span><br></pre></td></tr></table></figure>
+
+<h3 id="anyOf"><a href="#anyOf" class="headerlink" title=".anyOf"></a>.anyOf</h3><p>匹配指定元素之间的选择。需要用“.end()”完成</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .anyOf</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">    .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .string(<span class="string">'XXX'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?:XXX|[a-f0<span class="number">-9</span>])/</span><br></pre></td></tr></table></figure>
+
+<h3 id="capture"><a href="#capture" class="headerlink" title=".capture"></a>.capture</h3><p>为正在处理的元素创建一个捕获组。需要用“.end()”完成，之后用<a href="#backreferenceindex">backreference(index)</a>引用</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .capture</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">    .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .string(<span class="string">'XXX'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/([a-f][<span class="number">0</span><span class="number">-9</span>]XXX)/</span><br></pre></td></tr></table></figure>
+
+<h3 id="namedCapture-name"><a href="#namedCapture-name" class="headerlink" title=".namedCapture(name)"></a>.namedCapture(name)</h3><p>为后续元素创建命名的捕获组。需要用“.end()”完成。以后可以用<a href="#namedBackreferencename">namedBackreference（name）</a>或<a href="#backreferenceindex">backreference（index）</a>引用。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .namedCapture(<span class="string">'interestingStuff'</span>)</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">    .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .string(<span class="string">'XXX'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?<span class="xml"><span class="tag">&lt;<span class="name">interestingStuff</span>&gt;</span>[a-f][0-9]XXX)/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="namedBackreference-name"><a href="#namedBackreference-name" class="headerlink" title=".namedBackreference(name)"></a>.namedBackreference(name)</h3><p>完全匹配之前由<a href="#namedCapturename">namedCapture</a>匹配的内容。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .namedCapture(<span class="string">'interestingStuff'</span>)</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">    .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .string(<span class="string">'XXX'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .string(<span class="string">'something else'</span>)</span><br><span class="line">  .namedBackreference(<span class="string">'interestingStuff'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?&lt;interestingStuff&gt;[a-f][0-9]XXX)something else\k&lt;interestingStuff&gt;/</span><br></pre></td></tr></table></figure>
+
+<h3 id="backreference-index"><a href="#backreference-index" class="headerlink" title=".backreference(index)"></a>.backreference(index)</h3><p>使用位置索引精确匹配之前由<a href="#capture">capture</a>或<a href="#namedCapturename">namedCapture</a>匹配的内容。注意regex索引从1开始，因此第一个捕获组的索引为1。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .capture</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">    .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .string(<span class="string">'XXX'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .string(<span class="string">'something else'</span>)</span><br><span class="line">  .backreference(<span class="number">1</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/([a-f][<span class="number">0</span><span class="number">-9</span>]XXX)something <span class="keyword">else</span>\<span class="number">1</span>/</span><br></pre></td></tr></table></figure>
+
+<h3 id="group"><a href="#group" class="headerlink" title=".group"></a>.group</h3><p>创建一个非捕获的处理元素组。需要用“.end()”完成。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .optional.group</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">    .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .string(<span class="string">'XXX'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?:[a-f][<span class="number">0</span><span class="number">-9</span>]XXX)?<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="end"><a href="#end" class="headerlink" title=".end()"></a>.end()</h3><p>表示SuperExpressive分组的结束，例如<a href="#anyOf">.anyOf</a>、<a href="#group">.group</a>或<a href="#capture">.capture</a></p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .capture</span><br><span class="line">    .anyOf</span><br><span class="line">      .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">      .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">      .string(<span class="string">'XXX'</span>)</span><br><span class="line">    .end()</span><br><span class="line">  .end()</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/((?:XXX|[a-f0<span class="number">-9</span>]))/</span><br></pre></td></tr></table></figure>
+
+<h3 id="assertAhead"><a href="#assertAhead" class="headerlink" title=".assertAhead"></a>.assertAhead</h3><p>断言，在不使用进程元素的情况下找到它们。需要用“.end()”完成。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .assertAhead</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .range(<span class="string">'a'</span>, <span class="string">'z'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?=[a-f])[a-z]/</span><br></pre></td></tr></table></figure>
+
+<h3 id="assertNotAhead"><a href="#assertNotAhead" class="headerlink" title=".assertNotAhead"></a>.assertNotAhead</h3><p>断言，在没有使用这些元素的情况下<strong>找不到</strong>。需要用“.end()”完成。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .assertNotAhead</span><br><span class="line">    .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">  .end()</span><br><span class="line">  .range(<span class="string">'g'</span>, <span class="string">'z'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?![a-f])[g-z]/</span><br></pre></td></tr></table></figure>
+
+<h3 id="optional"><a href="#optional" class="headerlink" title=".optional"></a>.optional</h3><p>断言，进程元素可能匹配，也可能不匹配</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .optional.digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d?<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="zeroOrMore"><a href="#zeroOrMore" class="headerlink" title=".zeroOrMore"></a>.zeroOrMore</h3><p>断言，进程元素可能不匹配，或者可能多次匹配。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .zeroOrMore.digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d*<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="zeroOrMoreLazy"><a href="#zeroOrMoreLazy" class="headerlink" title=".zeroOrMoreLazy"></a>.zeroOrMoreLazy</h3><p>断言，进程元素可能不匹配，或者可能匹配多次，但要尽可能少</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .zeroOrMoreLazy.digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d*?<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="oneOrMore"><a href="#oneOrMore" class="headerlink" title=".oneOrMore"></a>.oneOrMore</h3><p>断言，进程元素可以匹配一次，也可以匹配多次</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .oneOrMore.digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d+<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="oneOrMoreLazy"><a href="#oneOrMoreLazy" class="headerlink" title=".oneOrMoreLazy"></a>.oneOrMoreLazy</h3><p>断言，继续元素可以匹配一次，也可以匹配多次，但要尽可能少</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .oneOrMoreLazy.digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d+?<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="exactly-n"><a href="#exactly-n" class="headerlink" title=".exactly(n)"></a>.exactly(n)</h3><p>断言，前一个元素将精确匹配“n”次</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .exactly(<span class="number">5</span>).digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d&#123;<span class="number">5</span>&#125;/</span><br></pre></td></tr></table></figure>
+
+<h3 id="atLeast-n"><a href="#atLeast-n" class="headerlink" title=".atLeast(n)"></a>.atLeast(n)</h3><p>断言，继续的元素将至少匹配“n”次</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .atLeast(<span class="number">5</span>).digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d&#123;<span class="number">5</span>,&#125;/</span><br></pre></td></tr></table></figure>
+
+<h3 id="between-x-y"><a href="#between-x-y" class="headerlink" title=".between(x, y)"></a>.between(x, y)</h3><p>断言，前一个元素将在“x”和“y”时间之间匹配</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .between(<span class="number">3</span>, <span class="number">5</span>).digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d&#123;<span class="number">3</span>,<span class="number">5</span>&#125;/</span><br></pre></td></tr></table></figure>
+
+<h3 id="betweenLazy-x-y"><a href="#betweenLazy-x-y" class="headerlink" title=".betweenLazy(x, y)"></a>.betweenLazy(x, y)</h3><p>断言，前一个元素将在“x”和“y”时间之间匹配，但要尽可能少地匹配。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .betweenLazy(<span class="number">3</span>, <span class="number">5</span>).digit</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/\d&#123;<span class="number">3</span>,<span class="number">5</span>&#125;?<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="startOfInput"><a href="#startOfInput" class="headerlink" title=".startOfInput"></a>.startOfInput</h3><p>使用<a href="#lineByLine">.lineByLine</a>时，断言输入的开始或行的开始</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .startOfInput</span><br><span class="line">  .string(<span class="string">'hello'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/^hello/</span><br></pre></td></tr></table></figure>
+
+<h3 id="endOfInput"><a href="#endOfInput" class="headerlink" title=".endOfInput"></a>.endOfInput</h3><p>使用<a href="#lineByLine">.lineByLine</a>时，断言输入的结尾或行的结尾</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .string(<span class="string">'hello'</span>)</span><br><span class="line">  .endOfInput</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/hello$/</span><br></pre></td></tr></table></figure>
+
+<h3 id="anyOfChars-chars"><a href="#anyOfChars-chars" class="headerlink" title=".anyOfChars(chars)"></a>.anyOfChars(chars)</h3><p>匹配提供的字符串“chars”中的任何字符</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .anyOfChars(<span class="string">'aeiou'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/[aeiou]/</span><br></pre></td></tr></table></figure>
+
+<h3 id="anythingButChars-chars"><a href="#anythingButChars-chars" class="headerlink" title=".anythingButChars(chars)"></a>.anythingButChars(chars)</h3><p>匹配任何字符，但提供的字符串“chars”中的任何字符除外</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .anythingButChars(<span class="string">'aeiou'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/[^aeiou]/</span><br></pre></td></tr></table></figure>
+
+<h3 id="anythingButString-str"><a href="#anythingButString-str" class="headerlink" title=".anythingButString(str)"></a>.anythingButString(str)</h3><p>匹配与“str”长度相同的任何字符串，但“str”中按顺序定义的字符除外</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .anythingButString(<span class="string">'aeiou'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/(?:[^a][^e][^i][^o][^u])/</span><br></pre></td></tr></table></figure>
+
+<h3 id="anythingButRange-a-b"><a href="#anythingButRange-a-b" class="headerlink" title=".anythingButRange(a, b)"></a>.anythingButRange(a, b)</h3><p>匹配任何字符，但由“a”和“b”指定的<a href="#rangea-b">.range</a>捕获的字符除外</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .anythingButRange(<span class="number">0</span>, <span class="number">9</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/[^<span class="number">0</span><span class="number">-9</span>]/</span><br></pre></td></tr></table></figure>
+
+<h3 id="string-s"><a href="#string-s" class="headerlink" title=".string(s)"></a>.string(s)</h3><p>与字符串“s”完全匹配</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .string(<span class="string">'hello'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/hello/</span><br></pre></td></tr></table></figure>
+
+<h3 id="char-c"><a href="#char-c" class="headerlink" title=".char(c)"></a>.char(c)</h3><p>与字符“c”完全匹配</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .char(<span class="string">'x'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/x/</span><br></pre></td></tr></table></figure>
+
+<h3 id="range-a-b"><a href="#range-a-b" class="headerlink" title=".range(a, b)"></a>.range(a, b)</h3><p>匹配“a”和“b”之间的任何字符。排序由字符ASCII或unicode值定义</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .range(<span class="string">'a'</span>, <span class="string">'z'</span>)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/[a-z]/</span><br></pre></td></tr></table></figure>
+
+<h3 id="subexpression-expr-opts"><a href="#subexpression-expr-opts" class="headerlink" title=".subexpression(expr, opts?)"></a>.subexpression(expr, opts?)</h3><ul>
+<li>opts.命名空间，指在子表达式中的所有命名捕获组上使用字符串格式的命名空间，以避免与您自己命名的组发生命名冲突(默认=<code>&#39;&#39;</code>)</li>
+<li>opts.忽略标志，如果设置为true，则应忽略此子表达式指定的任何标志(默认 = <code>true</code>)</li>
+<li>opts.忽略开始和结束，如果设置为true，则应忽略此子表达式指定的任何startOfInput/endOfInput(默认 = <code>true</code>)</li>
+</ul>
+<p>匹配内联的另一个SuperExpressive实例。可用于创建库，或将代码模块化. 默认情况下，将忽略标志和输入标记的开始/结束, 但是可以在options对象中显式地打开</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A reusable SuperExpressive...</span></span><br><span class="line"><span class="keyword">const</span> fiveDigits = SuperExpressive().exactly(<span class="number">5</span>).digit;</span><br><span class="line"></span><br><span class="line">SuperExpressive()</span><br><span class="line">  .oneOrMore.range(<span class="string">'a'</span>, <span class="string">'z'</span>)</span><br><span class="line">  .atLeast(<span class="number">3</span>).anyChar</span><br><span class="line">  .subexpression(fiveDigits)</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/[a-z]+.&#123;<span class="number">3</span>,&#125;\d&#123;<span class="number">5</span>&#125;/</span><br></pre></td></tr></table></figure>
+
+<h3 id="toRegexString"><a href="#toRegexString" class="headerlink" title=".toRegexString()"></a>.toRegexString()</h3><p>输出SuperExpression模型的正则表达式的字符串形式</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .allowMultipleMatches</span><br><span class="line">  .lineByLine</span><br><span class="line">  .startOfInput</span><br><span class="line">  .optional.string(<span class="string">'0x'</span>)</span><br><span class="line">  .capture</span><br><span class="line">    .exactly(<span class="number">4</span>).anyOf</span><br><span class="line">      .range(<span class="string">'A'</span>, <span class="string">'F'</span>)</span><br><span class="line">      .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">      .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .end()</span><br><span class="line">  .end()</span><br><span class="line">  .endOfInput</span><br><span class="line">  .toRegexString();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line"><span class="string">"/^(?:0x)?([A-Fa-f0-9]&#123;4&#125;)$/gm"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="toRegex"><a href="#toRegex" class="headerlink" title=".toRegex()"></a>.toRegex()</h3><p>输出SuperExpression模型的正则表达式</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">SuperExpressive()</span><br><span class="line">  .allowMultipleMatches</span><br><span class="line">  .lineByLine</span><br><span class="line">  .startOfInput</span><br><span class="line">  .optional.string(<span class="string">'0x'</span>)</span><br><span class="line">  .capture</span><br><span class="line">    .exactly(<span class="number">4</span>).anyOf</span><br><span class="line">      .range(<span class="string">'A'</span>, <span class="string">'F'</span>)</span><br><span class="line">      .range(<span class="string">'a'</span>, <span class="string">'f'</span>)</span><br><span class="line">      .range(<span class="string">'0'</span>, <span class="string">'9'</span>)</span><br><span class="line">    .end()</span><br><span class="line">  .end()</span><br><span class="line">  .endOfInput</span><br><span class="line">  .toRegex();</span><br><span class="line"><span class="comment">// -&gt;</span></span><br><span class="line">/^(?:<span class="number">0</span>x)?([A-Fa-f0<span class="number">-9</span>]&#123;<span class="number">4</span>&#125;)$/gm</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>听说，打赏我的人最后都找到了真爱 <br> ↘ 此处应有打赏 ↙</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/pay/wechatpay.jpg" alt="Leo 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/pay/alipay.jpg" alt="Leo 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://gitby-leo.github.io/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="用api的方式写出正则表达式">https://gitby-leo.github.io/2020/07/25/用api的方式写出正则表达式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/" rel="prev" title="vue插件封装一个video组件">
+    vue插件封装一个video组件 <i class="fa fa-chevron-right"></i> 
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODc1OS8yNTI1Mw=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">1.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SuperExpressive"><span class="nav-number">1.1.</span> <span class="nav-text">SuperExpressive()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allowMultipleMatches"><span class="nav-number">1.2.</span> <span class="nav-text">.allowMultipleMatches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lineByLine"><span class="nav-number">1.3.</span> <span class="nav-text">.lineByLine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#caseInsensitive"><span class="nav-number">1.4.</span> <span class="nav-text">.caseInsensitive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sticky"><span class="nav-number">1.5.</span> <span class="nav-text">.sticky</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unicode"><span class="nav-number">1.6.</span> <span class="nav-text">.unicode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleLine"><span class="nav-number">1.7.</span> <span class="nav-text">.singleLine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anyChar"><span class="nav-number">1.8.</span> <span class="nav-text">.anyChar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#whitespaceChar"><span class="nav-number">1.9.</span> <span class="nav-text">.whitespaceChar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonWhitespaceChar"><span class="nav-number">1.10.</span> <span class="nav-text">.nonWhitespaceChar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#digit"><span class="nav-number">1.11.</span> <span class="nav-text">.digit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonDigit"><span class="nav-number">1.12.</span> <span class="nav-text">.nonDigit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word"><span class="nav-number">1.13.</span> <span class="nav-text">.word</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonWord"><span class="nav-number">1.14.</span> <span class="nav-text">.nonWord</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wordBoundary"><span class="nav-number">1.15.</span> <span class="nav-text">.wordBoundary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonWordBoundary"><span class="nav-number">1.16.</span> <span class="nav-text">.nonWordBoundary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#newline"><span class="nav-number">1.17.</span> <span class="nav-text">.newline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#carriageReturn"><span class="nav-number">1.18.</span> <span class="nav-text">.carriageReturn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tab"><span class="nav-number">1.19.</span> <span class="nav-text">.tab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nullByte"><span class="nav-number">1.20.</span> <span class="nav-text">.nullByte</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anyOf"><span class="nav-number">1.21.</span> <span class="nav-text">.anyOf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#capture"><span class="nav-number">1.22.</span> <span class="nav-text">.capture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#namedCapture-name"><span class="nav-number">1.23.</span> <span class="nav-text">.namedCapture(name)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#namedBackreference-name"><span class="nav-number">1.24.</span> <span class="nav-text">.namedBackreference(name)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backreference-index"><span class="nav-number">1.25.</span> <span class="nav-text">.backreference(index)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group"><span class="nav-number">1.26.</span> <span class="nav-text">.group</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#end"><span class="nav-number">1.27.</span> <span class="nav-text">.end()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assertAhead"><span class="nav-number">1.28.</span> <span class="nav-text">.assertAhead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assertNotAhead"><span class="nav-number">1.29.</span> <span class="nav-text">.assertNotAhead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optional"><span class="nav-number">1.30.</span> <span class="nav-text">.optional</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zeroOrMore"><span class="nav-number">1.31.</span> <span class="nav-text">.zeroOrMore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zeroOrMoreLazy"><span class="nav-number">1.32.</span> <span class="nav-text">.zeroOrMoreLazy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#oneOrMore"><span class="nav-number">1.33.</span> <span class="nav-text">.oneOrMore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#oneOrMoreLazy"><span class="nav-number">1.34.</span> <span class="nav-text">.oneOrMoreLazy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exactly-n"><span class="nav-number">1.35.</span> <span class="nav-text">.exactly(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#atLeast-n"><span class="nav-number">1.36.</span> <span class="nav-text">.atLeast(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#between-x-y"><span class="nav-number">1.37.</span> <span class="nav-text">.between(x, y)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#betweenLazy-x-y"><span class="nav-number">1.38.</span> <span class="nav-text">.betweenLazy(x, y)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#startOfInput"><span class="nav-number">1.39.</span> <span class="nav-text">.startOfInput</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#endOfInput"><span class="nav-number">1.40.</span> <span class="nav-text">.endOfInput</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anyOfChars-chars"><span class="nav-number">1.41.</span> <span class="nav-text">.anyOfChars(chars)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anythingButChars-chars"><span class="nav-number">1.42.</span> <span class="nav-text">.anythingButChars(chars)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anythingButString-str"><span class="nav-number">1.43.</span> <span class="nav-text">.anythingButString(str)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anythingButRange-a-b"><span class="nav-number">1.44.</span> <span class="nav-text">.anythingButRange(a, b)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-s"><span class="nav-number">1.45.</span> <span class="nav-text">.string(s)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#char-c"><span class="nav-number">1.46.</span> <span class="nav-text">.char(c)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#range-a-b"><span class="nav-number">1.47.</span> <span class="nav-text">.range(a, b)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subexpression-expr-opts"><span class="nav-number">1.48.</span> <span class="nav-text">.subexpression(expr, opts?)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toRegexString"><span class="nav-number">1.49.</span> <span class="nav-text">.toRegexString()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toRegex"><span class="nav-number">1.50.</span> <span class="nav-text">.toRegex()</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description">这里是Leo的云</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Gitby-Leo/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Gitby-Leo&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/LeoQin1994" title="Wechat → LeoQin1994"><i class="fa fa-fw fa-wechat"></i>Wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-weixin"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">100k</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.1
+  </div>
+
+<!-- 在底部添加运行日期 -->
+<div id="hexo-next-blog-days"></div>
+<script>
+    window.addEventListener('load',function(e){
+        (function show_date_time(){
+            let $hexoNextBlogDays = document.getElementById('hexo-next-blog-days');
+            let firstDate =  new Date("2019/11/09 15:13:14");
+            window.setInterval(()=>{
+                let nowDate = new Date();
+                
+                let timeDiff=(nowDate.getTime()-firstDate.getTime());
+                // timeDiff2=Math.floor(timeDiff/1000);
+                
+                let ms_oneday=24*60*60*1000;// 每天的ms
+                let getDay=timeDiff/ms_oneday;// 过去了几天
+                let getDay_floor = Math.floor(getDay);// 取整
+                                            
+                let getHours = (getDay-getDay_floor)*24; // 取整中间的小时数
+                let getHours_fixzero = setzero(Math.floor(getHours));// 小时数补0
+
+                let getMins = (getHours-getHours_fixzero)*60;
+                let getMins_fixzero = setzero(Math.floor(getMins));
+
+                let getSeconds = (getMins-getMins_fixzero)*60;
+                let getSeconds_fixzero = setzero(Math.floor(getSeconds));
+
+                $hexoNextBlogDays.innerHTML=`已运行 ${getDay_floor} 天 ${getHours_fixzero} 小时 ${getMins_fixzero} 分 ${getSeconds_fixzero} 秒`;
+            },1000)
+            function setzero(i) {
+                return i<10?'0'+i:i;
+            }
+        })()
+    })
+</script>
+
+        
+
+
+  <div style="display: none;">
+    <!-- 
+      <script src="//s95.cnzz.com/z_stat.php?id=1278631505&web_id=1278631505"></script>
+     -->
+      <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278631505'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278631505%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=QBX4t8wy8Jldt12dyi870duF-9Nh9j0Va')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id'     : 'QBX4t8wy8Jldt12dyi870duF-9Nh9j0Va',
+            'X-LC-Key'    : 'tHo2WvUFiuneKIWxWDKkt8e6',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : 23638,
+      el    : 'wpac-rating',
+      color : 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+  
+  // 用户脚本
+<!-- 看板娘 -->
+<!--
+ <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+-->
+<script src="/live2d-widget/autoload.js"></script>
+
+<!-- yml配置文件里新建title_trick {enable,leave,enter} -->
+
+<script>
+    (function(){
+        var title_trick_OriginTitile = document.title;
+        var title_trick_titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+            document.title = "(つェ⊂)我藏好了哦~" + title_trick_OriginTitile;
+            clearTimeout(title_trick_titleTime);
+            } else {
+            document.title = "" + title_trick_OriginTitile;
+            title_trick_titleTime = setTimeout(function() {
+                document.title = title_trick_OriginTitile;
+            }, 2000);
+            }
+        });
+    })()
+</script>
+
+</body>
+</html>
