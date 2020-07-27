@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>一个可视化的git命令学习网站</title>
+    <url>/2020/07/27/%E4%B8%80%E4%B8%AA%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84git%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0%E7%BD%91%E7%AB%99/</url>
+    <content><![CDATA[<blockquote>
+<p>不用再纠结git命令不会写了</p>
+</blockquote>
+<a id="more"></a>
+
+<p><a href="https://oschina.gitee.io/learn-git-branching/" target="_blank" rel="noopener">learn-git-branching</a></p>
+<p>so easy</p>
+<hr>
+<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><ul>
+<li>提交 git commit -m “”</li>
+</ul>
+<h3 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h3><ul>
+<li>创建新分支 git checkout -b feature</li>
+</ul>
+<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><ul>
+<li>查看 hash 记录 git log</li>
+</ul>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ul>
+<li><p>创建新节点 git merge feature</p>
+</li>
+<li><p>线性提交历史 git rebase master</p>
+</li>
+</ul>
+<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><ul>
+<li>HEAD，指向当前分支上的最近提交记录</li>
+<li>分离 HEAD，是指向某个具体提交而不是分支名<ul>
+<li>git checkout ‘hash’ 指向某次提交即可分离 HEAD</li>
+</ul>
+</li>
+</ul>
+<h3 id="相对引用"><a href="#相对引用" class="headerlink" title="相对引用"></a>相对引用</h3><ul>
+<li><p>^符号移动一步</p>
+<ul>
+<li>git checkout master^</li>
+<li>git checkout HEAD^</li>
+</ul>
+</li>
+<li><p>~符号移动多步</p>
+<ul>
+<li>git checkout HEAD~2</li>
+</ul>
+</li>
+<li><p>移动分支，当前分支指向另一个提交</p>
+<ul>
+<li>git branch -f master HEAD~3</li>
+<li>git branch -f feature #hash</li>
+</ul>
+</li>
+</ul>
+<h3 id="撤销变更"><a href="#撤销变更" class="headerlink" title="撤销变更"></a>撤销变更</h3><ul>
+<li><p>git reset</p>
+<ul>
+<li>git reset HEAD~1,变更还在，但是处于未加入暂存区状态</li>
+</ul>
+</li>
+<li><p>git revert</p>
+<ul>
+<li>git revert HEAD,产生新节点 C，用于标识撤销的节点 B，内容和节点 A 一致</li>
+</ul>
+</li>
+</ul>
+<h3 id="整理提交记录"><a href="#整理提交记录" class="headerlink" title="整理提交记录"></a>整理提交记录</h3><ul>
+<li>当知道所需要的提交记录（并且还知道这些提交记录的哈希值）</li>
+<li>git cherry-pick #hash 将一些提交复制到当前所在的位置（HEAD）下面<ul>
+<li>git cherry-pick C2 C4，在当前分支上，把其他的分支内容拿过来</li>
+</ul>
+</li>
+</ul>
+<h3 id="交互式rebase"><a href="#交互式rebase" class="headerlink" title="交互式rebase"></a>交互式rebase</h3><ul>
+<li>不清楚想要的提交记录的哈希值</li>
+<li>rebase -interactive,简写为 -i,打开一个 ui 框操作（文本框）</li>
+<li>git rebase -i HEAD~4</li>
+</ul>
+<h3 id="本地栈式提交"><a href="#本地栈式提交" class="headerlink" title="本地栈式提交"></a>本地栈式提交</h3><ul>
+<li>开发调试时添加了打印语句，不需要这些项</li>
+<li>让 Git 复制解决问题的那一个提交记录，git rebase -i 或 git cherry-pick</li>
+<li>本地 master-bug-console-bugfix，4 个节点<ul>
+<li>方法 1：git rebase -i HEAD~3 &amp; git checkout master &amp; git merge bugFix 删除中间项后 merge</li>
+<li>方法 2：git checkout master &amp; git cherry-pick bugfix 直接把 bugfix 节点转移</li>
+</ul>
+</li>
+</ul>
+<!-- ### 提交的技巧 -->
+<p>未完待续</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用api的方式写出正则表达式</title>
     <url>/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
@@ -12,7 +107,9 @@
 <p>截至目前<a href="https://github.com/francisrstokes/super-expressive" target="_blank" rel="noopener">super-expressive</a> star 3k，但是还没有中文文档，截至发文时有50个</p>
 <p>本篇是一篇翻译后的API中文文档，对示例将保持原样</p>
 <hr>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><details>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><!-- 前置技能点https://www.softwhy.com/article-339-1.html -->
+
+<details>
 <summary><span style="color:#6868ff;">api列表</span></summary>
   - [SuperExpressive()](#SuperExpressive)
   - [.allowMultipleMatches](#allowMultipleMatches)
