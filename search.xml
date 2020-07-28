@@ -229,7 +229,7 @@
 <li><p>git pull 是 fetch 后跟 merge 的缩写</p>
 <ul>
 <li>git pull origin foo 相当于：git fetch origin foo; git merge o/foo</li>
-<li>git pull origin bar<del>1:bugFix 相当于：git fetch origin bar</del>1:bugFix; git merge bugFix</li>
+<li><code>git pull origin bar~1:bugFix</code> 相当于：git fetch origin bar~1:bugFix; git merge bugFix</li>
 <li>远端:本地</li>
 </ul>
 </li>
