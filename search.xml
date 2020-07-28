@@ -8,8 +8,8 @@
 </blockquote>
 <a id="more"></a>
 
-<p><a href="https://oschina.gitee.io/learn-git-branching/" target="_blank" rel="noopener">learn-git-branching</a></p>
-<p>so easy</p>
+<p><a href="https://oschina.gitee.io/learn-git-branching/" target="_blank" rel="noopener">learn-git-branching</a> ，so easy</p>
+<p>以下仅为个人记录</p>
 <hr>
 <h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><ul>
 <li>提交 git commit -m “”</li>
@@ -85,8 +85,155 @@
 </ul>
 </li>
 </ul>
-<!-- ### 提交的技巧 -->
-<p>未完待续</p>
+<h3 id="提交的技巧"><a href="#提交的技巧" class="headerlink" title="提交的技巧"></a>提交的技巧</h3><p>分支 1 提交后，基于最新提交创建分支 2，再次提交，想修改分支 1 的提交记录中的内容（移动想要修改的到最前面），但可能存在 rebase 导致的冲突</p>
+<ul>
+<li>先用 git rebase -i 将提交重新排序，然后把我们想要修改的提交记录挪到最前<ul>
+<li>再 commit –amend 来进行一些小修改</li>
+<li>再 git rebase -i 来将他们调回原来的顺序</li>
+<li>最后 master 移到修改的最前端</li>
+</ul>
+</li>
+<li>git rebase -i HEAD~2 –solution-ordering C3,C2 ，重新排序<ul>
+<li>git commit –amend，创建新的提交节点</li>
+<li>git rebase -i HEAD~2 –solution-ordering C2’’,C3’，重新排序</li>
+<li>git rebase caption master，合并</li>
+</ul>
+</li>
+</ul>
+<p>cherry-pick 可以将提交树上任何地方的提交记录取过来追加到 HEAD 上（只要不是 HEAD 上游的提交就没问题）</p>
+<ul>
+<li>git checkout master<ul>
+<li>git cherry-pick C2，在 master 后加入新节点 c2</li>
+<li>git commit –amend，创建新的提交节点</li>
+<li>git cherry-pick C3，将 c3 作为最新节点合并</li>
+</ul>
+</li>
+</ul>
+<h3 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h3><ul>
+<li>永远指向某个提交记录的标识，大版本，特性，bug</li>
+<li>git tag v1 C1 命名标签 v1，指向提交记录 C1<ul>
+<li>git tag v1 side~1，side 的上一级打标签</li>
+<li>git checkout v1，head 指向标签</li>
+</ul>
+</li>
+</ul>
+<h3 id="最近的锚点"><a href="#最近的锚点" class="headerlink" title="最近的锚点"></a>最近的锚点</h3><p><code>&lt;tag&gt;_&lt;numCommits&gt;_g&lt;hash&gt;</code></p>
+<ul>
+<li>tag 表示的是离 ref 最近的标签， numCommits 是表示这个 ref 与 tag 相差有多少个提交记录， hash 表示的是你所给定的 ref 所表示的提交记录哈希值的前几位。当 ref 提交记录上有某个标签时，则只输出标签名称</li>
+<li>git describe <ref>，得到当前提交记录所在分支的最近节点及距离</li>
+</ul>
+<h3 id="多分支-rebase"><a href="#多分支-rebase" class="headerlink" title="多分支 rebase"></a>多分支 rebase</h3><ul>
+<li>有序的提交历史，两两合并<ul>
+<li>git rebase master bugFix</li>
+<li>git rebase bugFix side</li>
+</ul>
+</li>
+<li>【禁止】git rebase c1,git rebase c2 后用 git rebase -i HEAD~2 排序，这样树无法看了</li>
+</ul>
+<h3 id="链式操作"><a href="#链式操作" class="headerlink" title="链式操作"></a>链式操作</h3><ul>
+<li>例子 1，找记录节点<ul>
+<li>git checkout HEAD<del>,git checkout HEAD^2,git checkout HEAD</del>2</li>
+<li>git checkout HEAD<del>^2</del>2，简化</li>
+</ul>
+</li>
+<li>例子 2，为记录节点定义一个引用<ul>
+<li>git checkout c1,git branch bugWork,git checkout master</li>
+<li>git branch bugWork master^^2^</li>
+</ul>
+</li>
+</ul>
+<h3 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h3><ul>
+<li>需要把 master 分支上最近的几次提交做不同的调整后，分别添加到各个的分支上。</li>
+<li>one 需要重新排序并删除 C5<ul>
+<li>git cherry-pick C4 C3 C2</li>
+</ul>
+</li>
+<li>two 仅需要重排排序<ul>
+<li>git cherry-pick C5 C4 C3 C2</li>
+</ul>
+</li>
+<li>three 只需要提交一次。<ul>
+<li>git branch -f three C2</li>
+</ul>
+</li>
+</ul>
+<h3 id="fetch-pull-push"><a href="#fetch-pull-push" class="headerlink" title="fetch/pull/push"></a>fetch/pull/push</h3><ul>
+<li>git fetch 更新状态（不改变文件），从远程仓库下载本地仓库中缺失的提交记录，更新远程分支指针</li>
+<li>git pull 是 git fetch 和 git merge 的缩写</li>
+</ul>
+<p>举例</p>
+<ul>
+<li><p>提交分支，master，本地开发完成，发现远端是 new master，四种处理</p>
+<ul>
+<li>本地变基，远端线性提交记录<ul>
+<li>git fetch;git rebase origin/master;git push;</li>
+<li>git pull –rebase;git push;</li>
+</ul>
+</li>
+<li>本地合并，远端合并<ul>
+<li>git fetch;git merge origin/master;git push;</li>
+<li>git pull;git push;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>合并特性分支，本地多个分支,但新功能只在最后做一次推送集成</p>
+<ul>
+<li>方案 1<ul>
+<li>git fetch;git checkout new;git cherry-pick xx xx xx;git branch -f master HEAD;git checkout master;git push;</li>
+</ul>
+</li>
+<li>方案 2<ul>
+<li>git fetch;git rebase o/master side1;git rebase side1 side2;git rebase side2 master;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>和 merge 的对比</p>
+<ul>
+<li>Rebase 使你的提交树变得很干净, 所有的提交都在一条线上，但修改了提交树的历史</li>
+<li>git checkout mastre;git merge c1;git merge c2;git push;</li>
+</ul>
+</li>
+<li><p>远程分支</p>
+<ul>
+<li>git checkout -b totallyNotMaster o/master，创建 totallyNotMaster 分支，用于跟踪远程分支 o/master</li>
+<li>git branch -u o/master foo，本地 foo 分支跟踪 o/master</li>
+<li>git branch -u o/master，本地当前分支跟踪 o/master</li>
+</ul>
+</li>
+<li><p>提交</p>
+<ul>
+<li>git push origin master，切到本地仓库中的“master”分支，获取所有的提交，再到远程仓库“origin”中找到“master”分支，推送</li>
+</ul>
+</li>
+<li><p>place 的参数</p>
+<ul>
+<li>当为 git push 指定 place 参数为 master 时，我们同时指定了提交记录的来源和去向。</li>
+<li>git push origin <source>:<destination></li>
+<li>git push origin master:new-branch，本地分支推送到远端新分支</li>
+</ul>
+</li>
+<li><p>fetch 的参数</p>
+<ul>
+<li>git fetch origin foo，远程仓库的 foo 分支上，获取所有本地不存在的提交，放到本地的 o/foo 上</li>
+<li>git push origin master:new-branch，本地 master 拉取远端 new-branch 分支</li>
+</ul>
+</li>
+<li><p>省略 source</p>
+<ul>
+<li>git push origin :side，删除了远程仓库中的 side 分支</li>
+<li>git fetch origin :bugFix，会在本地创建一个新分支</li>
+</ul>
+</li>
+<li><p>git pull 是 fetch 后跟 merge 的缩写</p>
+<ul>
+<li>git pull origin foo 相当于：git fetch origin foo; git merge o/foo</li>
+<li>git pull origin bar<del>1:bugFix 相当于：git fetch origin bar</del>1:bugFix; git merge bugFix</li>
+<li>远端:本地</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>git</category>
