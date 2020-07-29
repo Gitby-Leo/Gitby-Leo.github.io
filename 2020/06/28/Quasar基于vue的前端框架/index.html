@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一次编写，多端应用（非小程序）开箱即用，基于webpack &amp; Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quasar基于vue的前端框架">
+<meta property="og:url" content="https://gitby-leo.github.io/2020/06/28/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="Leo的云">
+<meta property="og:description" content="一次编写，多端应用（非小程序）开箱即用，基于webpack &amp; Vue">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-28T14:27:31.000Z">
+<meta property="article:modified_time" content="2020-06-30T15:26:56.326Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://gitby-leo.github.io/2020/06/28/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Quasar基于vue的前端框架 | Leo的云</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?de8327176da94526bf95aa05bd2b84fb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo的云</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle site-subtitle-opacity0" itemprop="description">飞雪连天射白鹿，笑书神侠倚碧鸳</h1>
+      
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+<script>
+    window.addEventListener('load',function(e){
+        function GetRandomNum(Min,Max){
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return(Min + Math.round(Rand * Range));
+        }
+        var get_subtitle = "飞雪连天射白鹿，笑书神侠倚碧鸳,洗剑浣花新月残，飞刀杀人血气飘\n 花山桃林飞蝶舞，边城天穹孤鹰飞\n 银钩画月曲局行，白玉雕龙梅花香\n 玄箭狂枪战绝代，花翎怒剑泪侠刀\n 英雄风情一笑引，大侠传奇一生多,侠骨文心笑看云霄飘一羽，\n 孤怀统揽曾经沧海慨平生,桃花影落飞神剑，碧海潮生按玉箫,春沟水动茶花白，夏谷云生荔枝红,敲门都不应，倚杖听江声\n ——苏轼《临江仙》,兴酣落笔摇五岳，诗成笑傲凌沧海\n ——李白《江上吟》,最是人间留不住，朱颜辞镜花辞树\n ——王国维《蝶恋花》,醉后不知天在水，满船清梦压星河\n ——唐温如《题龙阳县青草湖》,陌上花开，可缓缓归矣\n ——吴越王,四面边声连角起，千嶂里，\n 长烟落日孤城闭\n ——范仲淹《渔家傲》,片云天共远，永夜月同孤\n ——杜甫《江汉》,浮生只合尊前老，雪满长安道\n ——舒亶《虞美人》,疏影横斜水清浅，暗香浮动月黄昏\n ——林逋《山园小梅》,几孤风月，屡变星霜\n ——柳永《玉蝴蝶》,试上超然台上望，\n半壕春水一城花。\n 烟雨暗千家。\n ——苏轼《望江南》,迟迟钟鼓初长夜，耿耿星河欲曙天\n ——白居易《长恨歌》,落霞与孤鹜齐飞，秋水共长天一色\n ——王勃《滕王阁序》,春听鸟声，夏听蝉声，\n 秋听虫声，冬听雪声，\n 白昼听棋声，月下听箫声，\n 山中听松声，水际听欸乃声，\n 方不虚此生耳\n ——张潮《幽梦影》,桥如虹，水如空，\n一叶飘然烟雨中\n ——陆游《长相思》,初阳照积雪，色如胭脂水\n ——汪曾祺《草木春秋》,三月桃花，两人一马，明日天涯\n ——七堇年《尘曲》,我曾踏月而来，只因你在山中。\n 山风拂发、拂颈、拂裸露的肩膀，\n 而月光衣我以华裳\n ——席慕容《山月》,也要楚天阔，也要大江流，\n 也要望不见前后，才能对月再下酒\n ——林清玄,你是从诗三百篇中褰裳涉水而来，\n 髡彼两髦，一身古远的芹香，\n 越陌度阡到我身边躺下，\n 到我身边躺下已是楚辞苍茫了\n ——木心 《芹香子》";
+        var subtitleArr = get_subtitle.split(",");// ,分割
+        var index = GetRandomNum(0,subtitleArr.length-1); // 取随机数
+        var val = subtitleArr[index];
+        $('.header .site-subtitle').html(val.replace(/\n/g,'<br/>'));
+        // $('.header .site-subtitle').css({'opacity':'1!important','height':'auto'});
+        $('.header .site-subtitle').removeClass('site-subtitle-opacity0');
+        // 重置左侧高度
+        $('.main-inner .sidebar').css({'marginTop':Math.floor($('.header-inner').height())+10+'px'});
+    },false);
+</script>
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-somenews">
+
+    <a href="/myPages/someNews/" rel="section"><i class="fa fa-fw fa-newspaper-o"></i>一些新鲜事</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/06/28/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Quasar基于vue的前端框架
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-28 22:27:31" itemprop="dateCreated datePublished" datetime="2020-06-28T22:27:31+08:00">2020-06-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/28/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" class="post-meta-item leancloud_visitors" data-flag-title="Quasar基于vue的前端框架" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>一次编写，多端应用（非小程序）<br>开箱即用，基于webpack &amp; Vue</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h2><h3 id="官方文档-v1-12-8-版本，国内文档久未更新，本文参考国内站点"><a href="#官方文档-v1-12-8-版本，国内文档久未更新，本文参考国内站点" class="headerlink" title="官方文档 v1.12.8 版本，国内文档久未更新，本文参考国内站点"></a>官方文档 v1.12.8 版本，国内文档久未更新，本文参考国内站点</h3><p>蛮多人推荐 Quasar 的，github 星标也蛮多</p>
+<p>而且目前的二级域名也很有意思<a href="http://v0-16.quasarchs.com/guide/quasar-roadmap.html" target="_blank" rel="noopener">v0-16</a></p>
+<hr>
+<h3 id="能做什么"><a href="#能做什么" class="headerlink" title="能做什么"></a>能做什么</h3><ul>
+<li>响应式 Web</li>
+<li>PWA/移动 app</li>
+<li>桌面应用</li>
+</ul>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>开箱即用，默认配置集成（代码压缩、缓存清除、tree shaking、sourcemapping、热重载、代码分割和延迟加载、ES6 转译、i18n、代码检查、可访问性功能 and so on）</li>
+<li>一次编写，多端部署</li>
+<li>体积小</li>
+<li>底层为 webpack</li>
+<li>原生 ui 外观</li>
+<li>文档简洁(真的吗，我不信。。。果然很全面，内置大量组件及布局，文档很长)</li>
+<li>ie11+</li>
+<li>组件丰富</li>
+</ul>
+<p>[Stylus 语法]</p>
+<h3 id="简单的官网示例"><a href="#简单的官网示例" class="headerlink" title="简单的官网示例"></a>简单的官网示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"q-app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span>&gt;</span></span><br><span class="line">    abcdefg</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">q-btn</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"q-ma-md"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">color</span>=<span class="string">"primary"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">icon</span>=<span class="string">"warning"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">label</span>=<span class="string">"notify"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">click</span>=<span class="string">"notify"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"q-ma-md"</span>&gt;</span></span><br><span class="line">      show version is &#123;&#123;version&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">q-btn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="string">'#q-app'</span>,</span><br><span class="line">    data:()&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            version:Quasar.version</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        notify:()&#123;</span><br><span class="line">            <span class="keyword">this</span>.$q.notify(<span class="string">'[show] version is'</span>+<span class="keyword">this</span>.$q.version);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>虽然你现在还没有了解过 Quasar 语法，但是可以猜测到<br>Quasar 可以结合 Vue 一起使用，Vue 中默认挂载了$q 代表 Quasar</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>三种方式，功能覆盖均不一致</p>
+<ul>
+<li>UMD(CDN)</li>
+<li>Quasar Cli</li>
+<li>Vue cli</li>
+</ul>
+<p>官方推荐用自带的 Cli</p>
+<h3 id="入门套件安装"><a href="#入门套件安装" class="headerlink" title="入门套件安装"></a>入门套件安装</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">node &gt; <span class="number">8</span></span><br><span class="line">npm install -g vue-cli</span><br><span class="line">npm install -g quasar-cli</span><br><span class="line">quasar init &lt;project&gt;</span><br><span class="line">quasar dev</span><br><span class="line">quasar build</span><br></pre></td></tr></table></figure>
+
+<h3 id="quasar-conf-js-配置文件"><a href="#quasar-conf-js-配置文件" class="headerlink" title="quasar.conf.js 配置文件"></a>quasar.conf.js 配置文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数是对象，dev/build时创建，动态更改配置</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;</span><br><span class="line">    devServer:&#123;</span><br><span class="line">        <span class="comment">// 开发服务器8000,pwa9000,其他9090</span></span><br><span class="line">        prot:ctx.mode.spa ? <span class="number">8000</span></span><br><span class="line">            :(ctx.mode.pwa?<span class="number">9000</span>:<span class="number">9090</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    extras:[</span><br><span class="line">        <span class="comment">// ctx.theme.mat // 主题选择</span></span><br><span class="line">    ]</span><br><span class="line">    css:[</span><br><span class="line">        ctx.mode.spa?<span class="string">'app-spa.styl'</span>:<span class="literal">null</span>, <span class="comment">// 指向css/app-spa.sty</span></span><br><span class="line">        ctx.mode.cordova?<span class="string">'app-cordova.styl'</span>:<span class="literal">null</span> <span class="comment">// 指向css/app-cordova.styl</span></span><br><span class="line">    ]</span><br><span class="line">    build:&#123;</span><br><span class="line">        extendWebpack(cfg)&#123;</span><br><span class="line">            <span class="comment">// 扩展webpack功能加载器</span></span><br><span class="line">            cfg.module.rules.push(&#123;</span><br><span class="line">              test: <span class="regexp">/\.json$/</span>,</span><br><span class="line">              loader: <span class="string">'json-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 别名</span></span><br><span class="line">            cfg.resolve.alias = &#123;</span><br><span class="line">                 ...cfg.resolve.alias, <span class="comment">// 添加现有的别名，</span></span><br><span class="line">                <span class="comment">// 添加你自己的别名</span></span><br><span class="line">                myalias: path.resolve(__dirname, <span class="string">'./src/somefolder'</span>),</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 方法二实现extendWebpack功能</span></span><br><span class="line">        chainWebpack (chain) &#123;</span><br><span class="line">            chain.module.rule(<span class="string">'json'</span>)</span><br><span class="line">              .test(<span class="regexp">/\.json$/</span>)</span><br><span class="line">              .use(<span class="string">'json-loader'</span>)</span><br><span class="line">                .loader(<span class="string">'json-loader'</span>)</span><br><span class="line">            chain.resolve.alias</span><br><span class="line">                .set(<span class="string">'myalias'</span>, path.resolve(__dirname, <span class="string">'./src/somefolder'</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// supportIE,framework,animatins,sourceFiles等等配置类似webpack</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由-按需路由-资源处理-接口代理和-vue-一致"><a href="#路由-按需路由-资源处理-接口代理和-vue-一致" class="headerlink" title="路由/按需路由/资源处理/接口代理和 vue 一致"></a>路由/按需路由/资源处理/接口代理和 vue 一致</h3><h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>根据 quasar 规则解剖插件，以配合 quasar 运行</p>
+<p>vue 根组件被实例化之前运行，当启动应用程序时，Quasar 将调用导出的函数，并将具有以下属性的一个对象传递给该函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; app, router, store, Vue &#125;) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 根实例，路由，状态库，vue</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>插件用途比如：<br>挂载实例 this.$xx、安装插件 Vue.use()、路由 router.beforeEach、状态存储库 vuex-router-sync、请求库 vuex-router-sync</p>
+<p>插件使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用Quasar CLI在/plugins/下生成一个新的插件</span></span><br><span class="line">quasar <span class="keyword">new</span> plugin &lt;name&gt;</span><br><span class="line"><span class="comment">// 配置文件写用到的插件</span></span><br><span class="line">plugins: [</span><br><span class="line">  <span class="string">'&lt;name&gt;'</span> <span class="comment">// 指向/src/plugins/&lt;name&gt;.js</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Quasar-生命周期"><a href="#Quasar-生命周期" class="headerlink" title="Quasar 生命周期"></a>Quasar 生命周期</h3><p>1、Quasar 初始化（组件、插件、指令、图标等）<br>2、Quasar Extras 导入（字体、动画、图标等）<br>3、Quasar css 和 css 导入<br>4、App.vue 加载<br>5、Store 导入（如果使用了 Store）<br>6、Quasar 插件导入完成</p>
+<ul>
+<li>7、在 Electron 模式下）Electron 被导入并注入 Vue 原型<ul>
+<li>在 Cordova 模式下）收听“deviceready”事件</li>
+<li>存在 Boot 插件，执行应用程序 Boot 插件</li>
+<li>不存在 Boot 插件，使用根组件实例化 Vue 并附加到 DOM</li>
+</ul>
+</li>
+</ul>
+<p>所以 boot 插件最终是用来 new Vue(app)的</p>
+<h3 id="vuex-模块"><a href="#vuex-模块" class="headerlink" title="vuex 模块"></a>vuex 模块</h3><p>和 vue 一致，quasar 提供了命令行模板简化初始化操作<br><code>quasar new store &lt;name&gt;</code>创建 module 模板，然后可以在主 store 里引用这个 modules</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>要不怎么说是 UI 框架呢，最大的特点还是它的主题风格<br>/css/themes<br>基于 Stylus 的 Material 和 iOS</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang=<span class="string">"stylus"</span>&gt;</span><br><span class="line">  <span class="comment">// Quasar CLI提供提供的Webpack别名，解析Stylus的变量 @import '~variables'</span></span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>9 个平台</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mat</td>
+<td>默认样式 Material 设计主题;Android 平台</td>
+</tr>
+<tr>
+<td>ios</td>
+<td>Apple 平台; iOS 主题</td>
+</tr>
+<tr>
+<td>desktop</td>
+<td>应用运行在一个桌面浏览器上</td>
+</tr>
+<tr>
+<td>mobile</td>
+<td>应用运行在一个手机浏览器上</td>
+</tr>
+<tr>
+<td>cordova</td>
+<td>Apache Cordova 包装的独立手机 App</td>
+</tr>
+<tr>
+<td>electron</td>
+<td>应用运行在 Electron 下</td>
+</tr>
+<tr>
+<td>touch</td>
+<td>触摸感知能力的平台</td>
+</tr>
+<tr>
+<td>no-touch</td>
+<td>没有触摸感知能力的平台</td>
+</tr>
+<tr>
+<td>within-iframe</td>
+<td>当整个网站都是在一个 IFRAME 标签下的时候</td>
+</tr>
+</tbody></table>
+<h2 id="多端"><a href="#多端" class="headerlink" title="多端"></a>多端</h2><p>文档中有多端打包的配置描述，这里也简述下</p>
+<h3 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h3><p>需要以下包含以下几点</p>
+<p>渐进式-不强制用框架标准开发，生态按需使用<br>响应式-布局适配各端<br>离线访问-service workers 离线并更新保持新状态<br>app 风格-app 式的导航与交互<br>https 安全<br>可发现，mainifests 和 service worker 注册允许被搜索为应用程序<br>推送通知<br>桌面安装-桌面图标<br>可链接</p>
+<p>Manifest 文件包含名称，图标和启动页<br>Service Worker 文件用来缓存资源，js 文件、请求数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加pwa模式</span></span><br><span class="line">quasar mode -a pwa</span><br><span class="line"><span class="comment">// 开发模式</span></span><br><span class="line">quasar dev -m pwa</span><br></pre></td></tr></table></figure>
+
+<h3 id="mobile-APP"><a href="#mobile-APP" class="headerlink" title="mobile APP"></a>mobile APP</h3><p>Cordova 移动开发框架<br>既不是真正的原生移动 APP（因为所有的布局渲染都是通过 Web 视图而不是平台的本地 UI 框架完成的），<br>也不是纯粹的基于 Web 的 APP（它们不仅仅是 Web APP，因为可以包装成可分发的 APP, 并可访问本机设备 API）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装cli</span></span><br><span class="line">npm install -g cordova</span><br><span class="line"><span class="comment">// pc安装Android sdk 略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加Cordova模式，生成一个文件夹</span></span><br><span class="line">quasar mode -a cordova</span><br><span class="line"><span class="comment">// 开发模式</span></span><br><span class="line">quasar dev -m cordova -T [android|ios]</span><br></pre></td></tr></table></figure>
+
+<p>Cordova 支持插件，配置获取原生设备信息<br>电池状态、相机、联系人、设备、设备运动、地理位置、媒体、媒体捕捉、网络信息、飞溅屏幕、振动、状态栏</p>
+<p>插件执行依赖 Quasar 监听事件 deviceready 完成，然后挂载根 Vue 组件</p>
+<h3 id="pc-Electron"><a href="#pc-Electron" class="headerlink" title="pc Electron"></a>pc Electron</h3><p>桌面 GUI 应用程序，后端 NodeJs，前端 Chromium<br>每个 Electron 应用有 2 个线程，主线程处理窗口和启动初始化，渲染线程处理 UI</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加模式</span></span><br><span class="line">quasar mode -a electron</span><br><span class="line"><span class="comment">// 开发模式</span></span><br><span class="line">quasar dev -m electron -t [mat|ios]</span><br></pre></td></tr></table></figure>
+
+<!-- - vue cli
+  - vue --version 3.x
+  - vue add quasar
+  - 配置vue.config.js -->
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>听说，打赏我的人最后都找到了真爱 <br> ↘ 此处应有打赏 ↙</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/pay/wechatpay.jpg" alt="Leo 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/pay/alipay.jpg" alt="Leo 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://gitby-leo.github.io/2020/06/28/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="Quasar基于vue的前端框架">https://gitby-leo.github.io/2020/06/28/Quasar基于vue的前端框架/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/29/Quasar%E5%9F%BA%E4%BA%8Evue%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-%E7%BB%84%E4%BB%B6/" rel="next" title="Quasar基于vue的前端框架-组件">
+    <i class="fa fa-chevron-left"></i> Quasar基于vue的前端框架-组件 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/26/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3js%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="prev" title="如何理解js的面向对象">
+    如何理解js的面向对象 <i class="fa fa-chevron-right"></i> 
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODc1OS8yNTI1Mw=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#指南"><span class="nav-number">1.</span> <span class="nav-text">指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方文档-v1-12-8-版本，国内文档久未更新，本文参考国内站点"><span class="nav-number">1.1.</span> <span class="nav-text">官方文档 v1.12.8 版本，国内文档久未更新，本文参考国内站点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#能做什么"><span class="nav-number">1.2.</span> <span class="nav-text">能做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优势"><span class="nav-number">1.3.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的官网示例"><span class="nav-number">1.4.</span> <span class="nav-text">简单的官网示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#入门套件安装"><span class="nav-number">2.1.</span> <span class="nav-text">入门套件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quasar-conf-js-配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">quasar.conf.js 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由-按需路由-资源处理-接口代理和-vue-一致"><span class="nav-number">2.3.</span> <span class="nav-text">路由&#x2F;按需路由&#x2F;资源处理&#x2F;接口代理和 vue 一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件"><span class="nav-number">2.4.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quasar-生命周期"><span class="nav-number">2.5.</span> <span class="nav-text">Quasar 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vuex-模块"><span class="nav-number">2.6.</span> <span class="nav-text">vuex 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">2.7.</span> <span class="nav-text">主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多端"><span class="nav-number">3.</span> <span class="nav-text">多端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PWA"><span class="nav-number">3.1.</span> <span class="nav-text">PWA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobile-APP"><span class="nav-number">3.2.</span> <span class="nav-text">mobile APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc-Electron"><span class="nav-number">3.3.</span> <span class="nav-text">pc Electron</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description">这里是Leo的云</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Gitby-Leo/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Gitby-Leo&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/LeoQin1994" title="Wechat → LeoQin1994"><i class="fa fa-fw fa-wechat"></i>Wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-weixin"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">104k</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.1
+  </div>
+
+<!-- 在底部添加运行日期 -->
+<div id="hexo-next-blog-days"></div>
+<script>
+    window.addEventListener('load',function(e){
+        (function show_date_time(){
+            let $hexoNextBlogDays = document.getElementById('hexo-next-blog-days');
+            let firstDate =  new Date("2019/11/09 15:13:14");
+            window.setInterval(()=>{
+                let nowDate = new Date();
+                
+                let timeDiff=(nowDate.getTime()-firstDate.getTime());
+                // timeDiff2=Math.floor(timeDiff/1000);
+                
+                let ms_oneday=24*60*60*1000;// 每天的ms
+                let getDay=timeDiff/ms_oneday;// 过去了几天
+                let getDay_floor = Math.floor(getDay);// 取整
+                                            
+                let getHours = (getDay-getDay_floor)*24; // 取整中间的小时数
+                let getHours_fixzero = setzero(Math.floor(getHours));// 小时数补0
+
+                let getMins = (getHours-getHours_fixzero)*60;
+                let getMins_fixzero = setzero(Math.floor(getMins));
+
+                let getSeconds = (getMins-getMins_fixzero)*60;
+                let getSeconds_fixzero = setzero(Math.floor(getSeconds));
+
+                $hexoNextBlogDays.innerHTML=`已运行 ${getDay_floor} 天 ${getHours_fixzero} 小时 ${getMins_fixzero} 分 ${getSeconds_fixzero} 秒`;
+            },1000)
+            function setzero(i) {
+                return i<10?'0'+i:i;
+            }
+        })()
+    })
+</script>
+
+        
+
+
+  <div style="display: none;">
+    <!-- 
+      <script src="//s95.cnzz.com/z_stat.php?id=1278631505&web_id=1278631505"></script>
+     -->
+      <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278631505'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278631505%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=QBX4t8wy8Jldt12dyi870duF-9Nh9j0Va')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id'     : 'QBX4t8wy8Jldt12dyi870duF-9Nh9j0Va',
+            'X-LC-Key'    : 'tHo2WvUFiuneKIWxWDKkt8e6',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : 23638,
+      el    : 'wpac-rating',
+      color : 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+  
+  // 用户脚本
+<!-- 看板娘 -->
+<!--
+ <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+-->
+<script src="/live2d-widget/autoload.js"></script>
+
+<!-- yml配置文件里新建title_trick {enable,leave,enter} -->
+
+<script>
+    (function(){
+        var title_trick_OriginTitile = document.title;
+        var title_trick_titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+            document.title = "(つェ⊂)我藏好了哦~" + title_trick_OriginTitile;
+            clearTimeout(title_trick_titleTime);
+            } else {
+            document.title = "" + title_trick_OriginTitile;
+            title_trick_titleTime = setTimeout(function() {
+                document.title = title_trick_OriginTitile;
+            }, 2000);
+            }
+        });
+    })()
+</script>
+
+</body>
+</html>

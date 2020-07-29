@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="新建文章、创建标签和分类、阅读全文、搜索功能next主题的使用方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hello hexo,你好 hexo">
+<meta property="og:url" content="https://gitby-leo.github.io/2020/02/22/hello-hexo/index.html">
+<meta property="og:site_name" content="Leo的云">
+<meta property="og:description" content="新建文章、创建标签和分类、阅读全文、搜索功能next主题的使用方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitby-leo.github.io/images/avatar.jpg">
+<meta property="og:image" content="https://gitby-leo.github.io/images/avatar.jpg">
+<meta property="og:image" content="https://gitby-leo.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2020-02-21T16:22:22.000Z">
+<meta property="article:modified_time" content="2020-05-16T16:24:07.125Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitby-leo.github.io/images/avatar.jpg">
+
+<link rel="canonical" href="https://gitby-leo.github.io/2020/02/22/hello-hexo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>hello hexo,你好 hexo | Leo的云</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?de8327176da94526bf95aa05bd2b84fb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo的云</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle site-subtitle-opacity0" itemprop="description">飞雪连天射白鹿，笑书神侠倚碧鸳</h1>
+      
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+<script>
+    window.addEventListener('load',function(e){
+        function GetRandomNum(Min,Max){
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return(Min + Math.round(Rand * Range));
+        }
+        var get_subtitle = "飞雪连天射白鹿，笑书神侠倚碧鸳,洗剑浣花新月残，飞刀杀人血气飘\n 花山桃林飞蝶舞，边城天穹孤鹰飞\n 银钩画月曲局行，白玉雕龙梅花香\n 玄箭狂枪战绝代，花翎怒剑泪侠刀\n 英雄风情一笑引，大侠传奇一生多,侠骨文心笑看云霄飘一羽，\n 孤怀统揽曾经沧海慨平生,桃花影落飞神剑，碧海潮生按玉箫,春沟水动茶花白，夏谷云生荔枝红,敲门都不应，倚杖听江声\n ——苏轼《临江仙》,兴酣落笔摇五岳，诗成笑傲凌沧海\n ——李白《江上吟》,最是人间留不住，朱颜辞镜花辞树\n ——王国维《蝶恋花》,醉后不知天在水，满船清梦压星河\n ——唐温如《题龙阳县青草湖》,陌上花开，可缓缓归矣\n ——吴越王,四面边声连角起，千嶂里，\n 长烟落日孤城闭\n ——范仲淹《渔家傲》,片云天共远，永夜月同孤\n ——杜甫《江汉》,浮生只合尊前老，雪满长安道\n ——舒亶《虞美人》,疏影横斜水清浅，暗香浮动月黄昏\n ——林逋《山园小梅》,几孤风月，屡变星霜\n ——柳永《玉蝴蝶》,试上超然台上望，\n半壕春水一城花。\n 烟雨暗千家。\n ——苏轼《望江南》,迟迟钟鼓初长夜，耿耿星河欲曙天\n ——白居易《长恨歌》,落霞与孤鹜齐飞，秋水共长天一色\n ——王勃《滕王阁序》,春听鸟声，夏听蝉声，\n 秋听虫声，冬听雪声，\n 白昼听棋声，月下听箫声，\n 山中听松声，水际听欸乃声，\n 方不虚此生耳\n ——张潮《幽梦影》,桥如虹，水如空，\n一叶飘然烟雨中\n ——陆游《长相思》,初阳照积雪，色如胭脂水\n ——汪曾祺《草木春秋》,三月桃花，两人一马，明日天涯\n ——七堇年《尘曲》,我曾踏月而来，只因你在山中。\n 山风拂发、拂颈、拂裸露的肩膀，\n 而月光衣我以华裳\n ——席慕容《山月》,也要楚天阔，也要大江流，\n 也要望不见前后，才能对月再下酒\n ——林清玄,你是从诗三百篇中褰裳涉水而来，\n 髡彼两髦，一身古远的芹香，\n 越陌度阡到我身边躺下，\n 到我身边躺下已是楚辞苍茫了\n ——木心 《芹香子》";
+        var subtitleArr = get_subtitle.split(",");// ,分割
+        var index = GetRandomNum(0,subtitleArr.length-1); // 取随机数
+        var val = subtitleArr[index];
+        $('.header .site-subtitle').html(val.replace(/\n/g,'<br/>'));
+        // $('.header .site-subtitle').css({'opacity':'1!important','height':'auto'});
+        $('.header .site-subtitle').removeClass('site-subtitle-opacity0');
+        // 重置左侧高度
+        $('.main-inner .sidebar').css({'marginTop':Math.floor($('.header-inner').height())+10+'px'});
+    },false);
+</script>
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-somenews">
+
+    <a href="/myPages/someNews/" rel="section"><i class="fa fa-fw fa-newspaper-o"></i>一些新鲜事</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/02/22/hello-hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="这里是Leo的云">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo的云">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          hello hexo,你好 hexo
+        </h2>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 00:22:22" itemprop="dateCreated datePublished" datetime="2020-02-22T00:22:22+08:00">2020-02-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo%E6%95%99%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo教程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo%E6%95%99%E7%A8%8B/hexo%E5%85%A5%E9%97%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo入门</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/22/hello-hexo/" class="post-meta-item leancloud_visitors" data-flag-title="hello hexo,你好 hexo" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>新建文章、创建标签和分类、阅读全文、搜索功能<br>next主题的使用方法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="next主题的使用方法"><a href="#next主题的使用方法" class="headerlink" title="next主题的使用方法"></a>next主题的使用方法</h1><!-- 
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&auto=0&id=1386946644&height=66"></iframe> -->
+
+
+<p>Hexo<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a><br>NexT<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">http://theme-next.iissnan.com/</a><br>Hexo框架下用NexT(v7.0+)主题美化博客<br><a href="https://blog.csdn.net/weixin_39345384/article/details/80785373" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39345384/article/details/80785373</a><br>HEXO-NexT-V7-Gemini主题优化篇<br><a href="https://yangyang188.coding.me/archives/3575fa23/" target="_blank" rel="noopener">https://yangyang188.coding.me/archives/3575fa23/</a></p>
+<!-- 复制粘贴工程师小程序
+https://tj-xiajiahao.github.io/
+git document
+http://iissnan.com/progit/
+主页
+https://gitby-leo.github.io/ -->
+
+<!-- ps导出精度会影响图片色彩，最好是导出最佳精度后压缩
+NIM 调试扩展 nodejs
+安装vscode .swig扩展支持
+Parcel
+MobX
+https://cn.mobx.js.org/
+web-cell
+https://web-cell.dev/
+😆 -->
+
+<hr>
+<h2 id="hexo的特点"><a href="#hexo的特点" class="headerlink" title="hexo的特点"></a>hexo的特点</h2><p>pjax：依赖jq的pushState+ajax库<br>无切换、高性能加载显示html，又能跟普通url兼容，而ajax引入hash会影响seo</p>
+<hr>
+<h3 id="启用数据目录"><a href="#启用数据目录" class="headerlink" title="启用数据目录"></a>启用数据目录</h3><p>在 hexo/source/_data 目录下新建 next.yml 文件，把 Next 的主题配置文件 next/_config.yml 内容全部复制到 next.yml，然后修改override为true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">新建额外目录文件：</span><br><span class="line">1、custom_file_path中增加一个路径，</span><br><span class="line">2、next&#x2F;scripts&#x2F;events&#x2F;lib&#x2F;injects-point.js中增加对应变量</span><br><span class="line">3、引用文件&#123;&#123;- next_inject(&#39;xxx&#39;) &#125;&#125;</span><br><span class="line">4、新建文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义-CSS-路径"><a href="#定义-CSS-路径" class="headerlink" title="定义 CSS 路径"></a>定义 CSS 路径</h2><p>Next 7.2 版本后取消了 \themes\next\source\css_custom\custom.styl，怪不得这个路径一直找不到，需要在配置文件里重新定义。此处的配置项基于数据目录功能，所以必须完成前面的「启用数据目录」才能生效。<br>next.yml中的custom_file_path，解注style并新建对应文件</p>
+<h2 id="配置激活-失活时的网页标题"><a href="#配置激活-失活时的网页标题" class="headerlink" title="配置激活/失活时的网页标题"></a>配置激活/失活时的网页标题</h2><p>custom-script<br>yml配置文件里新建title_trick {enable,leave,enter}</p>
+<h2 id="关联文章"><a href="#关联文章" class="headerlink" title="关联文章"></a>关联文章</h2><p>hexo-related-popular-posts 报错- -<br>lib/list-json.js中 要加try catch : ret.path  = pathFn.join(config.root , list.path)</p>
+<h2 id="列表页添加可配置图片"><a href="#列表页添加可配置图片" class="headerlink" title="列表页添加可配置图片"></a>列表页添加可配置图片</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">layout&#x2F;_macro&#x2F;post.swig中添加2处代码</span><br><span class="line">&lt;!--noindex--&gt;</span><br><span class="line">&#123;% if post.descriptionImage %&#125;</span><br><span class="line">  &lt;div class&#x3D;&quot;out-img-topic-descriptionImage&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&#123;&#123; post.descriptionImage &#125;&#125; class&#x3D;&quot;img-topic-descriptionImage&quot;&#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">每个文章页头部添加需要显示的图片路径</span><br><span class="line">descriptionImage: &#39;&#39;</span><br><span class="line">&lt;!--&#x2F;noindex--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="背景动态图片"><a href="#背景动态图片" class="headerlink" title="背景动态图片"></a>背景动态图片</h2><p>jquery-backstretch<br>可以放到bodyEnd中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;jquery-backstretch&#x2F;2.0.4&#x2F;jquery.backstretch.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  $(&quot;body&quot;).backstretch(&quot;https:&#x2F;&#x2F;背景图.jpg&quot;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="rating评分"><a href="#rating评分" class="headerlink" title="rating评分"></a>rating评分</h2><p>注册后填写网站的id</p>
+<p>1) 可以配置评分方式，侧栏 &gt; Rating &gt; Setting，建议用 IP address 或 Device (cookie)，免登录，毕竟 Socials 里面的选项几乎都被墙，不适合国内网络环境。<br>2）建议在侧栏 &gt; Site &gt; Setting 中勾选 Private 选项，这样只能域名下使用</p>
+<hr>
+<h2 id="看板娘-桌宠"><a href="#看板娘-桌宠" class="headerlink" title="看板娘/桌宠"></a>看板娘/桌宠</h2><p><a href="https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md" target="_blank" rel="noopener">https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md</a><br><a href="https://github.com/xiazeyu/live2d-widget-models" target="_blank" rel="noopener">https://github.com/xiazeyu/live2d-widget-models</a><br>npm install –save hexo-helper-live2d</p>
+<p><del>/themes/next/layout/_layout.swig</del><br><del>body里添加{live2d()}</del><br>3.0不需要包含live2d(),只需安装依赖,models放入node_models内和站点文件配置live2d:</p>
+<p>高定版本（高级定制<br><a href="https://github.com/stevenjoezhang/live2d-widget" target="_blank" rel="noopener">https://github.com/stevenjoezhang/live2d-widget</a><br>下载后放到目录/source/live2d-widget下，和_post同级<br>替换autoload.js中的live2d_path值和本地目录名称live2d-widget一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;themes&#x2F;next&#x2F;layout&#x2F;_layout.swig</span><br><span class="line">线上</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;stevenjoezhang&#x2F;live2d-widget@latest&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">本地</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;live2d-widget&#x2F;autoload.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><p>首行缩进：空两格<br>&#160; &#160; &#160; &#160;开头<br><span style="background-color:#eee">字体高亮</span><br><code>字体高亮</code></p>
+
+<table>
+   <tr>
+      <td colspan="6"><b>表格</b></td>
+   </tr>
+   <tr>
+      <td>class</td><td>interface</td><td>byte</td><td>short</td><td>int</td><td>long</td>
+   </tr>
+   <tr>
+      <td>class</td><td>interface</td><td>byte</td><td>short</td><td>int</td><td>long</td>
+   </tr>
+</table>
+
+
+
+<hr>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">图片根路径默认是source&#x2F;images</span><br><span class="line">![](&#x2F;images&#x2F;avatar.jpg)</span><br><span class="line">&#123;% img &#x2F;images&#x2F;avatar.jpg &quot;图片&quot; %&#125;</span><br><span class="line"></span><br><span class="line">fancybox放大预览，安装依赖后在配置页打开</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;theme-next-fancybox3 source&#x2F;lib&#x2F;fancybox</span><br><span class="line">&lt;img src&#x3D;&quot;&#x2F;images&#x2F;avatar.jpg&quot; title&#x3D;&quot;放大预览&quot; alt&#x3D;&quot;放大预览&quot;&#x2F;&gt;</span><br><span class="line">&#123;% img &#x2F;images&#x2F;vi-vim-cheat-sheet.gif 600 600 &quot;点击查看大图:vi&#x2F;vim-cheat-sheet&quot; %&#125;</span><br><span class="line"></span><br><span class="line">themes&#x2F;next&#x2F;js&#x2F;utils内添加拦截，实现imageHref和imageTitle</span><br><span class="line">if ($image.hasClass(&#39;nofancybox&#39;)) &#123;</span><br><span class="line">  var imageHref &#x3D; $image.attr(&#39;href&#39;) </span><br><span class="line">  if(imageHref)&#123;</span><br><span class="line">    var imageWrapLink &#x3D; $image.wrap(&#96;&lt;a href&#x3D;$&#123;imageHref&#125; target&#x3D;&quot;_blank&quot;&gt;&lt;&#x2F;a&gt;&#96;)</span><br><span class="line">  &#125;</span><br><span class="line">  var imageTitle &#x3D; $image.attr(&#39;title&#39;) || $image.attr(&#39;alt&#39;);</span><br><span class="line">  if (imageTitle) &#123;</span><br><span class="line">    $image.after(&#96;&lt;p class&#x3D;&quot;image-caption&quot;&gt;$&#123;imageTitle&#125;&lt;&#x2F;p&gt;&#96;)</span><br><span class="line">  &#125;</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line">&lt;img src&#x3D;&quot;&#x2F;images&#x2F;avatar.jpg&quot; title&#x3D;&quot;不需要放大预览&quot; alt&#x3D;&quot;不需要放大预览&quot; class&#x3D;&quot;nofancybox&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<div style="display:flex;">
+  <div style="flex:1">
+    <img src="/images/avatar.jpg" title="放大预览" alt="放大预览"/>
+  </div>
+  <div style="flex:1">
+    <img src="/images/avatar.jpg" title="不需要放大预览" alt="不需要放大预览" class="nofancybox"/>
+  </div>
+  <div style="flex:1">
+    <img src="/images/avatar.jpg" title="跳转链接" alt="跳转链接" class="nofancybox" href="https://www.baidu.com" />
+  </div>
+</div>
+
+<hr>
+<h2 id="文章置顶"><a href="#文章置顶" class="headerlink" title="文章置顶"></a>文章置顶</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-generator-index --save</span><br><span class="line">npm install hexo-generator-index-pin-top --save</span><br><span class="line"></span><br><span class="line">.md中top:true 或者true: 2控制多篇顺序</span><br><span class="line"></span><br><span class="line">添加样式themes&#x2F;hexo-theme-next&#x2F;layout&#x2F;_macr中&lt;div class&#x3D;&quot;post-meta&quot;&gt;里</span><br><span class="line">&#123;% if post.top %&#125;</span><br><span class="line">  &lt;i class&#x3D;&quot;fa fa-thumb-tack&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">  &lt;font color&#x3D;7D26CD&gt;置顶&lt;&#x2F;font&gt;</span><br><span class="line">  &lt;span class&#x3D;&quot;post-meta-divider&quot;&gt;|&lt;&#x2F;span&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="随机副标题文案"><a href="#随机副标题文案" class="headerlink" title="随机副标题文案"></a>随机副标题文案</h2><p>站点_config.yml中：subtitle用-添加文案<br>/next/layout/_partials/header/brand.swig分割,数组随机显示</p>
+<hr>
+<h2 id="网易云"><a href="#网易云" class="headerlink" title="网易云"></a>网易云</h2><hr>
+<h2 id="live2d"><a href="#live2d" class="headerlink" title="live2d"></a>live2d</h2><hr>
+<h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>如果没指定<code>[layout]</code>就使用<code>default_layout</code>中的默认模板</p>
+<p>hexo new 文章名     // 简写新建<br>hexo new “文章名 1”  // 空格需要用引号<br>hexo new post 文章名 // 用post模板新建文章</p>
+<p>npm install –save hexo-generator-index hexo-generator-archive hexo-generator-tag</p>
+<hr>
+<h2 id="个性化页面"><a href="#个性化页面" class="headerlink" title="个性化页面"></a>个性化页面</h2><p>站点_config.yml中skip_render配置过滤source下的指定目录或文件</p>
+<hr>
+<h2 id="创建标签和分类"><a href="#创建标签和分类" class="headerlink" title="创建标签和分类"></a>创建标签和分类</h2><p>hexo new page tags</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 在tags&#x2F;index.md中加入</span><br><span class="line">type: &quot;tags&quot;</span><br></pre></td></tr></table></figure>
+<p>hexo new page categories</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories&#x2F;index.md中加入</span><br><span class="line">tags: &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+
+<p>文章页加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line">- Axx</span><br><span class="line">tags:</span><br><span class="line">- Bxx</span><br></pre></td></tr></table></figure>
+
+<p>可以在scaffolds/post.md模板中加入categories:和tags:<br>每次hexo new 文章名时会自动包含分类和标签</p>
+<hr>
+<h2 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h2><p>npm install hexo-symbols-count-time –save</p>
+<hr>
+<h2 id="阅读全文"><a href="#阅读全文" class="headerlink" title="阅读全文"></a>阅读全文</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1、md中手动&lt;!-- more --&gt;</span><br><span class="line">2、md中头部front-matter中使用description</span><br><span class="line">3、auto_excerpt功能在新版中弃用，换成npm包</span><br><span class="line">npm install hexo-excerpt --save</span><br><span class="line">主题_config.yml中&#96;添加&#96;:</span><br><span class="line">excerpt:</span><br><span class="line">  depth: 1</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: false</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h2><p>引用algolia search:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、npm install --save hexo-algolia</span><br><span class="line">2、站点_config.yml中</span><br><span class="line">algolia:</span><br><span class="line">    applicationID: &#39;applicationID&#39;</span><br><span class="line">    indexName: &#39;indexName&#39;</span><br><span class="line">    chunkSize: 5000</span><br><span class="line"></span><br><span class="line">3、git bash中：</span><br><span class="line">$ export HEXO_ALGOLIA_INDEXING_KEY&#x3D;your Search key</span><br><span class="line">$ hexo algolia</span><br><span class="line">4、主题_config.yml中:</span><br><span class="line">algolia_search:</span><br><span class="line">  enable: false</span><br></pre></td></tr></table></figure>
+<p>引用local search:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、npm install hexo-generator-searchdb --save</span><br><span class="line">2、站点_config.yml中</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br><span class="line">4、主题_config.yml中:</span><br><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">5、hexo generate生成search.xml</span><br><span class="line">6、hexo server查看效果</span><br></pre></td></tr></table></figure>
+
+<h2 id="hexo-admin后台管理"><a href="#hexo-admin后台管理" class="headerlink" title="hexo-admin后台管理"></a>hexo-admin后台管理</h2><p><code>DeprecationWarning: fs.SyncWriteStream is deprecated.</code>报错是因为node8.0+移除了方法，某插件依赖了这个方法<br>通过hexo –debug找到<br>在hexo-admin的依赖中找到hexo-fs/lib/fs.js并注释下面这行</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exports.SyncWriteStream = fs.SyncWriteStream;</span><br></pre></td></tr></table></figure>
+
+<!-- 发布配置局部信息
+git config user.name xxx -->
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>听说，打赏我的人最后都找到了真爱 <br> ↘ 此处应有打赏 ↙</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/pay/wechatpay.jpg" alt="Leo 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/pay/alipay.jpg" alt="Leo 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://gitby-leo.github.io/2020/02/22/hello-hexo/" title="hello hexo,你好 hexo">https://gitby-leo.github.io/2020/02/22/hello-hexo/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/27/markdown%E8%AF%AD%E6%B3%95/" rel="next" title="markdown语法">
+    <i class="fa fa-chevron-left"></i> markdown语法 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/21/hello-world/" rel="prev" title="Hello World 欢迎来到hexo">
+    Hello World 欢迎来到hexo <i class="fa fa-chevron-right"></i> 
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODc1OS8yNTI1Mw=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#next主题的使用方法"><span class="nav-number">1.</span> <span class="nav-text">next主题的使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo的特点"><span class="nav-number">1.1.</span> <span class="nav-text">hexo的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用数据目录"><span class="nav-number">1.1.1.</span> <span class="nav-text">启用数据目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-CSS-路径"><span class="nav-number">1.2.</span> <span class="nav-text">定义 CSS 路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置激活-失活时的网页标题"><span class="nav-number">1.3.</span> <span class="nav-text">配置激活&#x2F;失活时的网页标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联文章"><span class="nav-number">1.4.</span> <span class="nav-text">关联文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表页添加可配置图片"><span class="nav-number">1.5.</span> <span class="nav-text">列表页添加可配置图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景动态图片"><span class="nav-number">1.6.</span> <span class="nav-text">背景动态图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rating评分"><span class="nav-number">1.7.</span> <span class="nav-text">rating评分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看板娘-桌宠"><span class="nav-number">1.8.</span> <span class="nav-text">看板娘&#x2F;桌宠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown"><span class="nav-number">1.9.</span> <span class="nav-text">Markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入图片"><span class="nav-number">1.10.</span> <span class="nav-text">插入图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章置顶"><span class="nav-number">1.11.</span> <span class="nav-text">文章置顶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机副标题文案"><span class="nav-number">1.12.</span> <span class="nav-text">随机副标题文案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网易云"><span class="nav-number">1.13.</span> <span class="nav-text">网易云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#live2d"><span class="nav-number">1.14.</span> <span class="nav-text">live2d</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建文章"><span class="nav-number">1.15.</span> <span class="nav-text">新建文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个性化页面"><span class="nav-number">1.16.</span> <span class="nav-text">个性化页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建标签和分类"><span class="nav-number">1.17.</span> <span class="nav-text">创建标签和分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字数统计"><span class="nav-number">1.18.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阅读全文"><span class="nav-number">1.19.</span> <span class="nav-text">阅读全文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索功能"><span class="nav-number">1.20.</span> <span class="nav-text">搜索功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-admin后台管理"><span class="nav-number">1.21.</span> <span class="nav-text">hexo-admin后台管理</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description">这里是Leo的云</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Gitby-Leo/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Gitby-Leo&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/LeoQin1994" title="Wechat → LeoQin1994"><i class="fa fa-fw fa-wechat"></i>Wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-weixin"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">104k</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.1
+  </div>
+
+<!-- 在底部添加运行日期 -->
+<div id="hexo-next-blog-days"></div>
+<script>
+    window.addEventListener('load',function(e){
+        (function show_date_time(){
+            let $hexoNextBlogDays = document.getElementById('hexo-next-blog-days');
+            let firstDate =  new Date("2019/11/09 15:13:14");
+            window.setInterval(()=>{
+                let nowDate = new Date();
+                
+                let timeDiff=(nowDate.getTime()-firstDate.getTime());
+                // timeDiff2=Math.floor(timeDiff/1000);
+                
+                let ms_oneday=24*60*60*1000;// 每天的ms
+                let getDay=timeDiff/ms_oneday;// 过去了几天
+                let getDay_floor = Math.floor(getDay);// 取整
+                                            
+                let getHours = (getDay-getDay_floor)*24; // 取整中间的小时数
+                let getHours_fixzero = setzero(Math.floor(getHours));// 小时数补0
+
+                let getMins = (getHours-getHours_fixzero)*60;
+                let getMins_fixzero = setzero(Math.floor(getMins));
+
+                let getSeconds = (getMins-getMins_fixzero)*60;
+                let getSeconds_fixzero = setzero(Math.floor(getSeconds));
+
+                $hexoNextBlogDays.innerHTML=`已运行 ${getDay_floor} 天 ${getHours_fixzero} 小时 ${getMins_fixzero} 分 ${getSeconds_fixzero} 秒`;
+            },1000)
+            function setzero(i) {
+                return i<10?'0'+i:i;
+            }
+        })()
+    })
+</script>
+
+        
+
+
+  <div style="display: none;">
+    <!-- 
+      <script src="//s95.cnzz.com/z_stat.php?id=1278631505&web_id=1278631505"></script>
+     -->
+      <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278631505'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278631505%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=QBX4t8wy8Jldt12dyi870duF-9Nh9j0Va')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id'     : 'QBX4t8wy8Jldt12dyi870duF-9Nh9j0Va',
+            'X-LC-Key'    : 'tHo2WvUFiuneKIWxWDKkt8e6',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : 23638,
+      el    : 'wpac-rating',
+      color : 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+  
+  // 用户脚本
+<!-- 看板娘 -->
+<!--
+ <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+-->
+<script src="/live2d-widget/autoload.js"></script>
+
+<!-- yml配置文件里新建title_trick {enable,leave,enter} -->
+
+<script>
+    (function(){
+        var title_trick_OriginTitile = document.title;
+        var title_trick_titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+            document.title = "(つェ⊂)我藏好了哦~" + title_trick_OriginTitile;
+            clearTimeout(title_trick_titleTime);
+            } else {
+            document.title = "" + title_trick_OriginTitile;
+            title_trick_titleTime = setTimeout(function() {
+                document.title = title_trick_OriginTitile;
+            }, 2000);
+            }
+        });
+    })()
+</script>
+
+</body>
+</html>
