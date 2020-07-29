@@ -1,6 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>推荐画流程图的工具</title>
+    <url>/2020/07/29/%E6%8E%A8%E8%8D%90%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<blockquote>
+<p>当然也是需要结合 markdown &amp;&amp; vscode 使用</p>
+</blockquote>
+<a id="more"></a>
+
+<p>markdown 流程图，需要安装扩展<br>Markdown Preview Mermaid Support</p>
+<blockquote>
+<p>支持流程图、饼状图、序列图、类图、状态图、甘特图、ER 图</p>
+</blockquote>
+<!-- https://mermaid-js.github.io/mermaid/#/ -->
+
+<!-- https://www.imooc.com/article/292708 -->
+<!-- uml EA -->
+
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">5 种流程图方向</span><br><span class="line">TB 从上到下 = TD</span><br><span class="line">BT 从下到上</span><br><span class="line">RL 从右到左</span><br><span class="line">LR 从左到右</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>5 种节点图形</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">节点</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id[txt]</td>
+<td align="center">矩形</td>
+</tr>
+<tr>
+<td align="center">id4(txt)</td>
+<td align="center">圆角矩形</td>
+</tr>
+<tr>
+<td align="center">id3&gt;txt]</td>
+<td align="center">不对称的矩形</td>
+</tr>
+<tr>
+<td align="center">id1{txt}</td>
+<td align="center">菱形</td>
+</tr>
+<tr>
+<td align="center">id2((txt))</td>
+<td align="center">圆形</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>9 种节点连接</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">连线</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–&gt;</td>
+<td align="center">实现箭头</td>
+</tr>
+<tr>
+<td align="center">—</td>
+<td align="center">实线连接</td>
+</tr>
+<tr>
+<td align="center">-.-</td>
+<td align="center">虚线连接</td>
+</tr>
+<tr>
+<td align="center">-.-&gt;</td>
+<td align="center">虚线箭头指向</td>
+</tr>
+<tr>
+<td align="center">==&gt;</td>
+<td align="center">加粗箭头指向</td>
+</tr>
+<tr>
+<td align="center">– 描述 —</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">– 描述 –&gt;</td>
+<td align="center">支持`–&gt;</td>
+</tr>
+<tr>
+<td align="center">-. 描述 .-&gt;</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">== 描述 ==&gt;</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>流程图</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">  step1[开始] --&gt; step2&#123;判断&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>子流程图</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    c1--&gt;a2</span><br><span class="line">    subgraph 子内容区域</span><br><span class="line">        a1--&gt;a2</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自定义样式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    s1(Start)--&gt;s2(Stop)</span><br><span class="line">    style s1 fill:#f9f,stroke:#333,stroke-width:4px,fill-opacity:0.5</span><br><span class="line">    style s2 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 10,5</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    start[开始] --&gt; input[输入A,B,C]</span><br><span class="line">    input --&gt; conditionA&#123;A是否大于B&#125;</span><br><span class="line">    conditionA -- YES --&gt; conditionC&#123;A是否大于C&#125;</span><br><span class="line">    conditionA -- NO --&gt; conditionB&#123;B是否大于C&#125;</span><br><span class="line">        conditionC -- YES --&gt; printA[输出A]</span><br><span class="line">        conditionC -- NO --&gt; printC[输出C]</span><br><span class="line">        conditionB -- YES --&gt; printB[输出B]</span><br><span class="line">        conditionB -- NO --&gt; printC[输出C]</span><br><span class="line">    printA --&gt; stop[结束]</span><br><span class="line">    printC --&gt; stop</span><br><span class="line">    printB --&gt; stop</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更好的推荐，vscode - drawio 插件，当然drawio也有在线网页版本</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一个可视化的git命令学习网站</title>
     <url>/2020/07/27/%E4%B8%80%E4%B8%AA%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84git%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0%E7%BD%91%E7%AB%99/</url>
     <content><![CDATA[<blockquote>
@@ -229,7 +357,7 @@
 <li><p>git pull 是 fetch 后跟 merge 的缩写</p>
 <ul>
 <li>git pull origin foo 相当于：git fetch origin foo; git merge o/foo</li>
-<li><code>git pull origin bar~1:bugFix</code> 相当于：git fetch origin bar~1:bugFix; git merge bugFix</li>
+<li><code>git pull origin bar~1:bugFix</code> 相当于：<code>git fetch origin bar~1:bugFix; git merge bugFix</code></li>
 <li>远端:本地</li>
 </ul>
 </li>
@@ -2698,7 +2826,7 @@ document.body.appendChild(iframe);</code></p>
     <title>最近在看</title>
     <url>/2020/06/12/%E6%9C%80%E8%BF%91%E5%9C%A8%E7%9C%8B/</url>
     <content><![CDATA[<blockquote>
-<p>想知道我最近关注什么 点进来看看</p>
+<p>想知道我最近关注什么 点进来看看<br>←👈猜猜出副标题里的诗句数量,左上角</p>
 </blockquote>
 <!-- > 找工作中 T-T....base上海，[查看cv](http://www.leow.net.cn/resume/) -->
 <a id="more"></a>

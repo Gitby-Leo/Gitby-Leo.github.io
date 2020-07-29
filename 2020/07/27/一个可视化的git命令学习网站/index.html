@@ -29,7 +29,7 @@
 <meta property="og:description" content="不用再纠结git命令不会写了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-27T14:30:23.000Z">
-<meta property="article:modified_time" content="2020-07-28T16:06:41.334Z">
+<meta property="article:modified_time" content="2020-07-28T16:23:57.607Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -124,7 +124,7 @@
             var Rand = Math.random();
             return(Min + Math.round(Rand * Range));
         }
-        var get_subtitle = "飞雪连天射白鹿，笑书神侠倚碧鸳,洗剑浣花新月残，飞刀杀人血气飘\n 花山桃林飞蝶舞，边城天穹孤鹰飞\n 银钩画月曲局行，白玉雕龙梅花香\n 玄箭狂枪战绝代，花翎怒剑泪侠刀\n 英雄风情一笑引，大侠传奇一生多,侠骨文心笑看云霄飘一羽，\n 孤怀统揽曾经沧海慨平生,桃花影落飞神剑，碧海潮生按玉箫,春沟水动茶花白，夏谷云生荔枝红";
+        var get_subtitle = "飞雪连天射白鹿，笑书神侠倚碧鸳,洗剑浣花新月残，飞刀杀人血气飘\n 花山桃林飞蝶舞，边城天穹孤鹰飞\n 银钩画月曲局行，白玉雕龙梅花香\n 玄箭狂枪战绝代，花翎怒剑泪侠刀\n 英雄风情一笑引，大侠传奇一生多,侠骨文心笑看云霄飘一羽，\n 孤怀统揽曾经沧海慨平生,桃花影落飞神剑，碧海潮生按玉箫,春沟水动茶花白，夏谷云生荔枝红,敲门都不应，倚杖听江声\n ——苏轼《临江仙》,兴酣落笔摇五岳，诗成笑傲凌沧海\n ——李白《江上吟》,最是人间留不住，朱颜辞镜花辞树\n ——王国维《蝶恋花》,醉后不知天在水，满船清梦压星河\n ——唐温如《题龙阳县青草湖》,陌上花开，可缓缓归矣\n ——吴越王,四面边声连角起，千嶂里，\n 长烟落日孤城闭\n ——范仲淹《渔家傲》,片云天共远，永夜月同孤\n ——杜甫《江汉》,浮生只合尊前老，雪满长安道\n ——舒亶《虞美人》,疏影横斜水清浅，暗香浮动月黄昏\n ——林逋《山园小梅》,几孤风月，屡变星霜\n ——柳永《玉蝴蝶》,试上超然台上望，\n半壕春水一城花。\n 烟雨暗千家。\n ——苏轼《望江南》,迟迟钟鼓初长夜，耿耿星河欲曙天\n ——白居易《长恨歌》,落霞与孤鹜齐飞，秋水共长天一色\n ——王勃《滕王阁序》,春听鸟声，夏听蝉声，\n 秋听虫声，冬听雪声，\n 白昼听棋声，月下听箫声，\n 山中听松声，水际听欸乃声，\n 方不虚此生耳\n ——张潮《幽梦影》,桥如虹，水如空，\n一叶飘然烟雨中\n ——陆游《长相思》,初阳照积雪，色如胭脂水\n ——汪曾祺《草木春秋》,三月桃花，两人一马，明日天涯\n ——七堇年《尘曲》,我曾踏月而来，只因你在山中。\n 山风拂发、拂颈、拂裸露的肩膀，\n 而月光衣我以华裳\n ——席慕容《山月》,也要楚天阔，也要大江流，\n 也要望不见前后，才能对月再下酒\n ——林清玄,你是从诗三百篇中褰裳涉水而来，\n 髡彼两髦，一身古远的芹香，\n 越陌度阡到我身边躺下，\n 到我身边躺下已是楚辞苍茫了\n ——木心 《芹香子》";
         var subtitleArr = get_subtitle.split(",");// ,分割
         var index = GetRandomNum(0,subtitleArr.length-1); // 取随机数
         var val = subtitleArr[index];
@@ -522,7 +522,7 @@
 <li><p>git pull 是 fetch 后跟 merge 的缩写</p>
 <ul>
 <li>git pull origin foo 相当于：git fetch origin foo; git merge o/foo</li>
-<li><code>git pull origin bar~1:bugFix</code> 相当于：git fetch origin bar~1:bugFix; git merge bugFix</li>
+<li><code>git pull origin bar~1:bugFix</code> 相当于：<code>git fetch origin bar~1:bugFix; git merge bugFix</code></li>
 <li>远端:本地</li>
 </ul>
 </li>
@@ -587,7 +587,10 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/29/%E6%8E%A8%E8%8D%90%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E5%B7%A5%E5%85%B7/" rel="next" title="推荐画流程图的工具">
+    <i class="fa fa-chevron-left"></i> 推荐画流程图的工具 
+    </a></div>
       <div class="post-nav-item">
     <a href="/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="用api的方式写出正则表达式">
     用api的方式写出正则表达式 <i class="fa fa-chevron-right"></i> 
@@ -672,7 +675,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -727,7 +730,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">103k</span>
+    <span title="站点总字数">104k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
