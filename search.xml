@@ -162,14 +162,14 @@
 <blockquote>
 <p>流程图</p>
 </blockquote>
-<pre class="mermaid">-code
+<pre class="mermaid">Code
 graph TD
   step1[开始] --> step2{判断}</pre>
 
 <blockquote>
 <p>子流程图</p>
 </blockquote>
-<pre class="mermaid">-code
+<pre class="mermaid">Code
 graph LR
     c1-->a2
     subgraph 子内容区域
@@ -179,7 +179,7 @@ graph LR
 <blockquote>
 <p>自定义样式</p>
 </blockquote>
-<pre class="mermaid">-code
+<pre class="mermaid">Code
 graph LR
     s1(Start)-->s2(Stop)
     style s1 fill:#f9f,stroke:#333,stroke-width:4px,fill-opacity:0.5
@@ -188,7 +188,7 @@ graph LR
 <blockquote>
 <p>示例</p>
 </blockquote>
-<pre class="mermaid">-code
+<pre class="mermaid">Code
 graph LR
     start[开始] --> input[输入A,B,C]
     input --> conditionA{A是否大于B}
