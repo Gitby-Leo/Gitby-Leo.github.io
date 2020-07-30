@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【23种设计模式】介绍</title>
-    <url>/2020/07/30/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91%E4%BB%8B%E7%BB%8D/</url>
+    <title>【23种设计模式】单例模式</title>
+    <url>/2020/07/31/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
-<p>开启系列之设计模式</p>
+<p>一个类只有一个实例<br>优点：减少内存，共享访问<br>缺点：不宜扩展和测试  </p>
 </blockquote>
 <a id="more"></a>
 
+<p>/</p>
 <hr>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】介绍</title>
+    <url>/2020/07/30/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<blockquote>
+<p>开启前端系列之设计模式（TS）</p>
+</blockquote>
+<a id="more"></a>
+
+<p><a href="http://c.biancheng.net/view/1317.html" target="_blank" rel="noopener">设计模式</a>无关何种语言，可以使代码具有可扩展性、可复用性，减少冗余</p>
+<p>最近要对项目进行重构，因此结合typescript复习一下设计模式，增加代码健壮性</p>
+<p>【8月开启的新篇章】将会结合codepen和mermaid 流程图</p>
+<hr>
+<blockquote>
+<p>7大原则演化为23种设计模式</p>
+</blockquote>
+<h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>一个类只负责一件事</p>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>一个类对另一个类的依赖建立在最小接口上</p>
+<h2 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h2><p>细节依赖抽象，面向接口编程</p>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>子类不要重写父类方法</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>对扩展开放，对修改关闭</p>
+<h2 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h2><p>只与直接对象/组件通信</p>
+<h2 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h2><p>优先使用组合或者聚合关系复用，少用继承关系复用</p>
+<hr>
+<hr>
+<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><blockquote>
+<p>创建对象，抽象实例化对象的过程，只需使用不用关注逻辑</p>
+</blockquote>
+<p>单例模式、简单工厂模式、工厂方法模式、抽象模式、原型模式、建造者模式</p>
+<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><blockquote>
+<p>组装现有的类，设计交互方式，实现某些功能</p>
+</blockquote>
+<p>适配器模式、桥接模式、装饰着模式、组合模式、外观模式、享元模式、代理模式</p>
+<h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><blockquote>
+<p>不同的对象之间划分责任，算法抽象化，不仅仅关注类和对象的结构，更重要的是相互作用，划分类与对象的职责，实现合理的交互</p>
+</blockquote>
+<p>模板方法模式、命令模式、访问者模式、迭代器模式、观察者模式、中介者模式、备忘录模式、解释器模式、状态模式、策略模式、职责链模式</p>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -25,7 +70,7 @@
 </blockquote>
 <a id="more"></a>
 
-<p>markdown 流程图，需要安装扩展<br>Markdown Preview Mermaid Support</p>
+<h2 id="markdown-流程图，需要安装扩展"><a href="#markdown-流程图，需要安装扩展" class="headerlink" title="markdown 流程图，需要安装扩展"></a>markdown 流程图，需要安装扩展</h2><p>Markdown Preview Mermaid Support</p>
 <blockquote>
 <p>支持流程图、饼状图、序列图、类图、状态图、甘特图、ER 图</p>
 </blockquote>
@@ -117,27 +162,80 @@
 <blockquote>
 <p>流程图</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">  step1[开始] --&gt; step2&#123;判断&#125;</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">-code
+graph TD
+  step1[开始] --> step2{判断}</pre>
 
 <blockquote>
 <p>子流程图</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    c1--&gt;a2</span><br><span class="line">    subgraph 子内容区域</span><br><span class="line">        a1--&gt;a2</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">-code
+graph LR
+    c1-->a2
+    subgraph 子内容区域
+        a1-->a2
+    end</pre>
 
 <blockquote>
 <p>自定义样式</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    s1(Start)--&gt;s2(Stop)</span><br><span class="line">    style s1 fill:#f9f,stroke:#333,stroke-width:4px,fill-opacity:0.5</span><br><span class="line">    style s2 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 10,5</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">-code
+graph LR
+    s1(Start)-->s2(Stop)
+    style s1 fill:#f9f,stroke:#333,stroke-width:4px,fill-opacity:0.5
+    style s2 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 10,5</pre>
 
 <blockquote>
 <p>示例</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    start[开始] --&gt; input[输入A,B,C]</span><br><span class="line">    input --&gt; conditionA&#123;A是否大于B&#125;</span><br><span class="line">    conditionA -- YES --&gt; conditionC&#123;A是否大于C&#125;</span><br><span class="line">    conditionA -- NO --&gt; conditionB&#123;B是否大于C&#125;</span><br><span class="line">        conditionC -- YES --&gt; printA[输出A]</span><br><span class="line">        conditionC -- NO --&gt; printC[输出C]</span><br><span class="line">        conditionB -- YES --&gt; printB[输出B]</span><br><span class="line">        conditionB -- NO --&gt; printC[输出C]</span><br><span class="line">    printA --&gt; stop[结束]</span><br><span class="line">    printC --&gt; stop</span><br><span class="line">    printB --&gt; stop</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">-code
+graph LR
+    start[开始] --> input[输入A,B,C]
+    input --> conditionA{A是否大于B}
+    conditionA -- YES --> conditionC{A是否大于C}
+    conditionA -- NO --> conditionB{B是否大于C}
+        conditionC -- YES --> printA[输出A]
+        conditionC -- NO --> printC[输出C]
+        conditionB -- YES --> printB[输出B]
+        conditionB -- NO --> printC[输出C]
+    printA --> stop[结束]
+    printC --> stop
+    printB --> stop</pre>
 
 <blockquote>
 <p>更好的推荐，vscode - drawio 插件，当然drawio也有在线网页版本</p>
 </blockquote>
-]]></content>
+<h2 id="js下载速度很慢啊"><a href="#js下载速度很慢啊" class="headerlink" title="js下载速度很慢啊"></a>js下载速度很慢啊</h2><h2 id="hexo中使用mermaid"><a href="#hexo中使用mermaid" class="headerlink" title="hexo中使用mermaid"></a>hexo中使用mermaid</h2><p>step1</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -S hexo-filter-mermaid-diagrams</span><br></pre></td></tr></table></figure>
+
+<p>step2</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># _config.yml最底部加上</span></span><br><span class="line"><span class="comment"># 支持流程图mermaid</span></span><br><span class="line"><span class="attr">mermaid:</span> <span class="comment">## mermaid url https://github.com/knsv/mermaid</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># default true</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">"8.6.0"</span> <span class="comment">#</span></span><br><span class="line">    <span class="attr">options:</span> <span class="comment"># find more api options from https://github.com/knsv/mermaid/blob/master/src/mermaidAPI.js</span></span><br><span class="line">    <span class="comment"># startOnload: true  // default true</span></span><br></pre></td></tr></table></figure>
+
+<p>step3</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- next主题默认已配置 --&gt;</span></span></span><br><span class="line">在<span class="emphasis">_data/next.yml或者.next/_</span>config.yml上找到Mermaid并启用</span><br></pre></td></tr></table></figure>
+
+<p>step4</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">没遇到写footer.swig的不需要修改</span><br><span class="line">刷新页面，等待加载</span><br></pre></td></tr></table></figure>
+
+<pre class="mermaid">graph LR
+    c1-->a2
+    subgraph 子内容区域
+        a1-->a2
+    end</pre>
+
+<pre class="mermaid" style="text-align: center;">
+            sequenceDiagram
+            participant Alice
+participant Bob
+Alice->John: Hello John, how are you?
+loop Healthcheck
+    John->John: Fight against hypochondria
+end
+Note right of John: Rational thoughts <br/>prevail...
+John-->Alice: Great!
+John->Bob: How about you?
+Bob-->John: Jolly good!
+          </pre>]]></content>
       <categories>
         <category>工具</category>
       </categories>
