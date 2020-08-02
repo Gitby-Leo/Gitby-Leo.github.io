@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【23种设计模式】简单工厂模式</title>
-    <url>/2020/08/01/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+    <title>【23种设计模式】2简单工厂模式</title>
+    <url>/2020/08/01/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%912%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
+<p>描述：封装一个创建对象的类<br>优点：解耦，父类不需要知道子类细节<br>缺点：工厂职责重，扩展困难  </p>
 </blockquote>
 <a id="more"></a>
 
-<p>/</p>
+<p>应用：工厂负责创建个别对象</p>
+<hr>
+<pre class="mermaid">classDiagram
+    class Product
+    <<interface>> Product
+    class ConcreteProduct1{
+    }
+    class Factory {
+        createProduct()
+    }
+    Factory --> ConcreteProduct1
+    ConcreteProduct1 ..|> Product</pre>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简单工厂</span></span><br><span class="line"><span class="keyword">class</span> Factory &#123;</span><br><span class="line">    <span class="comment">// 工厂的公有方法根据接收的参数不同，实例化不同对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> product = Factory.createProduct(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(product);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -17,15 +31,25 @@
       </tags>
   </entry>
   <entry>
-    <title>【23种设计模式】单例模式</title>
-    <url>/2020/07/31/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+    <title>【23种设计模式】1单例模式</title>
+    <url>/2020/07/31/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%911%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
-<p>一个类只有一个实例<br>优点：减少内存，共享访问<br>缺点：不宜扩展和测试  </p>
+<p>描述：一个类只有一个实例<br>优点：减少内存，共享访问<br>缺点：不宜扩展和测试  </p>
 </blockquote>
 <a id="more"></a>
 
-<p>//</p>
+<p>应用：用于需要频繁创建的对象</p>
 <hr>
+<p>两种实现</p>
+<pre class="mermaid">classDiagram
+    class Singleton {
+        instance
+        getInstance()
+    }</pre>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 饿汉模式，类的实例在初始化时创建</span></span><br><span class="line"><span class="keyword">class</span> Singleton &#123;</span><br><span class="line">    <span class="comment">// 构造类私有化，外部不能new</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    <span class="comment">// 类的内部，【立即】创建对象实例化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> instance : Singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">    <span class="comment">// 公有的静态方法，返回实例对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> getInstance() : Singleton &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Singleton.getInstance(), <span class="string">'11111'</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 懒汉模式，类的实例在调用时创建</span></span><br><span class="line"><span class="keyword">class</span> Singleton &#123;</span><br><span class="line">    <span class="comment">// 构造类私有化，外部不能new</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    <span class="comment">// 类的内部创建空对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> instance: Singleton = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// 公有的静态方法，【调用时】返回实例对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> getInstance() : Singleton &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.instance === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Singleton.getInstance(), <span class="string">'2222'</span>)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -90,8 +114,7 @@
 <blockquote>
 <p>支持流程图、饼状图、序列图、类图、状态图、甘特图、ER 图</p>
 </blockquote>
-<!-- https://mermaid-js.github.io/mermaid/#/ -->
-
+<p><a href="https://mermaid-js.github.io/mermaid/" target="_blank" rel="noopener">https://mermaid-js.github.io/mermaid/</a></p>
 <!-- https://www.imooc.com/article/292708 -->
 <!-- uml EA -->
 
@@ -178,45 +201,22 @@
 <blockquote>
 <p>流程图</p>
 </blockquote>
-<pre class="mermaid">Code
-graph TD
-  step1[开始] --> step2{判断}</pre>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- mermaid --&gt;</span></span></span><br><span class="line">graph TD</span><br><span class="line">  step1[开始] --&gt; step2&#123;判断&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>子流程图</p>
 </blockquote>
-<pre class="mermaid">Code
-graph LR
-    c1-->a2
-    subgraph 子内容区域
-        a1-->a2
-    end</pre>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- mermaid --&gt;</span></span></span><br><span class="line">graph LR</span><br><span class="line"><span class="code">    c1--&gt;a2</span></span><br><span class="line"><span class="code">    subgraph 子内容区域</span></span><br><span class="line"><span class="code">        a1--&gt;a2</span></span><br><span class="line"><span class="code">    end</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>自定义样式</p>
 </blockquote>
-<pre class="mermaid">Code
-graph LR
-    s1(Start)-->s2(Stop)
-    style s1 fill:#f9f,stroke:#333,stroke-width:4px,fill-opacity:0.5
-    style s2 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 10,5</pre>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- mermaid --&gt;</span></span></span><br><span class="line">graph LR</span><br><span class="line"><span class="code">    s1(Start)--&gt;s2(Stop)</span></span><br><span class="line"><span class="code">    style s1 fill:#f9f,stroke:#333,stroke-width:4px,fill-opacity:0.5</span></span><br><span class="line"><span class="code">    style s2 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 10,5</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>示例</p>
 </blockquote>
-<pre class="mermaid">Code
-graph LR
-    start[开始] --> input[输入A,B,C]
-    input --> conditionA{A是否大于B}
-    conditionA -- YES --> conditionC{A是否大于C}
-    conditionA -- NO --> conditionB{B是否大于C}
-        conditionC -- YES --> printA[输出A]
-        conditionC -- NO --> printC[输出C]
-        conditionB -- YES --> printB[输出B]
-        conditionB -- NO --> printC[输出C]
-    printA --> stop[结束]
-    printC --> stop
-    printB --> stop</pre>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- mermaid --&gt;</span></span></span><br><span class="line">graph LR</span><br><span class="line"><span class="code">    start[开始] --&gt; input[输入A,B,C]</span></span><br><span class="line"><span class="code">    input --&gt; conditionA&#123;A是否大于B&#125;</span></span><br><span class="line"><span class="code">    conditionA -- YES --&gt; conditionC&#123;A是否大于C&#125;</span></span><br><span class="line"><span class="code">    conditionA -- NO --&gt; conditionB&#123;B是否大于C&#125;</span></span><br><span class="line"><span class="code">        conditionC -- YES --&gt; printA[输出A]</span></span><br><span class="line"><span class="code">        conditionC -- NO --&gt; printC[输出C]</span></span><br><span class="line"><span class="code">        conditionB -- YES --&gt; printB[输出B]</span></span><br><span class="line"><span class="code">        conditionB -- NO --&gt; printC[输出C]</span></span><br><span class="line"><span class="code">    printA --&gt; stop[结束]</span></span><br><span class="line"><span class="code">    printC --&gt; stop</span></span><br><span class="line"><span class="code">    printB --&gt; stop</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>更好的推荐，vscode - drawio 插件，当然drawio也有在线网页版本</p>
@@ -251,7 +251,8 @@ Note right of John: Rational thoughts <br/>prevail...
 John-->Alice: Great!
 John->Bob: How about you?
 Bob-->John: Jolly good!
-          </pre>]]></content>
+          </pre>
+]]></content>
       <categories>
         <category>工具</category>
       </categories>
