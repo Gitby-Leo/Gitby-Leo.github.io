@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #a30b65;
+  background: #90a7c6;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2582,5 +2582,8 @@ body.compensate-for-scrollbar {
   opacity: 0 !important;
 }
 g.classGroup text {
-  font-size: 14px !important;
+  font-size: 16px !important;
+}
+.classLabel .label {
+  font-size: 16px !important;
 }

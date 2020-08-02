@@ -1,10 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【23种设计模式】5原型模式</title>
+    <url>/2020/08/03/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%915%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：用原型实例指定创建对象的种类，拷贝原型创建新对象<br>优点：简化创建新对象的过程，动态获取对象运行时，属性修改父变子变<br>缺点：修改已有类时，违反开闭原则  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：创建成本较大的场景，需要动态获取当前对象运行状态的场景</p>
+<hr>
+<p>/</p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】4抽象工厂模式</title>
+    <url>/2020/08/03/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%914%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：  创建相关的对象提供接口，无须指定具体类<br>优点：  便于新增产品<br>缺点：  调整产品结构麻烦，违反开闭原则  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：无需关注对象创建过程，稳定结构的产品类，每次新增产品</p>
+<hr>
+<p>/</p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】3工厂方法模式</title>
+    <url>/2020/08/03/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%913%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：封装一个创建对象的类，由子类决定需要实例化的类<br>优点：添加新产品要添加一个具体工厂和具体产品，符合开放封闭<br>缺点：类的个数多</p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：创建对象时，需要灵活可扩展的类时</p>
+<hr>
+<blockquote>
+<p>简单工厂&amp;工厂方法区别</p>
+</blockquote>
+<ul>
+<li>简单工厂<ul>
+<li>工厂类中包含了必要的判断逻辑，根据条件动态的实例化相关的类，不同的实例会有不同的运算</li>
+<li>添加新需求时，需要修改原有的类，不但对扩展开放，也对修改开放了</li>
+</ul>
+</li>
+<li>工厂方法<ul>
+<li>依赖倒转倒转原则，把工厂类抽象出一个接口，这个接口只有一个方法，就是创建抽象产品的工厂方法，所有要生成的工厂都去实现这一个接口</li>
+</ul>
+</li>
+</ul>
+<pre class="mermaid">classDiagram
+    class Product{
+        method1()
+        method2()
+    }
+    class ConcreteProduct_1{
+        constructor()
+        method1()
+        method2()
+    }
+    class Creator {
+        +createProduct()* Product
+    }
+    class ConcreteCreator{
+        constructor()
+        +createProduct() Product
+    }
+    ConcreteCreator --|> Creator:继承
+    ConcreteCreator ..> ConcreteProduct_1:依赖
+    ConcreteProduct_1 ..|> Product:实现</pre>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;</span><br><span class="line">    method1() : <span class="built_in">void</span>;</span><br><span class="line">    method2() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体产品一</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct_1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    method1() &#123;&#125;</span><br><span class="line">    method2() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象工厂</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Creator &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体工厂</span></span><br><span class="line"><span class="keyword">class</span> ConcreteCreator <span class="keyword">extends</span> Creator &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ts中，在继承的父类中包含abstract时必须在子类实现此方法</span></span><br><span class="line">    <span class="keyword">public</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct_1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct_2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> creator : Creator = <span class="keyword">new</span> ConcreteCreator();</span><br><span class="line"><span class="keyword">const</span> myProduct : Product = creator.createProduct(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【23种设计模式】2简单工厂模式</title>
     <url>/2020/08/01/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%912%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
-<p>描述：封装一个创建对象的类<br>优点：解耦，父类不需要知道子类细节<br>缺点：工厂职责重，扩展困难  </p>
+<p>描述：封装一个创建对象的类<br>优点：解耦，父类不需要知道子类细节<br>缺点：工厂职责重，扩展困难，违反开闭原则  </p>
 </blockquote>
 <a id="more"></a>
 
@@ -12,16 +104,17 @@
 <hr>
 <pre class="mermaid">classDiagram
     class Product
-    <<interface>> Product
     class ConcreteProduct1{
+        constructor()
     }
     class Factory {
-        createProduct()
+        +createProduct()$ Product
     }
-    Factory --> ConcreteProduct1
-    ConcreteProduct1 ..|> Product</pre>
+    Factory --> ConcreteProduct1:依赖
+    ConcreteProduct1 ..|> Product:实现</pre>
 
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简单工厂</span></span><br><span class="line"><span class="keyword">class</span> Factory &#123;</span><br><span class="line">    <span class="comment">// 工厂的公有方法根据接收的参数不同，实例化不同对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> product = Factory.createProduct(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(product);</span><br></pre></td></tr></table></figure>
+<p>(类图可能版本有问题不显示&lt;<interface>&gt; Product)</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品类</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简单工厂</span></span><br><span class="line"><span class="keyword">class</span> Factory &#123;</span><br><span class="line">    <span class="comment">// 工厂的公有方法根据接收的参数不同，实例化不同对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> product = Factory.createProduct(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(product);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -43,8 +136,9 @@
 <p>两种实现</p>
 <pre class="mermaid">classDiagram
     class Singleton {
-        instance
-        getInstance()
+        -constructor()
+        -getInstance
+        +getInstance()
     }</pre>
 
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 饿汉模式，类的实例在初始化时创建</span></span><br><span class="line"><span class="keyword">class</span> Singleton &#123;</span><br><span class="line">    <span class="comment">// 构造类私有化，外部不能new</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    <span class="comment">// 类的内部，【立即】创建对象实例化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> instance : Singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">    <span class="comment">// 公有的静态方法，返回实例对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> getInstance() : Singleton &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Singleton.getInstance(), <span class="string">'11111'</span>);</span><br></pre></td></tr></table></figure>
@@ -233,6 +327,11 @@
 <p>step4</p>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">没遇到写footer.swig的不需要修改</span><br><span class="line">刷新页面，等待加载</span><br></pre></td></tr></table></figure>
 
+<p>step5</p>
+<p>样式问题修改</p>
+<p>如网页渲染的classDiagram的<a href="https://mermaid-js.github.io/mermaid/#/classDiagram" target="_blank" rel="noopener">font-size</a>搜索Sample stylesheet</p>
+<p>vs code自定义样式表，设置-<code>Markdown: Styles</code>-项目文件夹中添加css，如<code>source\\_data\\styles_markdown.css</code></p>
+<p>如graph可以用style id1 fill:#f9f</p>
 <pre class="mermaid">graph LR
     c1-->a2
     subgraph 子内容区域
