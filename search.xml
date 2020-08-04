@@ -4,12 +4,92 @@
     <title>【23种设计模式】7适配器模式</title>
     <url>/2020/08/04/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%917%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
-<p>描述：<br>优点：<br>缺点：  </p>
+<p>描述：将一个类的接口变换为另一个，匹配两个不同类<br>优点：提高类的复用性<br>缺点：类适配器的适配者需要暴露方法，对象适配器替换时麻烦  </p>
 </blockquote>
 <a id="more"></a>
 
-<p>应用：</p>
+<p>应用：接口不规范的类进行转换，使用接口中的部分方法</p>
 <hr>
+<blockquote>
+<p>类适配器</p>
+</blockquote>
+<pre class="mermaid">classDiagram
+  class Target{
+    <<Interface>>
+    request() void
+  }
+  class Adaptee{
+    constructor()
+    +specificRequest() void
+  }
+  class Adapter{
+    constructor()
+    +request() void
+  }
+  Target <|.. Adapter:实现
+  Adaptee <|-- Adapter:继承</pre>
+
+<ul>
+<li>目标对象接口</li>
+<li>被适配者类</li>
+<li>适配器，用来继承类、实现接口</li>
+<li>实例调用的是被适配者类的逻辑</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 目标对象</span></span><br><span class="line"><span class="keyword">interface</span> Target &#123;</span><br><span class="line">    request() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 被适配者</span></span><br><span class="line"><span class="keyword">class</span> Adaptee &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="comment">// 这是源角色，有自己的的业务逻辑</span></span><br><span class="line">    <span class="keyword">public</span> specificRequest() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 适配器</span></span><br><span class="line"><span class="keyword">class</span> Adapter <span class="keyword">extends</span> Adaptee <span class="keyword">implements</span> Target &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.specificRequest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> target : Target = <span class="keyword">new</span> Adapter();</span><br><span class="line">target.request();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对象适配器</p>
+</blockquote>
+<pre class="mermaid">classDiagram
+  class Target{
+    <<Interface>>
+    request() void
+  }
+  class Adaptee{
+    constructor()
+    +specificRequest() void
+  }
+  class Adapter{
+    -adaptee: Adaptee
+    constructor(adaptee : Adaptee)
+    +request() void
+  }
+  Target <|.. Adapter:实现
+  Adaptee --o Adapter:聚合</pre>
+
+<ul>
+<li>目标对象接口</li>
+<li>被适配者类</li>
+<li>适配器，用来实现接口，被适配者类私有化</li>
+<li>通过适配器传入实例的方式进行实例化，并调用相关方法</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 目标对象</span></span><br><span class="line"><span class="keyword">interface</span> Target &#123;</span><br><span class="line">    request() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 被适配者</span></span><br><span class="line"><span class="keyword">class</span> Adaptee &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="comment">// 这是源角色，有自己的的业务逻辑</span></span><br><span class="line">    <span class="keyword">public</span> specificRequest() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 适配器</span></span><br><span class="line"><span class="keyword">class</span> Adapter <span class="keyword">implements</span> Target &#123;</span><br><span class="line">    <span class="keyword">private</span> adaptee : Adaptee;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">adaptee : Adaptee</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.adaptee = adaptee;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.adaptee.specificRequest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> target : Target = <span class="keyword">new</span> Adapter(<span class="keyword">new</span> Adaptee());</span><br><span class="line">target.request();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>接口适配器</p>
+</blockquote>
+<pre class="mermaid">classDiagram
+  class Adaptee{
+    <<Interface>>
+    operation1() void
+    operation2() void
+  }
+  class AbsAdapter{
+    +operation1() void
+    +operation2() void
+  }
+  class UseClass{
+    operation1() void
+  }
+  Adaptee <|.. AbsAdapter :实现
+  AbsAdapter <.. UseClass :依赖</pre>
+
+<ul>
+<li>目标对象接口</li>
+<li>被适配者类,实现目标对象接口</li>
+<li>新的类，重写适配者类的函数内容</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Adaptee &#123;</span><br><span class="line">    operation1() : <span class="built_in">void</span>;</span><br><span class="line">    operation2() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> AbsAdapter <span class="keyword">implements</span> Adaptee &#123;</span><br><span class="line">    <span class="keyword">public</span> operation1() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> operation2() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> UseClass <span class="keyword">extends</span> AbsAdapter &#123;</span><br><span class="line">    <span class="keyword">public</span> operation1() : <span class="built_in">void</span> &#123;&#125;<span class="comment">// 重写该类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -30,7 +110,7 @@
 <hr>
 <pre class="mermaid">classDiagram
   class Product{
-    +doSomething() void 
+    +doSomething() void
   }
   class Builder{
     <<abstract>>
@@ -63,7 +143,8 @@
 <li>指挥者，处理建造的流程</li>
 <li>实例化一个建造者，交给指挥者，指挥者的实例进行构建</li>
 </ul>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 产品角色</span></span><br><span class="line"><span class="keyword">class</span> Product &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// 独立业务</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象建造者</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Builder &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartA() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartB() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartC() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildProduct() : Product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体建造者</span></span><br><span class="line"><span class="keyword">class</span> ConcreteBuilder <span class="keyword">extends</span> Builder &#123;</span><br><span class="line">    <span class="keyword">private</span> product : Product;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">product : Product</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.product = product;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartA() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartB() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartC() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 最终组建一个产品</span></span><br><span class="line">    <span class="keyword">public</span> buildProduct() : Product &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 指挥者</span></span><br><span class="line"><span class="keyword">class</span> Director &#123;</span><br><span class="line">    <span class="keyword">private</span> _builder : Builder;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">builder : Builder</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> builder(builder : Builder) &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将处理建造的流程交给指挥者</span></span><br><span class="line">    <span class="keyword">public</span> constructorProduct() &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartA();</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartB();</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartC();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._builder.buildProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> builder : Builder = <span class="keyword">new</span> ConcreteBuilder(<span class="keyword">new</span> Product());</span><br><span class="line"><span class="keyword">const</span> director : Director = <span class="keyword">new</span> Director(builder);</span><br><span class="line"><span class="keyword">const</span> product : Product = director.constructorProduct();</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 产品角色</span></span><br><span class="line"><span class="keyword">class</span> Product &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// 独立业务</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象建造者</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Builder &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartA() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartB() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartC() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildProduct() : Product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体建造者</span></span><br><span class="line"><span class="keyword">class</span> ConcreteBuilder <span class="keyword">extends</span> Builder &#123;</span><br><span class="line">    <span class="keyword">private</span> product : Product;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">product : Product</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.product = product;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartA() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartB() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartC() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 最终组建一个产品</span></span><br><span class="line">    <span class="keyword">public</span> buildProduct() : Product &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 指挥者</span></span><br><span class="line"><span class="keyword">class</span> Director &#123;</span><br><span class="line">    <span class="keyword">private</span> _builder : Builder;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">builder : Builder</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> builder(builder : Builder) &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将处理建造的流程交给指挥者</span></span><br><span class="line">    <span class="keyword">public</span> constructorProduct() &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartA();</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartB();</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartC();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._builder.buildProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> builder : Builder = <span class="keyword">new</span> ConcreteBuilder(<span class="keyword">new</span> Product());</span><br><span class="line"><span class="keyword">const</span> director : Director = <span class="keyword">new</span> Director(builder);</span><br><span class="line"><span class="keyword">const</span> product : Product = director.constructorProduct();</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>设计模式</category>
       </categories>
