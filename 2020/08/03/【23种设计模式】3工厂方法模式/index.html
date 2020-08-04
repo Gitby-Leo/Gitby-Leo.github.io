@@ -29,7 +29,7 @@
 <meta property="og:description" content="描述：封装一个创建对象的类，由子类决定需要实例化的类优点：添加新产品要添加一个具体工厂和具体产品，符合开放封闭缺点：类的个数多">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-02T16:47:43.000Z">
-<meta property="article:modified_time" content="2020-08-02T18:19:59.293Z">
+<meta property="article:modified_time" content="2020-08-03T17:16:34.791Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -319,6 +319,7 @@
 </ul>
 <pre class="mermaid">classDiagram
     class Product{
+        <<interface>>
         method1()
         method2()
     }
@@ -328,6 +329,7 @@
         method2()
     }
     class Creator {
+        <<abstract>>
         +createProduct()* Product
     }
     class ConcreteCreator{
@@ -338,6 +340,18 @@
     ConcreteCreator ..> ConcreteProduct_1:依赖
     ConcreteProduct_1 ..|> Product:实现</pre>
 
+<ul>
+<li>产品接口<ul>
+<li>产品实现类</li>
+</ul>
+</li>
+<li>产品工厂<ul>
+<li>依赖产品实现类</li>
+<li>创建产品实例</li>
+</ul>
+</li>
+<li>工厂的实例创建产品</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;</span><br><span class="line">    method1() : <span class="built_in">void</span>;</span><br><span class="line">    method2() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体产品一</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct_1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    method1() &#123;&#125;</span><br><span class="line">    method2() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象工厂</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Creator &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体工厂</span></span><br><span class="line"><span class="keyword">class</span> ConcreteCreator <span class="keyword">extends</span> Creator &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ts中，在继承的父类中包含abstract时必须在子类实现此方法</span></span><br><span class="line">    <span class="keyword">public</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct_1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct_2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> creator : Creator = <span class="keyword">new</span> ConcreteCreator();</span><br><span class="line"><span class="keyword">const</span> myProduct : Product = creator.createProduct(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -486,7 +500,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -541,7 +555,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">109k</span>
+    <span title="站点总字数">110k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

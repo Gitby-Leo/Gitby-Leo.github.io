@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【23种设计模式】7适配器模式</title>
+    <url>/2020/08/04/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%917%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：<br>优点：<br>缺点：  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：</p>
+<hr>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】6建造者模式</title>
+    <url>/2020/08/04/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%916%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：对象的构建与表示分离，同样的构建过程创建不同的表示<br>优点：解耦对象和它的构建过程，建造者独立，容易扩展<br>缺点：需要对象有较多的共同点，对象内部变化导致建造者变多  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：指定属性构建对象，组装小对象，组成大对象</p>
+<hr>
+<pre class="mermaid">classDiagram
+  class Product{
+    +doSomething() void 
+  }
+  class Builder{
+    <<abstract>>
+    +buildPartA()* void
+    +buildPartB()* void
+    +buildProduct()* Product
+  }
+  class ConcreteBuilder{
+    -product Product
+    constructor(product : Product)
+    +buildPartA() void
+    +buildPartB() void
+    +buildProduct() Product
+  }
+  class Director{
+    -_builder : Builder
+    constructor(builder : Builder)
+    setbuilder(builder : Builder)
+    +constructorProduct()
+  }
+  Director o-- Builder :聚合
+  Builder <|.. ConcreteBuilder :实现
+  Product <.. ConcreteBuilder :依赖</pre>
+
+<ul>
+<li>对建造者抽象，指定需要抽象出哪些产品<ul>
+<li>实现建造者</li>
+</ul>
+</li>
+<li>指挥者，处理建造的流程</li>
+<li>实例化一个建造者，交给指挥者，指挥者的实例进行构建</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 产品角色</span></span><br><span class="line"><span class="keyword">class</span> Product &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// 独立业务</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象建造者</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Builder &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartA() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartB() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildPartC() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> buildProduct() : Product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体建造者</span></span><br><span class="line"><span class="keyword">class</span> ConcreteBuilder <span class="keyword">extends</span> Builder &#123;</span><br><span class="line">    <span class="keyword">private</span> product : Product;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">product : Product</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.product = product;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartA() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartB() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> buildPartC() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 最终组建一个产品</span></span><br><span class="line">    <span class="keyword">public</span> buildProduct() : Product &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 指挥者</span></span><br><span class="line"><span class="keyword">class</span> Director &#123;</span><br><span class="line">    <span class="keyword">private</span> _builder : Builder;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">builder : Builder</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> builder(builder : Builder) &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将处理建造的流程交给指挥者</span></span><br><span class="line">    <span class="keyword">public</span> constructorProduct() &#123;</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartA();</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartB();</span><br><span class="line">        <span class="keyword">this</span>._builder.buildPartC();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._builder.buildProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> builder : Builder = <span class="keyword">new</span> ConcreteBuilder(<span class="keyword">new</span> Product());</span><br><span class="line"><span class="keyword">const</span> director : Director = <span class="keyword">new</span> Director(builder);</span><br><span class="line"><span class="keyword">const</span> product : Product = director.constructorProduct();</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【23种设计模式】5原型模式</title>
     <url>/2020/08/03/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%915%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
@@ -10,7 +81,30 @@
 
 <p>应用：创建成本较大的场景，需要动态获取当前对象运行状态的场景</p>
 <hr>
-<p>/</p>
+<pre class="mermaid">classDiagram
+  class Prototype{
+    <<interface>>
+    clone():Prototype
+  }
+  class Dog{
+    +name: string
+    +birthYear: number
+    +sex: string
+    +presentYear: number
+    constructor()
+    +getDiscription() string
+    +clone() Prototype
+  }
+  Prototype <|-- Dog :实现</pre>
+
+<ul>
+<li>原型对象接口<ul>
+<li>实例实现类</li>
+</ul>
+</li>
+<li>实例调用类中的方法</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Prototype &#123;</span><br><span class="line">    clone():Prototype;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">implements</span> Prototype &#123;</span><br><span class="line">    <span class="keyword">public</span> name: <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">public</span> birthYear: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">public</span> sex: <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">public</span> presentYear: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"lili"</span>;</span><br><span class="line">        <span class="keyword">this</span>.birthYear = <span class="number">2015</span>;</span><br><span class="line">        <span class="keyword">this</span>.sex = <span class="string">"男"</span>;</span><br><span class="line">        <span class="keyword">this</span>.presentYear = <span class="number">2018</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> getDiscription(): <span class="built_in">string</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`狗狗叫<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>,性别<span class="subst">$&#123;<span class="keyword">this</span>.sex&#125;</span>,<span class="subst">$&#123;<span class="keyword">this</span>.presentYear&#125;</span>年<span class="subst">$&#123;<span class="keyword">this</span>.presentYear - <span class="keyword">this</span>.birthYear&#125;</span>岁了`</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实现复制</span></span><br><span class="line">    <span class="keyword">public</span> clone(): Prototype &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.create(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> dog = <span class="keyword">new</span> Dog();</span><br><span class="line"><span class="built_in">console</span>.log(dog.getDiscription());</span><br><span class="line"><span class="comment">// 拷贝不会影响原实例</span></span><br><span class="line"><span class="keyword">const</span> dog1 = <span class="built_in">Object</span>.create(dog);</span><br><span class="line">dog1.presentYear = <span class="number">2020</span>;</span><br><span class="line"><span class="built_in">console</span>.log(dog1.getDiscription());</span><br><span class="line"><span class="keyword">const</span> dog2 = dog.clone();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'--'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog.getDiscription());</span><br><span class="line"><span class="built_in">console</span>.log(dog1.getDiscription());</span><br><span class="line"><span class="built_in">console</span>.log(dog2.getDiscription());</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -29,7 +123,47 @@
 
 <p>应用：无需关注对象创建过程，稳定结构的产品类，每次新增产品</p>
 <hr>
-<p>/</p>
+<pre class="mermaid">classDiagram
+  class AbstractProductA
+  <<interface>> AbstractProductA
+  class AbstractProductB
+  <<interface>> AbstractProductB
+
+  class AbstractFactory{
+    <<interface>>
+    createProductA()* AbstractProductA
+    createProductB()* AbstractProductB
+  }
+  class ConcreteFactory1{
+    constructor()
+    +createProductA() AbstractProductA
+    +createProductB() AbstractProductB
+  }
+  class ConcreteFactory2{
+    constructor()
+    +createProductA() AbstractProductA
+    +createProductB() AbstractProductB
+  }
+  class ConcreteProductA1
+  class ConcreteProductB1
+  AbstractProductA <|.. ConcreteProductA1:实现
+  AbstractProductB <|.. ConcreteProductA1:实现
+  AbstractProductA <|.. ConcreteProductB1:实现
+  AbstractProductB <|.. ConcreteProductB1:实现
+  AbstractFactory <|.. ConcreteFactory1 :实现
+  AbstractFactory <|.. ConcreteFactory2 :实现
+  ConcreteProductA1 <.. ConcreteFactory1:依赖
+  ConcreteProductB1 <.. ConcreteFactory2:依赖</pre>
+
+<ul>
+<li>产品接口 &amp; 产品工厂接口  <ul>
+<li>产品实现类 &amp; 工厂实现类</li>
+</ul>
+</li>
+<li>工厂实现类依赖产品实现类</li>
+<li>工厂的实例的产品方法创建产品实例</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品A接口</span></span><br><span class="line"><span class="keyword">interface</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 抽象产品B接口</span></span><br><span class="line"><span class="keyword">interface</span> AbstractProductB &#123;&#125;</span><br><span class="line"><span class="comment">// 抽象工厂接口</span></span><br><span class="line"><span class="keyword">interface</span> AbstractFactory &#123;</span><br><span class="line">    createProductA() : AbstractProductA;</span><br><span class="line">    createProductB() : AbstractProductB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// implements实现接口中定义的抽象方法</span></span><br><span class="line"><span class="comment">// 具体产品A1</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductA1 <span class="keyword">implements</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品A2</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductA2 <span class="keyword">implements</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品B1</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductB1 <span class="keyword">implements</span> AbstractProductB &#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品B2</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductB2 <span class="keyword">implements</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 具体工厂1</span></span><br><span class="line"><span class="keyword">class</span> ConcreteFactory1 <span class="keyword">implements</span> AbstractFactory &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> createProductA() : AbstractProductA &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA1();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> createProductB() : AbstractProductB &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体工厂2</span></span><br><span class="line"><span class="keyword">class</span> ConcreteFactory2 <span class="keyword">implements</span> AbstractFactory &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> createProductA() : AbstractProductA &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA2();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> createProductB() : AbstractProductB &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="comment">// 工厂实例</span></span><br><span class="line"><span class="keyword">const</span> factory1 : AbstractFactory = <span class="keyword">new</span> ConcreteFactory1();</span><br><span class="line"><span class="keyword">const</span> factory2 : AbstractFactory = <span class="keyword">new</span> ConcreteFactory2();</span><br><span class="line"><span class="comment">// 实例创建产品</span></span><br><span class="line"><span class="keyword">const</span> productA1 : AbstractProductA = factory1.createProductA();</span><br><span class="line"><span class="keyword">const</span> productA2 : AbstractProductA = factory2.createProductA();</span><br><span class="line"><span class="keyword">const</span> productB1 : AbstractProductB = factory1.createProductB();</span><br><span class="line"><span class="keyword">const</span> productB2 : AbstractProductB = factory2.createProductB();</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -64,6 +198,7 @@
 </ul>
 <pre class="mermaid">classDiagram
     class Product{
+        <<interface>>
         method1()
         method2()
     }
@@ -73,6 +208,7 @@
         method2()
     }
     class Creator {
+        <<abstract>>
         +createProduct()* Product
     }
     class ConcreteCreator{
@@ -83,6 +219,18 @@
     ConcreteCreator ..> ConcreteProduct_1:依赖
     ConcreteProduct_1 ..|> Product:实现</pre>
 
+<ul>
+<li>产品接口<ul>
+<li>产品实现类</li>
+</ul>
+</li>
+<li>产品工厂<ul>
+<li>依赖产品实现类</li>
+<li>创建产品实例</li>
+</ul>
+</li>
+<li>工厂的实例创建产品</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;</span><br><span class="line">    method1() : <span class="built_in">void</span>;</span><br><span class="line">    method2() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体产品一</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct_1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    method1() &#123;&#125;</span><br><span class="line">    method2() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象工厂</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Creator &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体工厂</span></span><br><span class="line"><span class="keyword">class</span> ConcreteCreator <span class="keyword">extends</span> Creator &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ts中，在继承的父类中包含abstract时必须在子类实现此方法</span></span><br><span class="line">    <span class="keyword">public</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct_1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct_2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> creator : Creator = <span class="keyword">new</span> ConcreteCreator();</span><br><span class="line"><span class="keyword">const</span> myProduct : Product = creator.createProduct(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -104,6 +252,7 @@
 <hr>
 <pre class="mermaid">classDiagram
     class Product
+    <<interface>> Product
     class ConcreteProduct1{
         constructor()
     }
@@ -113,7 +262,14 @@
     Factory --> ConcreteProduct1:依赖
     ConcreteProduct1 ..|> Product:实现</pre>
 
-<p>(类图可能版本有问题不显示&lt;<interface>&gt; Product)</p>
+<ul>
+<li>产品接口<ul>
+<li>产品实现类</li>
+</ul>
+</li>
+<li>工厂类依赖产品实现类</li>
+<li>工厂的实例创建产品</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品类</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简单工厂</span></span><br><span class="line"><span class="keyword">class</span> Factory &#123;</span><br><span class="line">    <span class="comment">// 工厂的公有方法根据接收的参数不同，实例化不同对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> product = Factory.createProduct(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(product);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>

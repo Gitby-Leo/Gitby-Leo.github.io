@@ -29,7 +29,7 @@
 <meta property="og:description" content="描述：封装一个创建对象的类优点：解耦，父类不需要知道子类细节缺点：工厂职责重，扩展困难，违反开闭原则">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-01T15:45:23.000Z">
-<meta property="article:modified_time" content="2020-08-02T18:26:38.993Z">
+<meta property="article:modified_time" content="2020-08-03T17:15:48.832Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -277,7 +277,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>713</span>
+              <span>719</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -305,6 +305,7 @@
 <hr>
 <pre class="mermaid">classDiagram
     class Product
+    <<interface>> Product
     class ConcreteProduct1{
         constructor()
     }
@@ -314,7 +315,14 @@
     Factory --> ConcreteProduct1:依赖
     ConcreteProduct1 ..|> Product:实现</pre>
 
-<p>(类图可能版本有问题不显示&lt;<interface>&gt; Product)</p>
+<ul>
+<li>产品接口<ul>
+<li>产品实现类</li>
+</ul>
+</li>
+<li>工厂类依赖产品实现类</li>
+<li>工厂的实例创建产品</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象产品接口</span></span><br><span class="line"><span class="keyword">interface</span> Product&#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品类</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProduct1 <span class="keyword">implements</span> Product &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简单工厂</span></span><br><span class="line"><span class="keyword">class</span> Factory &#123;</span><br><span class="line">    <span class="comment">// 工厂的公有方法根据接收的参数不同，实例化不同对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> createProduct(<span class="keyword">type</span> : <span class="built_in">number</span>) : Product &#123;</span><br><span class="line">        <span class="keyword">let</span> product = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">type</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> product = Factory.createProduct(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(product);</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -463,7 +471,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -518,7 +526,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">109k</span>
+    <span title="站点总字数">110k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

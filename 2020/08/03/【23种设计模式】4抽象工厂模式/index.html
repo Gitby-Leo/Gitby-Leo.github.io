@@ -29,7 +29,7 @@
 <meta property="og:description" content="描述：  创建相关的对象提供接口，无须指定具体类优点：  便于新增产品缺点：  调整产品结构麻烦，违反开闭原则">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-02T16:51:46.000Z">
-<meta property="article:modified_time" content="2020-08-02T18:27:28.139Z">
+<meta property="article:modified_time" content="2020-08-03T17:17:11.323Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -277,7 +277,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>79</span>
+              <span>516</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -303,7 +303,47 @@
 
 <p>应用：无需关注对象创建过程，稳定结构的产品类，每次新增产品</p>
 <hr>
-<p>/</p>
+<pre class="mermaid">classDiagram
+  class AbstractProductA
+  <<interface>> AbstractProductA
+  class AbstractProductB
+  <<interface>> AbstractProductB
+
+  class AbstractFactory{
+    <<interface>>
+    createProductA()* AbstractProductA
+    createProductB()* AbstractProductB
+  }
+  class ConcreteFactory1{
+    constructor()
+    +createProductA() AbstractProductA
+    +createProductB() AbstractProductB
+  }
+  class ConcreteFactory2{
+    constructor()
+    +createProductA() AbstractProductA
+    +createProductB() AbstractProductB
+  }
+  class ConcreteProductA1
+  class ConcreteProductB1
+  AbstractProductA <|.. ConcreteProductA1:实现
+  AbstractProductB <|.. ConcreteProductA1:实现
+  AbstractProductA <|.. ConcreteProductB1:实现
+  AbstractProductB <|.. ConcreteProductB1:实现
+  AbstractFactory <|.. ConcreteFactory1 :实现
+  AbstractFactory <|.. ConcreteFactory2 :实现
+  ConcreteProductA1 <.. ConcreteFactory1:依赖
+  ConcreteProductB1 <.. ConcreteFactory2:依赖</pre>
+
+<ul>
+<li>产品接口 &amp; 产品工厂接口  <ul>
+<li>产品实现类 &amp; 工厂实现类</li>
+</ul>
+</li>
+<li>工厂实现类依赖产品实现类</li>
+<li>工厂的实例的产品方法创建产品实例</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象产品A接口</span></span><br><span class="line"><span class="keyword">interface</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 抽象产品B接口</span></span><br><span class="line"><span class="keyword">interface</span> AbstractProductB &#123;&#125;</span><br><span class="line"><span class="comment">// 抽象工厂接口</span></span><br><span class="line"><span class="keyword">interface</span> AbstractFactory &#123;</span><br><span class="line">    createProductA() : AbstractProductA;</span><br><span class="line">    createProductB() : AbstractProductB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// implements实现接口中定义的抽象方法</span></span><br><span class="line"><span class="comment">// 具体产品A1</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductA1 <span class="keyword">implements</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品A2</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductA2 <span class="keyword">implements</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品B1</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductB1 <span class="keyword">implements</span> AbstractProductB &#123;&#125;</span><br><span class="line"><span class="comment">// 具体产品B2</span></span><br><span class="line"><span class="keyword">class</span> ConcreteProductB2 <span class="keyword">implements</span> AbstractProductA &#123;&#125;</span><br><span class="line"><span class="comment">// 具体工厂1</span></span><br><span class="line"><span class="keyword">class</span> ConcreteFactory1 <span class="keyword">implements</span> AbstractFactory &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> createProductA() : AbstractProductA &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA1();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> createProductB() : AbstractProductB &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体工厂2</span></span><br><span class="line"><span class="keyword">class</span> ConcreteFactory2 <span class="keyword">implements</span> AbstractFactory &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> createProductA() : AbstractProductA &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA2();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> createProductB() : AbstractProductB &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="comment">// 工厂实例</span></span><br><span class="line"><span class="keyword">const</span> factory1 : AbstractFactory = <span class="keyword">new</span> ConcreteFactory1();</span><br><span class="line"><span class="keyword">const</span> factory2 : AbstractFactory = <span class="keyword">new</span> ConcreteFactory2();</span><br><span class="line"><span class="comment">// 实例创建产品</span></span><br><span class="line"><span class="keyword">const</span> productA1 : AbstractProductA = factory1.createProductA();</span><br><span class="line"><span class="keyword">const</span> productA2 : AbstractProductA = factory2.createProductA();</span><br><span class="line"><span class="keyword">const</span> productB1 : AbstractProductB = factory1.createProductB();</span><br><span class="line"><span class="keyword">const</span> productB2 : AbstractProductB = factory2.createProductB();</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -451,7 +491,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -506,7 +546,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">109k</span>
+    <span title="站点总字数">110k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
