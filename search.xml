@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【23种设计模式】8装饰者模式</title>
+    <url>/2020/08/06/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%918%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：<br>优点：<br>缺点：  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：</p>
+<hr>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】8桥接模式</title>
+    <url>/2020/08/06/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%918%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：抽象和实现区分，且可以单独改变<br>优点：解耦，减少子类个数<br>缺点：需要识别独立变化的维度，有局限性  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：继承过多导致类繁杂，转账分类，消息管理</p>
+<hr>
+<pre class="mermaid">classDiagram
+  class Implementor{
+    doSomething() void
+    doAnything() void
+  }
+  class ConcreteImplementor{
+    +doSomething() void
+    +doAnything() void
+  }
+  class Abstraction{
+    <<abstract>>
+    -imp: Implementor
+    constructor()
+    +request() void
+  }</pre>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 实现接口角色</span></span><br><span class="line"><span class="keyword">interface</span> Implementor &#123;</span><br><span class="line">    doSomething() : <span class="built_in">void</span>;</span><br><span class="line">    doAnything() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体实现角色</span></span><br><span class="line"><span class="keyword">class</span> ConcreteImplementor1 <span class="keyword">implements</span> Implementor &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doAnything() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> ConcreteImplementor2 <span class="keyword">implements</span> Implementor &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doAnything() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Abstraction &#123;</span><br><span class="line">    <span class="keyword">private</span> imp : Implementor;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">imp : Implementor</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.imp = imp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 自身的行为和属性</span></span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.imp.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体抽象化角色</span></span><br><span class="line"><span class="keyword">class</span> RefinedAbstraction <span class="keyword">extends</span> Abstraction &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">imp : Implementor</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(imp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// 自己写一些处理业务</span></span><br><span class="line">        <span class="keyword">super</span>.request();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line"><span class="comment">// 定义一个实现化角色</span></span><br><span class="line"><span class="keyword">const</span> imp : Implementor = <span class="keyword">new</span> ConcreteImplementor1();</span><br><span class="line"><span class="comment">// 定义一个抽象化角色</span></span><br><span class="line"><span class="keyword">const</span> abs : Abstraction = <span class="keyword">new</span> RefinedAbstraction(imp);</span><br><span class="line"><span class="comment">// 执行上下文</span></span><br><span class="line">abs.request();</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【23种设计模式】7适配器模式</title>
     <url>/2020/08/04/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%917%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
