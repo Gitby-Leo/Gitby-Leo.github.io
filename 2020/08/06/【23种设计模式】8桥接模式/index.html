@@ -29,7 +29,7 @@
 <meta property="og:description" content="描述：抽象和实现区分，且可以单独改变优点：解耦，减少子类个数缺点：需要识别独立变化的维度，有局限性">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-06T15:29:45.000Z">
-<meta property="article:modified_time" content="2020-08-06T15:58:50.449Z">
+<meta property="article:modified_time" content="2020-08-06T16:24:42.323Z">
 <meta property="article:author" content="Leo">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -277,14 +277,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>349</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -315,10 +315,32 @@
   class Abstraction{
     <<abstract>>
     -imp: Implementor
-    constructor()
+    constructor(imp : Implementor)
     +request() void
-  }</pre>
+  }
+  class RefinedAbstraction{
+    constructor(imp : Implementor)
+    +request() void
+  }
+  Implementor <|.. ConcreteImplementor :接口实现
+  Abstraction o-- Implementor :聚合
+  Abstraction <|-- RefinedAbstraction :抽象类继承</pre>
 
+<ul>
+<li>接口定义某角色要做的事情<ul>
+<li>具体类实现接口</li>
+</ul>
+</li>
+<li>抽象类，聚合这个角色接口<ul>
+<li>继承这个抽象类</li>
+</ul>
+</li>
+<li>实例化具体类<ul>
+<li>对实例的功能进行抽象，得到新实例</li>
+<li>调用新实例的方法</li>
+</ul>
+</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现接口角色</span></span><br><span class="line"><span class="keyword">interface</span> Implementor &#123;</span><br><span class="line">    doSomething() : <span class="built_in">void</span>;</span><br><span class="line">    doAnything() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体实现角色</span></span><br><span class="line"><span class="keyword">class</span> ConcreteImplementor1 <span class="keyword">implements</span> Implementor &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doAnything() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> ConcreteImplementor2 <span class="keyword">implements</span> Implementor &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doAnything() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Abstraction &#123;</span><br><span class="line">    <span class="keyword">private</span> imp : Implementor;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">imp : Implementor</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.imp = imp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 自身的行为和属性</span></span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.imp.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体抽象化角色</span></span><br><span class="line"><span class="keyword">class</span> RefinedAbstraction <span class="keyword">extends</span> Abstraction &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">imp : Implementor</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(imp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// 自己写一些处理业务</span></span><br><span class="line">        <span class="keyword">super</span>.request();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line"><span class="comment">// 定义一个实现化角色</span></span><br><span class="line"><span class="keyword">const</span> imp : Implementor = <span class="keyword">new</span> ConcreteImplementor1();</span><br><span class="line"><span class="comment">// 定义一个抽象化角色</span></span><br><span class="line"><span class="keyword">const</span> abs : Abstraction = <span class="keyword">new</span> RefinedAbstraction(imp);</span><br><span class="line"><span class="comment">// 执行上下文</span></span><br><span class="line">abs.request();</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -467,7 +489,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -522,7 +544,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">113k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

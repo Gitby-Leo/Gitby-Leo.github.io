@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【23种设计模式】8装饰者模式</title>
-    <url>/2020/08/06/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%918%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <title>【23种设计模式】10外观模式</title>
+    <url>/2020/08/07/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9110%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
 <p>描述：<br>优点：<br>缺点：  </p>
 </blockquote>
@@ -10,6 +10,101 @@
 
 <p>应用：</p>
 <hr>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】9组合模式</title>
+    <url>/2020/08/07/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%919%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：部分-整体模式，将对象组合成树形结构，单个对象和组合对象使用上一致<br>优点：调用简单，部分的属性和整体的属性一致，可扩展，易于查找父节点<br>缺点：抽象的节点需保持近似或一样的属性和方法  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：遍历组织结构、处理树形结构，比如树形菜单、文件夹管理，组合即树形</p>
+<hr>
+<pre class="mermaid">classDiagram
+  class Component {
+    <<abstract>>
+    #name : string
+    constructor(name : string)
+    +doOperation()* void
+    +add(component : Component)  void
+    +remove(component : Component)  void
+    +getChildren() Array<Component>
+  }
+  class Composite{
+    -componentList : any;
+    constructor(name : string)
+    +doOperation()* void
+    +add(component : Component)  void
+    +remove(component : Component)  void
+    +getChildren() Array<Component>
+  }</pre>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Component &#123;</span><br><span class="line">    <span class="keyword">protected</span> name : <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> doOperation() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> add(component : Component) : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> remove(component : Component) : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> getChildren() : <span class="built_in">Array</span>&lt;Component&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Composite <span class="keyword">extends</span> Component &#123;</span><br><span class="line">    <span class="comment">// 构件容器</span></span><br><span class="line">    <span class="keyword">private</span> componentList : <span class="built_in">any</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.componentList = [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`这是容器<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>，处理一些逻辑业务！`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> add(component : Component) : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.componentList.push(component);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> remove(component : Component) : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> componentIndex = <span class="keyword">this</span>.componentList.findIndex(<span class="function">(<span class="params">value : Component, index : <span class="built_in">Number</span></span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> value == component;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">this</span>.componentList.splice(componentIndex, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> getChildren() : <span class="built_in">Array</span>&lt;Component&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.componentList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Leaf <span class="keyword">extends</span> Component &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`这是叶子节点<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>，处理一些逻辑业务！`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> root : Component  = <span class="keyword">new</span> Composite(<span class="string">'root'</span>);</span><br><span class="line">    <span class="keyword">const</span> node1 : Component = <span class="keyword">new</span> Leaf(<span class="string">'1'</span>);</span><br><span class="line">    <span class="keyword">const</span> node2 : Component = <span class="keyword">new</span> Composite(<span class="string">'2'</span>);</span><br><span class="line">    <span class="keyword">const</span> node3 : Component = <span class="keyword">new</span> Leaf(<span class="string">'3'</span>);</span><br><span class="line">    root.add(node1);</span><br><span class="line">    root.add(node2);</span><br><span class="line">    root.add(node3);</span><br><span class="line">    <span class="keyword">const</span> node2_1 : Component = <span class="keyword">new</span> Leaf(<span class="string">"2_1"</span>);</span><br><span class="line">    node2.add(node2_1);</span><br><span class="line">    <span class="keyword">const</span> children1 = root.getChildren();</span><br><span class="line">    <span class="built_in">console</span>.log(children1);</span><br><span class="line">    root.remove(node2);</span><br><span class="line">    <span class="keyword">const</span> children2 = root.getChildren();</span><br><span class="line">    <span class="built_in">console</span>.log(children2);</span><br><span class="line">&#125;</span><br><span class="line">main();</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】8装饰者模式</title>
+    <url>/2020/08/06/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%918%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：对象易于动态添加新功能，开闭原则<br>优点：装饰类和被装饰类解耦，代替继承，动态展类的功能<br>缺点：过度使用，增加复杂度  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：给类扩展功能，动态增加和删除功能，基础功能组合的新功能</p>
+<hr>
+<pre class="mermaid">classDiagram
+  class Component {
+    <<abstract>>
+    +operate()* viod
+  }
+  class ConcreteComponent{
+    +operate() void
+  }
+  class Decorator{
+    <<abstract>>
+    -component : Component
+    constructor(component : Component )
+    +operate() void
+  }
+  class ConcreteDecorator{
+    constructor(component : Component)
+    -methodA() void
+    +operate() void
+  }
+  Component <|-- ConcreteComponent :继承
+  Component <|-- Decorator :继承
+  Component --o Decorator :聚合
+  Decorator <|-- ConcreteDecorator :继承</pre>
+
+<ul>
+<li>抽象类<ul>
+<li>具体类继承抽象类</li>
+</ul>
+</li>
+<li>装饰器抽象类<ul>
+<li>实现具体装饰者</li>
+</ul>
+</li>
+<li>实例化具体类<ul>
+<li>对实例进行装饰，</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象构件</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Component &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> operate() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体构件</span></span><br><span class="line"><span class="keyword">class</span> ConcreteComponent <span class="keyword">extends</span> Component &#123;</span><br><span class="line">    <span class="keyword">public</span> operate() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'do something'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 装饰角色</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Decorator <span class="keyword">extends</span> Component &#123;</span><br><span class="line">    <span class="keyword">private</span> component : Component = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">component : Component </span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.component = component;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> operate() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.component.operate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体装饰者</span></span><br><span class="line"><span class="keyword">class</span> ConcreteDecoratorA <span class="keyword">extends</span> Decorator &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">component : Component</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 定义自己的修饰方法</span></span><br><span class="line">    <span class="keyword">private</span> methodA() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'methodA修饰'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 重写父类方法</span></span><br><span class="line">    <span class="keyword">public</span> operate() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.methodA();</span><br><span class="line">        <span class="keyword">super</span>.operate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> ConcreteDecoratorB <span class="keyword">extends</span> Decorator &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">component : Component</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 定义自己的修饰方法</span></span><br><span class="line">    <span class="keyword">private</span> methodB() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'methodB修饰'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 重写父类方法</span></span><br><span class="line">    <span class="keyword">public</span> operate() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.methodB();</span><br><span class="line">        <span class="keyword">super</span>.operate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> component : Component = <span class="keyword">new</span> ConcreteComponent();</span><br><span class="line">    <span class="comment">// 第一次装饰</span></span><br><span class="line">    component = <span class="keyword">new</span> ConcreteDecoratorA(component);</span><br><span class="line">    <span class="comment">// 第二次装饰</span></span><br><span class="line">    component = <span class="keyword">new</span> ConcreteDecoratorB(component);</span><br><span class="line">    <span class="comment">// 装饰后运行</span></span><br><span class="line">    component.operate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -40,10 +135,32 @@
   class Abstraction{
     <<abstract>>
     -imp: Implementor
-    constructor()
+    constructor(imp : Implementor)
     +request() void
-  }</pre>
+  }
+  class RefinedAbstraction{
+    constructor(imp : Implementor)
+    +request() void
+  }
+  Implementor <|.. ConcreteImplementor :接口实现
+  Abstraction o-- Implementor :聚合
+  Abstraction <|-- RefinedAbstraction :抽象类继承</pre>
 
+<ul>
+<li>接口定义某角色要做的事情<ul>
+<li>具体类实现接口</li>
+</ul>
+</li>
+<li>抽象类，聚合这个角色接口<ul>
+<li>继承这个抽象类</li>
+</ul>
+</li>
+<li>实例化具体类<ul>
+<li>对实例的功能进行抽象，得到新实例</li>
+<li>调用新实例的方法</li>
+</ul>
+</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 实现接口角色</span></span><br><span class="line"><span class="keyword">interface</span> Implementor &#123;</span><br><span class="line">    doSomething() : <span class="built_in">void</span>;</span><br><span class="line">    doAnything() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体实现角色</span></span><br><span class="line"><span class="keyword">class</span> ConcreteImplementor1 <span class="keyword">implements</span> Implementor &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doAnything() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> ConcreteImplementor2 <span class="keyword">implements</span> Implementor &#123;</span><br><span class="line">    <span class="keyword">public</span> doSomething() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doAnything() : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Abstraction &#123;</span><br><span class="line">    <span class="keyword">private</span> imp : Implementor;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">imp : Implementor</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.imp = imp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 自身的行为和属性</span></span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.imp.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体抽象化角色</span></span><br><span class="line"><span class="keyword">class</span> RefinedAbstraction <span class="keyword">extends</span> Abstraction &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">imp : Implementor</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(imp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> request() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// 自己写一些处理业务</span></span><br><span class="line">        <span class="keyword">super</span>.request();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line"><span class="comment">// 定义一个实现化角色</span></span><br><span class="line"><span class="keyword">const</span> imp : Implementor = <span class="keyword">new</span> ConcreteImplementor1();</span><br><span class="line"><span class="comment">// 定义一个抽象化角色</span></span><br><span class="line"><span class="keyword">const</span> abs : Abstraction = <span class="keyword">new</span> RefinedAbstraction(imp);</span><br><span class="line"><span class="comment">// 执行上下文</span></span><br><span class="line">abs.request();</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
