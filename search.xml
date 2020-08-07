@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【23种设计模式】10外观模式</title>
-    <url>/2020/08/07/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9110%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
+    <title>【23种设计模式】12享元模式</title>
+    <url>/2020/08/08/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9112%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
-<p>描述：<br>优点：<br>缺点：  </p>
+<p>描述：蝇量模式，共享对象支持大量的细粒度对象，内/外部状态，共享/非共享<br>优点：减少对象创建，降低内存<br>缺点：外部状态不随内部改变，提高复杂性  </p>
 </blockquote>
 <a id="more"></a>
 
-<p>应用：</p>
+<p>应用：缓冲池，连接池，相似对象</p>
 <hr>
+<pre class="mermaid">classDiagram
+  class Flyweight {
+    <<abstract>>
+    +doOperation(extrinsicState  string)* void
+  }
+  class ConcreteFlyweight{
+    -intrinsicState : string
+    constructor(intrinsicState : string)
+    +doOperation(extrinsicState : string)  void
+  }
+  class flyweightObject{
+    <<interface>>
+    [key : string] : Flyweight
+  }
+  class FlyweightFactory {
+    -flyweights : flyweightObject
+    constructor()
+    +getFlyweight(intrinsicState : string)  Flyweight
+  }
+  Flyweight <|-- ConcreteFlyweight:继承
+  flyweightObject --o FlyweightFactory :聚合
+  Flyweight --o FlyweightFactory :聚合</pre>
+
+<ul>
+<li>抽象类，定义对象的内部，外部状态的接口<ul>
+<li>产品类的具体实现，实现其方法</li>
+</ul>
+</li>
+<li>享元工厂，返回具体实现的产品类</li>
+<li>实例话一个工厂，通过工厂获取抽象类的实现，并缓存这些实例，调用实例的方法，即类的公有方法</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Flyweight &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> doOperation(extrinsicState : <span class="built_in">string</span>) : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> ConcreteFlyweight <span class="keyword">extends</span> Flyweight &#123;</span><br><span class="line">    <span class="keyword">private</span> intrinsicState : <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">intrinsicState : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.intrinsicState = intrinsicState;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation(extrinsicState : <span class="built_in">string</span>) : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`这是具体享元角色，内部状态为<span class="subst">$&#123;<span class="keyword">this</span>.intrinsicState&#125;</span>,外部状态为<span class="subst">$&#123;extrinsicState&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> flyweightObject &#123;</span><br><span class="line">    [key : <span class="built_in">string</span>] : Flyweight</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> FlyweightFactory &#123;</span><br><span class="line">    <span class="keyword">private</span> flyweights : flyweightObject;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.flyweights = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> getFlyweight(intrinsicState : <span class="built_in">string</span>) : Flyweight &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.flyweights[intrinsicState]) &#123;</span><br><span class="line">            <span class="keyword">const</span> flyweight : Flyweight = <span class="keyword">new</span> ConcreteFlyweight(intrinsicState);</span><br><span class="line">            <span class="keyword">this</span>.flyweights[intrinsicState] = flyweight;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.flyweights[intrinsicState];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> factory : FlyweightFactory = <span class="keyword">new</span> FlyweightFactory();</span><br><span class="line">    <span class="keyword">const</span> flyweight1 : Flyweight = factory.getFlyweight(<span class="string">"aa"</span>);</span><br><span class="line">    <span class="keyword">const</span> flyweight2 : Flyweight = factory.getFlyweight(<span class="string">"aa"</span>);</span><br><span class="line">    flyweight1.doOperation(<span class="string">'x'</span>);</span><br><span class="line">    flyweight2.doOperation(<span class="string">'y'</span>);</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -19,8 +51,46 @@
       </tags>
   </entry>
   <entry>
-    <title>【23种设计模式】9组合模式</title>
-    <url>/2020/08/07/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%919%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
+    <title>【23种设计模式】11外观模式</title>
+    <url>/2020/08/07/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9111%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：用统一的接口访问一个系统<br>优点：解耦，复杂接口变得方便可用，内部可维护，迪米特法则对内封装对外暴露<br>缺点：不开闭，修改子类需要也修改外观类  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：封装子类，独立出子类，维护项目时，对部分功能封装为新的类，提高复用性</p>
+<hr>
+<pre class="mermaid">classDiagram
+  class SubSystem{
+    +doOperationA()  void
+  }
+  class Facade{
+    -subSystem : SubSystem
+    constructor()
+    +doOperation()  void
+  }
+  SubSystem --o Facade</pre>
+
+<ul>
+<li>子类<ul>
+<li>外观类访问子类的功能</li>
+<li>并暴露子类的接口</li>
+</ul>
+</li>
+<li>通过实例化这个外观类，可以调用子类的方法</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> SubSystemA &#123;</span><br><span class="line">    <span class="keyword">public</span> doOperationA() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'子系统A的举动'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> SubSystemB &#123;</span><br><span class="line">    <span class="keyword">public</span> doOperationB() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'子系统B的举动'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Facade &#123;</span><br><span class="line">    <span class="keyword">private</span> subSystemA : SubSystemA;</span><br><span class="line">    <span class="keyword">private</span> subSystemB : SubSystemB;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.subSystemA = <span class="keyword">new</span> SubSystemA();</span><br><span class="line">        <span class="keyword">this</span>.subSystemB = <span class="keyword">new</span> SubSystemB();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.subSystemA.doOperationA();</span><br><span class="line">        <span class="keyword">this</span>.subSystemB.doOperationB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> facade : Facade = <span class="keyword">new</span> Facade();</span><br><span class="line">facade.doOperation();</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【23种设计模式】10组合模式</title>
+    <url>/2020/08/07/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9110%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
 <p>描述：部分-整体模式，将对象组合成树形结构，单个对象和组合对象使用上一致<br>优点：调用简单，部分的属性和整体的属性一致，可扩展，易于查找父节点<br>缺点：抽象的节点需保持近似或一样的属性和方法  </p>
 </blockquote>
@@ -45,8 +115,29 @@
     +add(component : Component)  void
     +remove(component : Component)  void
     +getChildren() Array<Component>
-  }</pre>
+  }
+  class Leaf{
+    constructor(name : string)
+    +doOperation()* void
+  }
+  Component <|-- Composite : 继承
+  Composite o--  Component: 集合
+  Component <|-- Leaf : 叶子继承</pre>
 
+<ul>
+<li>抽象构建组件，默认属性和方法<ul>
+<li>树枝节点实现类<ul>
+<li>区别在于多了存储getChildren和管理add/remove子组件</li>
+</ul>
+</li>
+<li>叶子节点实现类</li>
+</ul>
+</li>
+<li>实例化树枝节点和叶子节点<ul>
+<li>叶子节点可添加入树枝节点中</li>
+</ul>
+</li>
+</ul>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Component &#123;</span><br><span class="line">    <span class="keyword">protected</span> name : <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> doOperation() : <span class="built_in">void</span>;</span><br><span class="line">    <span class="keyword">public</span> add(component : Component) : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> remove(component : Component) : <span class="built_in">void</span> &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> getChildren() : <span class="built_in">Array</span>&lt;Component&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Composite <span class="keyword">extends</span> Component &#123;</span><br><span class="line">    <span class="comment">// 构件容器</span></span><br><span class="line">    <span class="keyword">private</span> componentList : <span class="built_in">any</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.componentList = [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`这是容器<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>，处理一些逻辑业务！`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> add(component : Component) : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.componentList.push(component);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> remove(component : Component) : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> componentIndex = <span class="keyword">this</span>.componentList.findIndex(<span class="function">(<span class="params">value : Component, index : <span class="built_in">Number</span></span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> value == component;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">this</span>.componentList.splice(componentIndex, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> getChildren() : <span class="built_in">Array</span>&lt;Component&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.componentList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Leaf <span class="keyword">extends</span> Component &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name : <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`这是叶子节点<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>，处理一些逻辑业务！`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> root : Component  = <span class="keyword">new</span> Composite(<span class="string">'root'</span>);</span><br><span class="line">    <span class="keyword">const</span> node1 : Component = <span class="keyword">new</span> Leaf(<span class="string">'1'</span>);</span><br><span class="line">    <span class="keyword">const</span> node2 : Component = <span class="keyword">new</span> Composite(<span class="string">'2'</span>);</span><br><span class="line">    <span class="keyword">const</span> node3 : Component = <span class="keyword">new</span> Leaf(<span class="string">'3'</span>);</span><br><span class="line">    root.add(node1);</span><br><span class="line">    root.add(node2);</span><br><span class="line">    root.add(node3);</span><br><span class="line">    <span class="keyword">const</span> node2_1 : Component = <span class="keyword">new</span> Leaf(<span class="string">"2_1"</span>);</span><br><span class="line">    node2.add(node2_1);</span><br><span class="line">    <span class="keyword">const</span> children1 = root.getChildren();</span><br><span class="line">    <span class="built_in">console</span>.log(children1);</span><br><span class="line">    root.remove(node2);</span><br><span class="line">    <span class="keyword">const</span> children2 = root.getChildren();</span><br><span class="line">    <span class="built_in">console</span>.log(children2);</span><br><span class="line">&#125;</span><br><span class="line">main();</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -57,8 +148,8 @@
       </tags>
   </entry>
   <entry>
-    <title>【23种设计模式】8装饰者模式</title>
-    <url>/2020/08/06/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%918%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <title>【23种设计模式】9装饰者模式</title>
+    <url>/2020/08/06/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%919%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
 <p>描述：对象易于动态添加新功能，开闭原则<br>优点：装饰类和被装饰类解耦，代替继承，动态展类的功能<br>缺点：过度使用，增加复杂度  </p>
 </blockquote>
@@ -747,17 +838,20 @@
 
 <pre class="mermaid" style="text-align: center;">
             sequenceDiagram
-            participant Alice
-participant Bob
-Alice->John: Hello John, how are you?
-loop Healthcheck
-    John->John: Fight against hypochondria
-end
-Note right of John: Rational thoughts <br/>prevail...
-John-->Alice: Great!
-John->Bob: How about you?
-Bob-->John: Jolly good!
+            
           </pre>
+
+<pre class="mermaid">sequenceDiagram
+  participant Alice
+  participant Bob
+  Alice->John: Hello John, how are you?
+  loop Healthcheck
+      John->John: Fight against hypochondria
+  end
+  Note right of John: Rational thoughts <br/>prevail...
+  John-->Alice: Great!
+  John->Bob: How about you?
+  Bob-->John: Jolly good!</pre>
 ]]></content>
       <categories>
         <category>工具</category>
