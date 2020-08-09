@@ -21,20 +21,20 @@
     var CONFIG = {"hostname":"gitby-leo.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"OCCL03Q6V3","apiKey":"ba71d700fae4e70384ebf4742eb26453","indexName":"Leo_blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="使用@vue&#x2F;cli-service-global快速启动插件环境codepen预览代码">
+  <meta name="description" content="描述：为其他对象提供一种代理，以访问这个对象优点：分为静态代理和动态代理缺点：每个对象都需要对应一个代理类，原对象改变时需要代理对象也需要改变，增加函数处理时间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue插件封装一个video组件">
-<meta property="og:url" content="https://gitby-leo.github.io/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:title" content="【23种设计模式】13代理模式">
+<meta property="og:url" content="https://gitby-leo.github.io/2020/08/09/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9113%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Leo的云">
-<meta property="og:description" content="使用@vue&#x2F;cli-service-global快速启动插件环境codepen预览代码">
+<meta property="og:description" content="描述：为其他对象提供一种代理，以访问这个对象优点：分为静态代理和动态代理缺点：每个对象都需要对应一个代理类，原对象改变时需要代理对象也需要改变，增加函数处理时间">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-24T14:37:51.000Z">
-<meta property="article:modified_time" content="2020-07-24T17:08:22.627Z">
+<meta property="article:published_time" content="2020-08-09T15:46:11.000Z">
+<meta property="article:modified_time" content="2020-08-09T15:58:19.808Z">
 <meta property="article:author" content="Leo">
-<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://gitby-leo.github.io/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/">
+<link rel="canonical" href="https://gitby-leo.github.io/2020/08/09/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9113%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>vue插件封装一个video组件 | Leo的云</title>
+  <title>【23种设计模式】13代理模式 | Leo的云</title>
   
 
 
@@ -225,7 +225,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="https://gitby-leo.github.io/2020/08/09/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9113%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          vue插件封装一个video组件
+          【23种设计模式】13代理模式
         </h2>
 
         <div class="post-meta">
@@ -250,7 +250,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-24 22:37:51" itemprop="dateCreated datePublished" datetime="2020-07-24T22:37:51+08:00">2020-07-24</time>
+              <time title="创建时间：2020-08-09 23:46:11" itemprop="dateCreated datePublished" datetime="2020-08-09T23:46:11+08:00">2020-08-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,14 +258,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="vue插件封装一个video组件" title="阅读次数">
+            <span id="/2020/08/09/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9113%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="post-meta-item leancloud_visitors" data-flag-title="【23种设计模式】13代理模式" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -277,14 +277,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>197</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -297,39 +297,22 @@
 
       
         <blockquote>
-<p>使用<code>@vue/cli-service-global</code>快速启动插件环境<br>codepen预览代码</p>
+<p>描述：为其他对象提供一种代理，以访问这个对象<br>优点：分为静态代理和动态代理<br>缺点：每个对象都需要对应一个代理类，原对象改变时需要代理对象也需要改变，增加函数处理时间  </p>
 </blockquote>
 <a id="more"></a>
 
-<p>关于cli-service-global这个工具，是在面试线上做题时遇到的，配合vue/cli启动环境写两个功能，可以快速安装&amp;启动原型开发环境，本文是基于video.js对<code>&lt;video&gt;</code>进行封装，并由于长代码贴出来没有一i是，故放于code上展示</p>
+<blockquote>
+<p>静态代理</p>
+</blockquote>
+<p>特点：被代理对象和代理对象，需要实现相同接口或者继承相同的父类</p>
+<p>优点：不改变原对象，通过代理对象扩展原对象的功能</p>
+<blockquote>
+<p>动态代理</p>
+</blockquote>
+<p>特点：代理对象不需要接口，但目标对象要实现接口，动态地在内存中构建代理对象</p>
+<p>优点：代理对象不需要实现接口</p>
+<p>应用：</p>
 <hr>
-<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br><span class="line">npm install -g @vue/cli-service-global</span><br><span class="line"></span><br><span class="line">npm install -S video.js</span><br><span class="line">npm install -S videojs-markers</span><br></pre></td></tr></table></figure>
-
-<p>入口文件是index.js/main.js/app.vue/App.vue</p>
-<p>vue serve 启动,或者vue serve xxx.vue<br>vue build 打包,或者vue build xxx.vue</p>
-<ul>
-<li>/目录/<ul>
-<li>package.json</li>
-<li>App.vue</li>
-<li>test.vue</li>
-<li>/assets/<ul>
-<li>image&amp;video</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="codepen"><a href="#codepen" class="headerlink" title="codepen"></a>codepen</h2><p>众所周知，codepen是一款展示html/css/js的分(she)享(jiao)工(ruan)具(jian)</p>
-<p>那如何放vue代码呢</p>
-<p>没有搜索到相关方法，良久 未解，只好一个个点进去看，终于：</p>
-<p>左侧explore探索下的topics话题，选择vue，Open Vue Editor</p>
-<h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p>进入了<code>https://codepen.io/pen/editor/vue</code>，美滋滋，代码略长就可以直接放codepen上了<br>（关闭result面版）</p>
-<iframe id="cp_embed_XWXGxYK" src="//codepen.io/gitby-leo/embed/XWXGxYK?height=456&theme-id=dark&slug-hash=XWXGxYK&default-tab=css,js,result&embed-version=2" scrolling="no" frameborder="no" height="456" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>暂时还未在codepen上找到多文件的预览方式，就继续贴代码吧（关闭result查看效果）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 父组件test.vue</span><br><span class="line">&lt;video-player</span><br><span class="line">    ref&#x3D;&quot;video&quot;</span><br><span class="line">    :src&#x3D;&quot;videoSrc&quot;</span><br><span class="line">    type&#x3D;&quot;video&#x2F;mp4&quot;</span><br><span class="line">    :options&#x3D;&quot;videoOptions&quot;</span><br><span class="line">    :markers&#x3D;&quot;videoMarkers&quot;</span><br><span class="line">    webkit-playsinline&#x3D;&quot;true&quot;</span><br><span class="line">&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">import VideoPlayer from &quot;.&#x2F;App.vue&quot;;</span><br><span class="line"></span><br><span class="line">data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      videoSrc: videoMp4,</span><br><span class="line">      videoOptions: &#123;</span><br><span class="line">        autoplay: false,</span><br><span class="line">        controls: true,</span><br><span class="line">        poster: posterJpg</span><br><span class="line">      &#125;,</span><br><span class="line">      videoMarkers: &#123;</span><br><span class="line">        markers: [</span><br><span class="line">          &#123;</span><br><span class="line">            time: 10,</span><br><span class="line">            text: &quot;点位一&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            time: 20,</span><br><span class="line">            text: &quot;点位二&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    videoBtnHandler(type) &#123;</span><br><span class="line">      console.log(type);</span><br><span class="line">      this.$refs.video.player[type] &amp;&amp; this.$refs.video.player[type]();</span><br><span class="line">    &#125;,</span><br><span class="line">    changeVideo() &#123;</span><br><span class="line">      this.$refs.video.player[&quot;src&quot;] &amp;&amp;</span><br><span class="line">        this.$refs.video.player[&quot;src&quot;](videoMp42);</span><br><span class="line">    &#125;,</span><br><span class="line">    changeVideo2() &#123;</span><br><span class="line">      this.videoSrc &#x3D; videoMp42;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>缺少预览是因为codepen 要pro高级版才可以上传，基本是基于video.js的功能做了封装到vue</p>
 
     </div>
 
@@ -365,7 +348,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://gitby-leo.github.io/2020/07/24/vue%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAvideo%E7%BB%84%E4%BB%B6/" title="vue插件封装一个video组件">https://gitby-leo.github.io/2020/07/24/vue插件封装一个video组件/</a>
+    <a href="https://gitby-leo.github.io/2020/08/09/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9113%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" title="【23种设计模式】13代理模式">https://gitby-leo.github.io/2020/08/09/【23种设计模式】13代理模式/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -377,7 +360,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
           </div>
 
         
@@ -390,13 +373,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/07/25/%E7%94%A8api%E7%9A%84%E6%96%B9%E5%BC%8F%E5%86%99%E5%87%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="next" title="用api的方式写出正则表达式">
-    <i class="fa fa-chevron-left"></i> 用api的方式写出正则表达式 
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/23/GrowingIO%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/" rel="prev" title="GrowingIO用户行为分析工具">
-    GrowingIO用户行为分析工具 <i class="fa fa-chevron-right"></i> 
+    <a href="/2020/08/08/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9112%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" rel="prev" title="【23种设计模式】12享元模式">
+    【23种设计模式】12享元模式 <i class="fa fa-chevron-right"></i> 
     </a></div>
     </div>
       </footer>
@@ -462,7 +442,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境安装"><span class="nav-number">1.</span> <span class="nav-text">环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#codepen"><span class="nav-number">2.</span> <span class="nav-text">codepen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预览"><span class="nav-number">3.</span> <span class="nav-text">预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">4.</span> <span class="nav-text">引用</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
