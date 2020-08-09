@@ -18,8 +18,38 @@
 </blockquote>
 <p>特点：代理对象不需要接口，但目标对象要实现接口，动态地在内存中构建代理对象</p>
 <p>优点：代理对象不需要实现接口</p>
-<p>应用：</p>
+<p>应用：远程代理，虚拟代理，保护代理，智能代理</p>
 <hr>
+<pre class="mermaid">classDiagram
+  class Subject{
+    <<interface>>
+    doOperation() void
+  }
+  class RealSubject{
+    +doOperation()
+  }
+  class MyProxy{
+    -target:Subject
+    constructor(realSubject : Subject)
+    +doOperation()
+  }
+  Subject <|.. RealSubject :实现
+  Subject <|.. MyProxy:实现
+  RealSubject ..o MyProxy</pre>
+
+<ul>
+<li>接口类，需要实现一个方法</li>
+<li>真实对象类，实现了这个方法</li>
+<li>代理类，实例时缓存真实对象的类的实例，通过代理类调用真实对象的方法</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 静态代理</span></span><br><span class="line"><span class="keyword">interface</span> Subject &#123;</span><br><span class="line">    doOperation() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> RealSubject <span class="keyword">implements</span> Subject &#123;</span><br><span class="line">    <span class="keyword">public</span> doOperation() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'我是RealSubject类，正在执行'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> MyProxy <span class="keyword">implements</span> Subject &#123;</span><br><span class="line">    <span class="keyword">private</span> target : Subject;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">realSubject : Subject</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.target = realSubject;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'我是代理类'</span>);</span><br><span class="line">        <span class="keyword">this</span>.target.doOperation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> realSubject : Subject = <span class="keyword">new</span> RealSubject();</span><br><span class="line"><span class="keyword">const</span> myProxy : Subject = <span class="keyword">new</span> MyProxy(realSubject);</span><br><span class="line">myProxy.doOperation();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接口类，需要实现一个方法</li>
+<li>真实对象类，实现了这个方法</li>
+<li>代理类工厂，实例时缓存真实对象的类的实例，通过代理类的系统，也通过代理类调用真实对象的方法，</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态代理</span></span><br><span class="line"><span class="keyword">interface</span> Subject &#123;</span><br><span class="line">    doOperation() : <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> RealSubject <span class="keyword">implements</span> Subject &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> doOperation() : <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'我是RealSubject类，正在执行'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> ProxyFactory &#123;</span><br><span class="line">    <span class="keyword">private</span> target : <span class="built_in">any</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">target : <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> getProxyInstance() : <span class="built_in">any</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Proxy(<span class="keyword">this</span>.target, &#123;</span><br><span class="line">            <span class="keyword">get</span>: <span class="function">(<span class="params">target, propKey</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 做的一些拦截处理</span></span><br><span class="line">                <span class="keyword">return</span> target[propKey];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> target : Subject = <span class="keyword">new</span> RealSubject();</span><br><span class="line"><span class="keyword">const</span> proxyInstance : Subject = &lt;Subject&gt;<span class="keyword">new</span> ProxyFactory(target).getProxyInstance();</span><br><span class="line">proxyInstance.doOperation();</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>设计模式</category>
