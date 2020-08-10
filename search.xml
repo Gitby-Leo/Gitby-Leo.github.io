@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【23种设计模式】14模板方法模式</title>
+    <url>/2020/08/10/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9114%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>描述：将操作延迟到子类<br>优点：不改变父类结构，提高灵活性，父类的模板方法被继承使用<br>缺点：每个实现都需要一个子类  </p>
+</blockquote>
+<a id="more"></a>
+
+<p>应用：某个过程有一系列相似动作，但具体实现不同，可以用模板方法。重构时，相同代码抽取到父类，用钩子函数约束子类行为</p>
+<hr>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【23种设计模式】13代理模式</title>
     <url>/2020/08/09/%E3%80%9023%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%9113%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<blockquote>
